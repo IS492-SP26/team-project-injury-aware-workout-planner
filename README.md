@@ -1,8 +1,11 @@
 
 # Problem statement
 Musculoskeletal injuries, particularly those affecting the knee and shoulder, are common among physically active individuals. Clinical rehabilitation programs are typically structured around restoring function at the injured site and are often limited to localized therapeutic exercises. While such programs are essential for recovery, they do not necessarily provide guidance on safely maintaining comprehensive, full-body training routines during or after rehabilitation.
+
 Many individuals recovering from injury want to continue regular physical activity beyond isolated rehabilitation exercises. However, they often lack structured guidance on adapting full-body workouts to account for injury status, time since injury, and recovery progression. As a result, individuals may either restrict themselves to narrow rehabilitation protocols or attempt to modify general fitness programs without sufficient knowledge of movement contraindications and safe load progression.
+
 Most commercial fitness applications are designed for performance optimization rather than injury-aware adaptation. These systems rarely incorporate injury history or recovery stage into their recommendations, leaving users responsible for manually filtering exercises that may aggravate their condition.
+
 This disconnect between localized rehabilitation planning and whole-body training integration creates a significant gap in digital fitness support. Improperly adapted exercise routines may increase the risk of reinjury or delay recovery, particularly in self-directed training environments. As AI-driven personalization continues to advance in digital health, there is an opportunity to develop systems that bridge rehabilitation considerations with safe, full-body training adaptation
 
 # Target users and core tasks
