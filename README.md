@@ -111,3 +111,12 @@ Interpretation of unstructured user notes
 Normalization of varied exercise naming from transcripts/OCR
 Context-sensitive substitute generation
 This project explores how generative models can support safer, more personalized fitness guidance for rehab.
+
+# Milestones & roles
+## Checkpoint 1: Public GitHub Kickoff + Proposal & Literature
+Each member contributes equally to the project discussion and research.
+For documentation, roles are:
+Problem statement - Emma
+Competitive landscape - Ocean
+Target Users & Core Tasks - Vinit
+Initial Concept & Value Proposition - Prisha
