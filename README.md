@@ -3,6 +3,52 @@
 
 # Target users and core tasks
 
+## Target Users
+
+### Individuals recovering from common musculoskeletal injuries
+- ACL reconstruction
+- Meniscal repair
+- Patellofemoral pain (PFP)
+- Knee osteoarthritis
+- Rotator cuff injuries
+- Shoulder impingement
+
+### Users in mid-stage rehabilitation
+- Cleared for strengthening
+- Managing pain but resuming exercise
+- Not in acute post-operative protection phase
+
+### Fitness-conscious users who prefer following YouTube workouts
+- Want to continue using existing fitness content
+- Need injury-aware modifications
+
+## Core Tasks
+
+### Collect Injury Context
+- Injury type
+- Time since injury/surgery
+- Pain level (0–10 scale)
+- Optional user notes
+
+### Analyze Workout Content
+- Extract transcript from YouTube link
+- Use OCR to detect on-screen exercise names
+- Normalize exercise terminology
+
+### Identify Risky Movements
+- Flag exercises contraindicated for the selected injury
+- Consider movement type (deep knee flexion, pivoting, overhead pressing, etc.)
+
+### Provide Safer Alternatives
+- Generate timestamped “avoid” markers
+- Suggest substitute exercises that preserve workout intent
+- Adjust intensity based on reported pain
+
+### Future Enhancements
+- Audio narration overlays
+- Embedded GIF or short demo clips
+- Adaptive updates based on user feedback
+
 # Competitive landscape
 ## Existing systems/tools
 ### 1. Ray - A live AI trainer
