@@ -2,7 +2,7 @@ Canzone, A., Belmonte, G., Patti, A., Vicari, D. S. S., Rapisarda, F., Giustino,
 Full text: https://www.frontiersin.org/journals/publichealth/articles/10.3389/fpubh.2025.1510801/full
 
 Summary (problem, method, findings)
-This narrative review examines how artificial intelligence has been incorporated into exercise programs across settings, including performance enhancement, monitoring, and customized training. It categorizes various AI uses, including machine learning for personalization, wearable data analysis, movement evaluation, and automated feedback. The review emphasizes that AI increasingly enables tailored exercise advice based on individual traits and performance data. Nonetheless, most current efforts focus on optimizing performance outcomes rather than injury prevention or rehabilitation-specific modifications. The authors also address practical issues such as data quality, model transparency, and the necessity of validation grounded in clinical practice.
+This narrative review examines how artificial intelligence has been incorporated into exercise programs across settings, including performance enhancement, monitoring, and customized training. It categorizes various AI uses, including machine learning for personalization, wearable data analysis, movement evaluation, and automated feedback. The review emphasizes that AI increasingly enables tailored exercise advice based on individual traits and performance data. Nonetheless, most current efforts focus on optimizing performance outcomes rather than injury prevention or rehabilitation-specific modifications. The authors also address practical issues, including data quality, model transparency, and the necessity of validation grounded in clinical practice.
 
 Insights 
 1.	AI personalization in exercise is currently technically feasible; however, most systems prioritize performance metrics over safety or injury management. 
@@ -11,6 +11,7 @@ Insights
 
 limitations/risks
 As a narrative review, the paper synthesizes existing studies without conducting a systematic meta-analysis, which may introduce selection bias. The review discusses AI applications broadly but does not thoroughly evaluate clinical safety constraints, thereby limiting direct guidance for injury-sensitive implementation.
+
 Concrete idea that inspires your project
 Our system can begin with a structured questionnaire assessing six common injuries (four knee and two shoulder), as well as time since injury and rehabilitation status. Based on this information, the AI can either generate a rehabilitation-focused full workout plan, modify a user’s existing routine, or identify high-risk timestamps in online workout videos.
 
