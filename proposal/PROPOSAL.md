@@ -73,3 +73,59 @@ This improves upon prior art by:
 2. Embedding structured rehabilitation logic into unstructured fitness content.
 3. Supporting both recovery users and injury-aware fitness enthusiasts.
 
+# Plan for Checkpoint 2 Validation
+
+For Checkpoint 2, we will conduct a structured prompting study across at least three existing tools.
+
+We will test whether current LLM-based systems can:
+- Identify risky exercises from transcripts
+- Adjust recommendations based on time since injury and pain level
+- Provide specific substitutes rather than vague advice
+We will document:
+- Prompting protocol
+- Transcripts and outputs
+- Gap analysis across tools
+- Safety inconsistencies or hallucinations
+
+From this analysis, we will derive clear product requirements and produce a DESIGN_SPEC.md plus a lightweight prototype showing the intended flow.
+The goal is to validate whether our structured, injury-aware reasoning layer is necessary and how it should be designed.
+
+
+## Initial Risks & Mitigation
+
+### Safety Risk
+LLMs may generate unsafe or overly confident recommendations, especially in injury-sensitive contexts.
+
+**Mitigation**
+- Use explicit injury-stage constraints in prompts and design logic  
+- Conduct structured prompting validation across tools in Checkpoint 2  
+- Clearly position the system as a support tool, not medical advice  
+
+---
+
+### Reliability Risk
+Transcript-only analysis may miss important visual cues from the workout video.
+
+**Mitigation**
+- Test edge cases during the prompting study  
+- Document failure modes early in Checkpoint 2  
+- Identify scenarios where transcript-based reasoning is insufficient  
+
+---
+
+### Bias Risk
+LLMs may not generalize well across different body types, recovery timelines, or injury experiences.
+
+**Mitigation**
+- Test diverse injury scenarios during validation  
+- Compare outputs across tools to identify inconsistencies  
+
+---
+
+### Privacy Risk
+The questionnaire includes injury-related health information.
+
+**Mitigation**
+- Avoid collecting personally identifiable information  
+- Keep prototype testing sandboxed and local  
+- Do not store user data beyond session-level evaluation  
