@@ -5,7 +5,7 @@
 
 ## Target Users
 
-### Individuals recovering from common musculoskeletal injuries
+### Individuals recovering from common musculoskeletal injuries like: 
 - ACL reconstruction
 - Meniscal repair
 - Patellofemoral pain (PFP)
@@ -13,7 +13,7 @@
 - Rotator cuff injuries
 - Shoulder impingement
 
-### Users in mid-stage rehabilitation
+### That are in their mid-stage rehabilitation: 
 - Cleared for strengthening
 - Managing pain but resuming exercise
 - Not in acute post-operative protection phase
