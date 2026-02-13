@@ -15,6 +15,7 @@ As a narrative review, the paper synthesizes existing studies without conducting
 # Concrete idea that inspires your project
 Our system can begin with a structured questionnaire assessing six common injuries (four knee and two shoulder), as well as time since injury and rehabilitation status. Based on this information, the AI can either generate a rehabilitation-focused full workout plan, modify a user’s existing routine, or identify high-risk timestamps in online workout videos.
 
+
 Zheng, G., Zeng, S., Li, T., Guo, L., & Li, L. (2025). The effects of training intervention on the prevention of knee joint injuries: A systematic review and meta-analysis. Frontiers in Physiology, 16, 1455055. https://doi.org/10.3389/fphys.2025.1455055
 Full text: https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2025.1455055/full
 
