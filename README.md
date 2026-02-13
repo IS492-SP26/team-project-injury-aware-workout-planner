@@ -35,3 +35,26 @@ ToneFit generates structured strength training plans based on goals, equipment, 
 - Limited injury-specific risk modeling
 #### Key gap  
 ToneFit plans workouts. It does not dynamically edit user-selected workout videos.
+
+
+# Initial Concept
+Concept Overview
+We propose an injury-aware workout analysis system that helps users safely follow YouTube fitness videos while recovering from common knee and shoulder injuries.
+The system first collects injury context through a short questionnaire (injury type, time since injury, pain level, optional notes). The user then provides a YouTube workout link. Using transcript extraction and OCR for on-screen exercise text, the system identifies potentially unsafe exercises and returns:
+Timestamps to avoid
+Safer substitute exercises
+Future iterations aim to evolve from text-based substitutes to audio narration and eventually short GIF/video clips demonstrating safer alternatives.
+
+# Value Proposition
+1. Context-Aware Personalization
+Recommendations are adjusted based on injury type, recovery stage, and pain level, not just generic “avoid” lists.
+2. Works With Existing Content
+Users can continue following their preferred YouTube trainers; the system adapts the workout to their recovery needs.
+3. Replace, Don’t Just Remove
+Instead of only flagging unsafe movements, the system suggests substitutes that preserve workout intent.
+4. Meaningful Use of GenAI
+GenAI enables:
+Interpretation of unstructured user notes
+Normalization of varied exercise naming from transcripts/OCR
+Context-sensitive substitute generation
+This project explores how generative models can support safer, more personalized fitness guidance for rehab.
