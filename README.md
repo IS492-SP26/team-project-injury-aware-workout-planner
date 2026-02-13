@@ -7,6 +7,11 @@ A lightweight GenAI concept that adapts YouTube workout videos for common knee a
 **Input:** injury context + YouTube link  
 **Output:** timestamps to avoid + safer substitutes
 
+<p align="center">
+  <img src="banner.png" width="800">
+</p>
+
+
 </div>
 
 # Problem statement
