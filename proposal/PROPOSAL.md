@@ -21,8 +21,6 @@ The critical gap across prior systems is this:
 
 Current tools generate new plans but do not adapt unstructured third-party content to align with rehabilitation principles. This leaves a clear opportunity for an injury-aware content adaptation engine.
 
----
-
 # Proposed Approach
 
 We propose an **Injury-Aware Workout Adaptation System** that modifies both video-based and text-based workout content according to structured injury constraints.
@@ -75,4 +73,3 @@ This improves upon prior art by:
 2. Embedding structured rehabilitation logic into unstructured fitness content.
 3. Supporting both recovery users and injury-aware fitness enthusiasts.
 
----
