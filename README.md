@@ -1,3 +1,13 @@
+<div align="center">
+
+# Injury-Aware Workout Planner
+
+A lightweight GenAI concept that adapts YouTube workout videos for common knee and shoulder injuries.
+
+**Input:** injury context + YouTube link  
+**Output:** timestamps to avoid + safer substitutes
+
+</div>
 
 # Problem statement
 Musculoskeletal injuries, particularly those affecting the knee and shoulder, are common among physically active individuals. Clinical rehabilitation programs are typically structured around restoring function at the injured site and are often limited to localized therapeutic exercises. While such programs are essential for recovery, they do not necessarily provide guidance on safely maintaining comprehensive, full-body training routines during or after rehabilitation.
