@@ -2,7 +2,6 @@
 
 To validate the idea behind the **Injury-Aware Workout Planner**, we conducted interviews with individuals representing both **medical expertise** and **real user experience**. The goal was to understand whether people would trust AI-assisted workout adaptation and what concerns or expectations might arise.
 
----
 
 ## Interview 1: Neha Agarwal  
 **Role:** Medical Professional – Senior Resident
@@ -21,7 +20,6 @@ I discussed whether medical professionals would be comfortable with people using
 
 Medical professionals may be open to AI-assisted tools **as long as they emphasize safety, include disclaimers, and prioritize physiotherapy-style exercises over intense workouts during recovery**.
 
----
 
 ## Interview 2: Aman Sharma  
 **Role:** Gym Enthusiast with Shoulder Injury Experience
@@ -39,4 +37,5 @@ To understand the user perspective, we interviewed a regular gym-goer who had pr
 ### Takeaway
 
 Users recovering from injuries would benefit from a system that **automatically identifies unsafe exercises and suggests safer alternatives**, removing the need to manually modify workouts.
+
 
