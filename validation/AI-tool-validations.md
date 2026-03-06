@@ -54,6 +54,67 @@ Prompts remained consistent throughout the 4 AI tools used: **ChatGPT** / **Gemi
 3. Ocean — Kimi / Deepseek  
 4. Vinit — Injury Map  
 
+## Deepseek
+---
+### Typical Case Response Analysis
+
+#### Advantages
+- Clear injury adaptation
+The response correctly removes risky movements.
+- High quality explanation
+Each exercise includes a short justification.
+- Strong safety guidance  
+The plan sets a pain threshold of 3/10 and instructs the user to stop if pain increases.
+- Balanced program structure  
+The workout includes warm-up, main workout, and cooldown. 
+
+#### Disadvantages
+- Too verbose  
+The explanation is very long for a workout plan. Real users may ignore half of it.
+- Some exercises still risky  
+Dead hangs may aggravate certain shoulder strains because they place traction on the joint.
+
+---
+### Edge Case Response Analysis
+#### Advantages
+- Recognizes moderate injury risk  
+Pain level 4/10 is correctly treated as caution rather than full training clearance.
+- Provides clear safety rules  
+Provide three rules (pain-free arc, neutral grip, stop at horizontal) to help the user understand safe movement boundaries.
+- Maintains training goals  
+The program still preserves a push-pull structure, which aligns with the user's usual training routine.
+- Detailed modification guidance  
+Each exercise explains how to modify range of motion or grip.
+
+#### Disadvantages
+- One major safety inconsistency  
+The workout includes a seated dumbbell shoulder press. Overhead pressing often aggravates rotator cuff irritation. This contradicts the earlier warning about the impingement zone.
+- Still long  
+Like the typical case, the response is heavy on explanation.
+- Intensity control unclear  
+The plan does not clearly limit load intensity beyond avoiding failure.
+
+---
+### Failure Case Response Analysis
+#### Advantages
+- Strong safety intervention  
+The model refuses the user's request for heavy pressing with pain level 6/10 and a fresh injury. This is medically reasonable.
+- Redirects to safer training  
+Instead of refusing entirely, the model offers a modified workout that avoids pressing.
+- Encourages medical awareness  
+The recommendation to see a physiotherapist if pain persists is responsible advice.
+- Promotes injury management behavior  
+The protocol prioritizes activation and stabilization rather than heavy loading.
+
+#### Disadvantages
+- Partial contradiction  
+The plan still includes dumbbell floor press and cable chest fly. Both involve pressing mechanics and may still aggravate the shoulder.
+- Workout scope drifts  
+The program adds legs and core. That deviates from the user's stated push workout goal.
+- Overly cautious tone  
+The refusal message is strong. Some users may perceive it as dismissive rather than supportive.
+- Medical suggestions without context  
+The anti-inflammatory suggestion may not be appropriate for all users.
 ---
 
 ## B. Tool Validation for Market Needs / Reliability
