@@ -81,7 +81,7 @@ Prompts remained consistent throughout the 4 AI tools used: **ChatGPT** / **Gemi
 
 **Evidence:** screenshot recommending contacting a doctor before starting program  
 
-![InjuryMap – medical caution before starting program](injury-map-caution.jpeg)
+<img src="injury-map-caution.jpeg" alt="InjuryMap – medical caution before starting program" width="400" />
 
 ### What Failed (Limitations)
 
@@ -91,7 +91,7 @@ Prompts remained consistent throughout the 4 AI tools used: **ChatGPT** / **Gemi
 
 **Evidence:** screenshot showing Phase 1, Phase 2, Phase 3 program structure  
 
-![InjuryMap – Phase 1, 2, 3 program structure](injury-map-phases.jpeg)
+<img src="injury-map-phases.jpeg" alt="InjuryMap – Phase 1, 2, 3 program structure" width="400" />
 
 ### UX Friction
 
