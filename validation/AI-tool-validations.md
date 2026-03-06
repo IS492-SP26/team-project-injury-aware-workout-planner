@@ -75,15 +75,30 @@ Prompts remained consistent throughout the 4 AI tools used: **ChatGPT** / **Gemi
 
 ### What Worked (Strengths)
 
+<table>
+<tr>
+<td>
+
 - Effective **injury screening** before recommending exercises  
 - Provides **medical caution** when symptoms may require professional care  
 - **Structured phase-based** rehabilitation programs  
 
 **Evidence:** screenshot recommending contacting a doctor before starting program  
 
-<img src="injury-map-caution.jpeg" alt="InjuryMap – medical caution before starting program" width="400" />
+</td>
+<td width="40%" align="right">
+
+<img src="injury-map-caution.jpeg" alt="InjuryMap – medical caution before starting program" width="280" />
+
+</td>
+</tr>
+</table>
 
 ### What Failed (Limitations)
+
+<table>
+<tr>
+<td>
 
 - Workouts are **fixed rehabilitation phases**, not dynamically generated  
 - No option to **generate a workout for today's condition**  
@@ -91,7 +106,14 @@ Prompts remained consistent throughout the 4 AI tools used: **ChatGPT** / **Gemi
 
 **Evidence:** screenshot showing Phase 1, Phase 2, Phase 3 program structure  
 
-<img src="injury-map-phases.jpeg" alt="InjuryMap – Phase 1, 2, 3 program structure" width="400" />
+</td>
+<td width="40%" align="right">
+
+<img src="injury-map-phases.jpeg" alt="InjuryMap – Phase 1, 2, 3 program structure" width="280" />
+
+</td>
+</tr>
+</table>
 
 ### UX Friction
 
