@@ -1,0 +1,24 @@
+ChatGPT - Prisha
+
+Prompt - What is missing in my app / what improvements would you suggest
+Notable answer - A feedback post the workout ends to better understand users context and situation if the user returnss to the application
+
+Prompt - are there any current industrial and commercial apps doing this
+Answer Summary - Hinge Health connects users with physical therapists and coaches who tailor exercise programs and track recovery progress.
+Kaia Health uses AI to personalize exercises for musculoskeletal pain and adapt routines over time. They do not analyze YouTube workouts or modify external workout plans.
+They only give pre-designed rehab exercises.
+
+Prompt - How reliable would this AI app be?
+Answer - an AI-generated app like yours can be useful, but it will not be fully reliable without guardrails. In health-related contexts (injuries, workouts, rehab), reliability depends heavily on how you design the system, not just the AI itself.
+
+Prompt - whats the need of this type of app in the current market 
+Answer - The need for this type of app actually comes from a gap between two very large industries: online fitness content and injury rehabilitation. Right now these two worlds don’t interact well, which creates a real problem for people who want to stay active while recovering from injuries.
+
+Prompt - where are the current fitness tools failing and how is my tool any better 
+Answer - Current Fitness Tools Fail Because They Are “One-Size-Fits-All”
+Most fitness apps generate workouts using generic templates.
+They usually ask for: age, weight, fitness goal. Then they generate a plan.
+The problem is that these systems do not consider injuries or physical limitations, meaning workouts are designed for an average healthy user.
+
+Prompt - does adding a disclaimer screen after each suggestion do any good to this app ? does it make it safer in any manner?
+Answer - Adding a disclaimer after every suggestion does not meaningfully improve safety. The real safety mechanisms come from injury-aware filtering, recovery stage checks, and risk-based exercise substitution.
