@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdaptFit AI Profile Setup - Training Background</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 md:px-40 py-3">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">AdaptFit AI</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-slate-900 dark:text-slate-100 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Workouts</a>
+<a class="text-slate-900 dark:text-slate-100 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Progress</a>
+<a class="text-slate-900 dark:text-slate-100 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Resources</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0NOhE9m8t1bwG59Xm-GpeCM-27y45LqbhMHg3qZ3Lzf5ZnPFHYMQyKvrX-rw-ESPSq_8CpRkd8luVHCk9Q-09IsVlNsiV4FLxXGxxJ4ogYlEuBw00fhCx4l_BNp7hVrNMaFAG1uVq-mZPKZUpVM9guFHjsJAdgRIOOVEaylsqeYbT7nyXOopBiDDMA_xQSBL00r3GSbN2ttrlbeOCcYpFPTiLQ1rXciqu4j6gAp8pUPED1fBVJPE5CFSXM9xyFQLQsHGaHvkIDHs");'></div>
+</div>
+</header>
+<main class="flex-1 flex justify-center py-8 px-4 md:px-0">
+<div class="layout-content-container flex flex-col max-w-[640px] w-full bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="flex flex-col gap-3 p-8 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+<div class="flex gap-6 justify-between items-center">
+<p class="text-slate-900 dark:text-white text-base font-bold leading-normal">AdaptFit AI Profile Setup</p>
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-xs font-bold">Step 2 of 10</span>
+</div>
+<div class="relative h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700">
+<div class="absolute h-full rounded-full bg-primary" style="width: 20%;"></div>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wider">Current: Training Background</p>
+</div>
+<div class="flex flex-col gap-3 p-8">
+<h1 class="text-slate-900 dark:text-white text-3xl font-black leading-tight tracking-tight">AdaptFit AI: Training Background</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base">This helps our AI customize a safe, injury-aware plan for your current fitness level and rehabilitation needs.</p>
+</div>
+<div class="px-8 pb-8 space-y-6">
+<div class="flex flex-col gap-2">
+<label class="text-slate-900 dark:text-slate-100 text-sm font-semibold">Age</label>
+<input class="form-input w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4" max="120" min="13" placeholder="Enter your age" type="number"/>
+</div>
+<div class="flex flex-col gap-3">
+<label class="text-slate-900 dark:text-slate-100 text-sm font-semibold">Training Experience</label>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-primary bg-primary/5 text-primary font-medium transition-all">
+<span class="material-symbols-outlined mb-1">child_care</span>
+<span class="text-xs">Beginner</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-400 font-medium transition-all">
+<span class="material-symbols-outlined mb-1">fitness_center</span>
+<span class="text-xs">Intermediate</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-slate-200 dark:border-slate-700 hover:border-primary/50 text-slate-600 dark:text-slate-400 font-medium transition-all">
+<span class="material-symbols-outlined mb-1">bolt</span>
+<span class="text-xs">Advanced</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-slate-900 dark:text-slate-100 text-sm font-semibold">Typical Activity Level</label>
+<select class="form-select w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4">
+<option disabled="" selected="" value="">Select activity level</option>
+<option value="sedentary">Sedentary (Office job, little exercise)</option>
+<option value="light">Lightly Active (1-2 days/week)</option>
+<option value="moderate">Moderately Active (3-5 days/week)</option>
+<option value="very">Very Active (6-7 days/week)</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-slate-900 dark:text-slate-100 text-sm font-semibold">Primary Training Goal</label>
+<select class="form-select w-full rounded-lg border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-4">
+<option disabled="" selected="" value="">Select your goal</option>
+<option value="rehab">Injury Rehabilitation</option>
+<option value="mobility">Improved Mobility &amp; Range of Motion</option>
+<option value="strength">Safe Strength Building</option>
+<option value="longevity">General Longevity &amp; Health</option>
+</select>
+</div>
+<div class="space-y-4 pt-4">
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center mt-1">
+<input class="peer h-5 w-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<span class="text-sm text-slate-600 dark:text-slate-400 leading-tight">
+                                I confirm that I have been cleared by a <span class="text-slate-900 dark:text-white font-medium">healthcare professional</span> to begin a physical training program.
+                            </span>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center mt-1">
+<input class="peer h-5 w-5 rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<span class="text-sm text-slate-600 dark:text-slate-400 leading-tight">
+                                I understand that AdaptFit AI provides general guidance and I agree to the <a class="text-primary underline" href="#">Terms of Service</a> and <a class="text-primary underline" href="#">Privacy Policy</a>.
+                            </span>
+</label>
+</div>
+<div class="flex flex-col gap-3 pt-6">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                            Continue
+                            <span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+<button class="w-full bg-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 font-medium py-2 transition-all text-sm">
+                            Back to previous step
+                        </button>
+</div>
+</div>
+</div>
+</main>
+<footer class="px-6 md:px-40 py-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-slate-400 text-xs">© 2024 AdaptFit AI. All rights reserved. Injury-aware workout generator for safe rehabilitation.</p>
+</footer>
+</div>
+</div>
+
+</body></html>

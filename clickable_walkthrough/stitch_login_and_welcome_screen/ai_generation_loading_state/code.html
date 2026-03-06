@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Generation | AdaptFit AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .pulse-animation {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 md:px-20 py-3">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary text-2xl">health_and_safety</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">AdaptFit AI</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Workouts</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Progress</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Profile</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDjg4PcIINSGnmUDi6WVQrU5YvwPkHdUQ8Er1n4zfWpfdqhE9lYi27dK0a9iUj5_kswWeq1xMVG25pqRixUvPsiugj-76xUDvfEEx5CaAVxKRBnk3C1QQQQkHLbwr4pddDHCQ6dqyyrq_QEcCufow_LU5Qs-50czpu2EE0lfOtaiZ9YK98n-a8CbbmTErsRLTFyrCf5NPyq8dl7ZHsD2qxViqpXo8MSYY21jhUNYhx1v3oPfa-qEMPg0KHFVzYoMe5fdhW8orpZpu8");'></div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+<div class="max-w-[560px] w-full bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-8 md:p-12 flex flex-col items-center">
+<div class="relative flex items-center justify-center mb-10">
+<div class="absolute size-32 bg-primary/10 rounded-full pulse-animation"></div>
+<div class="absolute size-24 bg-primary/20 rounded-full"></div>
+<div class="relative size-16 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/40">
+<span class="material-symbols-outlined text-white text-3xl">vital_signs</span>
+</div>
+</div>
+<div class="text-center space-y-3 mb-10">
+<h1 class="text-slate-900 dark:text-slate-100 tracking-tight text-3xl font-bold leading-tight">AdaptFit AI</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal max-w-sm mx-auto">
+                            AdaptFit AI is evaluating workout safety and generating modifications.
+                        </p>
+</div>
+<div class="w-full flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">medical_information</span>
+<p class="text-slate-700 dark:text-slate-300 text-sm font-medium">Analyzing injury constraints</p>
+</div>
+<p class="text-primary text-sm font-bold">68%</p>
+</div>
+<div class="relative w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: 68%;"></div>
+</div>
+<div class="mt-4 flex flex-col gap-2">
+<div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs">
+<span class="material-symbols-outlined text-xs text-green-500">check_circle</span>
+<span>Input data validated</span>
+</div>
+<div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs">
+<span class="material-symbols-outlined text-xs text-green-500">check_circle</span>
+<span>Identifying contraindications</span>
+</div>
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-xs font-medium">
+<div class="size-1.5 bg-primary rounded-full animate-pulse"></div>
+<span>Adjusting movement patterns...</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm italic">
+<span class="material-symbols-outlined text-lg">lightbulb</span>
+<p>Did you know? Modifying range of motion is often safer than skipping an exercise entirely.</p>
+</div>
+</main>
+<div class="absolute bottom-0 left-0 w-full h-32 opacity-10 pointer-events-none overflow-hidden">
+<div class="w-full h-full flex items-end justify-center">
+<div class="w-[120%] h-full bg-gradient-to-t from-primary to-transparent blur-3xl translate-y-20"></div>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

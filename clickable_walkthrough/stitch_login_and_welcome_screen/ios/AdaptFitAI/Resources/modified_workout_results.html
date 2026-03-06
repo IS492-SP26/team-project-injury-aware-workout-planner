@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdaptFit AI: Modified Workout Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 md:px-20 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">AdaptFit AI</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Workouts</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Progress</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Safety</a>
+</nav>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvbx_a1wtLQt7cQZLBrDJEcYcsp5iWTjgVbnSo1rAYvoZlWIB7Q-g25GOuoAnZWdILl1OSQa1XjPVilP1DYBXNy8pzsqcSgN6r5-HIRfomif0GsK1vUkhug4sHA6LHfsw044JSnQQmmmH1pwGm4UwMg8jlKdRbRtohfWrj_LG1g7bG7nu2DA0586UelkpcYHM1uq3LdANvhAmdSbwDZj83nO7WjwwSClm2NZoJTQiIxqZqVll_w1U2LWbT7JQKmbuGMfXNCMLqrCg");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-10 px-6 md:px-20">
+<div class="layout-content-container flex flex-col max-w-[1024px] flex-1 gap-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div class="flex flex-col gap-2">
+<nav class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+<span>Workouts</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span>Injury Modification</span>
+</nav>
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-[-0.033em]">AdaptFit AI: Modified Workout Results</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg">Injury-aware workout generator for safe rehabilitation.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                            Regenerate
+                        </button>
+<button class="flex items-center justify-center gap-2 px-6 py-2 rounded-lg bg-primary text-white font-bold text-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                            Save Workout
+                        </button>
+</div>
+</div>
+<div class="p-1 rounded-xl bg-gradient-to-r from-primary/20 to-primary/5 border border-primary/20">
+<div class="flex flex-col md:flex-row items-center justify-between gap-4 bg-white dark:bg-background-dark p-6 rounded-lg">
+<div class="flex items-start gap-4">
+<div class="bg-primary/10 p-3 rounded-full text-primary shrink-0">
+<span class="material-symbols-outlined">info</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight">Critical Safety Advisory</p>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    Monitor your discomfort. If you experience sharp, shooting, or radiating pain (above 3/10 on the VAS scale), stop the exercise immediately. Focus on controlled range of motion over weight.
+                                </p>
+</div>
+</div>
+<a class="text-sm font-bold leading-normal tracking-[0.015em] flex items-center gap-2 text-primary whitespace-nowrap hover:underline" href="#">
+                            View Full Protocol
+                            <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</a>
+</div>
+</div>
+<section>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-4">Risk Assessment &amp; Alternatives</h2>
+<div class="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[640px]">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Original</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Modified Alternative</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Risk Flag</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Modification Reason</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr>
+<td class="px-6 py-5 text-sm font-medium text-slate-500 line-through decoration-red-400">Barbell Back Squat</td>
+<td class="px-6 py-5 text-sm font-bold text-slate-900 dark:text-slate-100">Goblet Box Squat</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                                High Risk
+                                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">Shifts load anteriorly to reduce lumbar shear forces.</td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium text-slate-500 line-through decoration-amber-400">Deadlift</td>
+<td class="px-6 py-5 text-sm font-bold text-slate-900 dark:text-slate-100">Weighted Glute Bridges</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                                Medium Risk
+                                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">Targets posterior chain without spinal compression.</td>
+</tr>
+<tr>
+<td class="px-6 py-5 text-sm font-medium text-slate-500 line-through decoration-amber-400">Bent Over Row</td>
+<td class="px-6 py-5 text-sm font-bold text-slate-900 dark:text-slate-100">Chest Supported Row</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-xs font-bold">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                                Medium Risk
+                                            </span>
+</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">Eliminates the need for isometric spinal stabilization.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold mb-4">Your Modified Plan</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-4 p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Primary Movement</span>
+<h3 class="text-lg font-bold">Goblet Box Squat</h3>
+</div>
+<span class="material-symbols-outlined text-slate-300">fitness_center</span>
+</div>
+<div class="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-slate-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Sets</span>
+<span class="text-base font-bold">3 Sets</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Reps</span>
+<span class="text-base font-bold">10-12</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Tempo</span>
+<span class="text-base font-bold">3-1-3</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-[10px] text-slate-500 uppercase font-bold">Safety Notes</span>
+<p class="text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg leading-relaxed">
+                                    Ensure hips touch the box lightly. Keep chest upright and core braced throughout the descent.
+                                </p>
+</div>
+</div>
+<div class="flex flex-col gap-4 p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Secondary Movement</span>
+<h3 class="text-lg font-bold">Weighted Glute Bridges</h3>
+</div>
+<span class="material-symbols-outlined text-slate-300">floor</span>
+</div>
+<div class="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-slate-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Sets</span>
+<span class="text-base font-bold">4 Sets</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Reps</span>
+<span class="text-base font-bold">15 Reps</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Tempo</span>
+<span class="text-base font-bold">2-2-1</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-[10px] text-slate-500 uppercase font-bold">Safety Notes</span>
+<p class="text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg leading-relaxed">
+                                    Drive through heels. Squeeze glutes at the top for 2 seconds. Do not over-arch the lower back.
+                                </p>
+</div>
+</div>
+<div class="flex flex-col gap-4 p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Upper Body Pull</span>
+<h3 class="text-lg font-bold">Chest Supported Row</h3>
+</div>
+<span class="material-symbols-outlined text-slate-300">reorder</span>
+</div>
+<div class="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-slate-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Sets</span>
+<span class="text-base font-bold">3 Sets</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Reps</span>
+<span class="text-base font-bold">12 Reps</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Tempo</span>
+<span class="text-base font-bold">2-0-2</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-[10px] text-slate-500 uppercase font-bold">Safety Notes</span>
+<p class="text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg leading-relaxed">
+                                    Keep chest glued to the bench. Focus on pulling from the elbows and squeezing shoulder blades.
+                                </p>
+</div>
+</div>
+<div class="flex flex-col gap-4 p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Core / Rehab</span>
+<h3 class="text-lg font-bold">Dead Bugs</h3>
+</div>
+<span class="material-symbols-outlined text-slate-300">pill</span>
+</div>
+<div class="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 dark:border-slate-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Sets</span>
+<span class="text-base font-bold">2 Sets</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Reps</span>
+<span class="text-base font-bold">10/side</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase">Tempo</span>
+<span class="text-base font-bold">Slow</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-[10px] text-slate-500 uppercase font-bold">Safety Notes</span>
+<p class="text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg leading-relaxed">
+                                    Keep lower back pressed firmly against the floor. Movement should only occur if spine is neutral.
+                                </p>
+</div>
+</div>
+</div>
+</section>
+<div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4 pb-12">
+<p class="text-sm text-slate-500 text-center sm:text-left">Is this workout suitable for your current energy level?</p>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-sm font-bold border border-slate-200 rounded-lg hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800">Too Hard</button>
+<button class="px-4 py-2 text-sm font-bold border border-slate-200 rounded-lg hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800">Just Right</button>
+<button class="px-4 py-2 text-sm font-bold border border-slate-200 rounded-lg hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800">Too Easy</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>
+

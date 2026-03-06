@@ -1,0 +1,417 @@
+// !$*UTF8*$!
+{
+  archiveVersion = 1;
+  classes = {
+  };
+  objectVersion = 56;
+  objects = {
+
+/* Begin PBXBuildFile section */
+    A10000000000000000000001 /* AdaptFitAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* AdaptFitAIApp.swift */; };
+    A10000000000000000000002 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000002 /* RootView.swift */; };
+    A10000000000000000000003 /* FlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000003 /* FlowView.swift */; };
+    A10000000000000000000004 /* Screens.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* Screens.swift */; };
+    A10000000000000000000005 /* ScreenWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000005 /* ScreenWebView.swift */; };
+    A10000000000000000000006 /* LocalHTMLWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000006 /* LocalHTMLWebView.swift */; };
+
+    A10000000000000000000101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000101 /* Assets.xcassets */; };
+    A10000000000000000000102 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000102 /* Preview Assets.xcassets */; };
+
+    A10000000000000000000201 /* login_and_welcome_screen.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000201 /* login_and_welcome_screen.html */; };
+    A10000000000000000000202 /* user_profile_setup.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000202 /* user_profile_setup.html */; };
+    A10000000000000000000203 /* injury_identification.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000203 /* injury_identification.html */; };
+    A10000000000000000000204 /* injury_assessment_questionnaire.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000204 /* injury_assessment_questionnaire.html */; };
+    A10000000000000000000205 /* choose_generation_path.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000205 /* choose_generation_path.html */; };
+    A10000000000000000000206 /* import_or_paste_workout.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000206 /* import_or_paste_workout.html */; };
+    A10000000000000000000207 /* workout_type_selection.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000207 /* workout_type_selection.html */; };
+    A10000000000000000000208 /* strength_training_setup.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000208 /* strength_training_setup.html */; };
+    A10000000000000000000209 /* ai_generation_loading_state.html in Resources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000209 /* ai_generation_loading_state.html */; };
+    A1000000000000000000020A /* new_tailored_workout_plan.html in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000020A /* new_tailored_workout_plan.html */; };
+    A1000000000000000000020B /* modified_workout_results.html in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000020B /* modified_workout_results.html */; };
+    A1000000000000000000020C /* recovery_readiness_result.html in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000020C /* recovery_readiness_result.html */; };
+    A1000000000000000000020D /* not_cleared_evaluation_result.html in Resources */ = {isa = PBXBuildFile; fileRef = A2000000000000000000020D /* not_cleared_evaluation_result.html */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+    A20000000000000000000000 /* AdaptFitAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptFitAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+
+    A20000000000000000000001 /* AdaptFitAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptFitAIApp.swift; sourceTree = "<group>"; };
+    A20000000000000000000002 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+    A20000000000000000000003 /* FlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowView.swift; sourceTree = "<group>"; };
+    A20000000000000000000004 /* Screens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screens.swift; sourceTree = "<group>"; };
+    A20000000000000000000005 /* ScreenWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenWebView.swift; sourceTree = "<group>"; };
+    A20000000000000000000006 /* LocalHTMLWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalHTMLWebView.swift; sourceTree = "<group>"; };
+
+    A20000000000000000000010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+
+    A20000000000000000000101 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+    A20000000000000000000102 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+
+    A20000000000000000000201 /* login_and_welcome_screen.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = login_and_welcome_screen.html; sourceTree = "<group>"; };
+    A20000000000000000000202 /* user_profile_setup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = user_profile_setup.html; sourceTree = "<group>"; };
+    A20000000000000000000203 /* injury_identification.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = injury_identification.html; sourceTree = "<group>"; };
+    A20000000000000000000204 /* injury_assessment_questionnaire.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = injury_assessment_questionnaire.html; sourceTree = "<group>"; };
+    A20000000000000000000205 /* choose_generation_path.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = choose_generation_path.html; sourceTree = "<group>"; };
+    A20000000000000000000206 /* import_or_paste_workout.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = import_or_paste_workout.html; sourceTree = "<group>"; };
+    A20000000000000000000207 /* workout_type_selection.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = workout_type_selection.html; sourceTree = "<group>"; };
+    A20000000000000000000208 /* strength_training_setup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = strength_training_setup.html; sourceTree = "<group>"; };
+    A20000000000000000000209 /* ai_generation_loading_state.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ai_generation_loading_state.html; sourceTree = "<group>"; };
+    A2000000000000000000020A /* new_tailored_workout_plan.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = new_tailored_workout_plan.html; sourceTree = "<group>"; };
+    A2000000000000000000020B /* modified_workout_results.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = modified_workout_results.html; sourceTree = "<group>"; };
+    A2000000000000000000020C /* recovery_readiness_result.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = recovery_readiness_result.html; sourceTree = "<group>"; };
+    A2000000000000000000020D /* not_cleared_evaluation_result.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = not_cleared_evaluation_result.html; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+    A30000000000000000000001 /* Frameworks */ = {
+      isa = PBXFrameworksBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+    A40000000000000000000000 = {
+      isa = PBXGroup;
+      children = (
+        A40000000000000000000010 /* AdaptFitAI */,
+        A40000000000000000000020 /* Products */,
+      );
+      sourceTree = "<group>";
+    };
+
+    A40000000000000000000010 /* AdaptFitAI */ = {
+      isa = PBXGroup;
+      children = (
+        A20000000000000000000101 /* Assets.xcassets */,
+        A20000000000000000000010 /* Info.plist */,
+        A40000000000000000000011 /* Sources */,
+        A40000000000000000000012 /* Resources */,
+        A40000000000000000000013 /* Preview Content */,
+      );
+      path = AdaptFitAI;
+      sourceTree = "<group>";
+    };
+
+    A40000000000000000000011 /* Sources */ = {
+      isa = PBXGroup;
+      children = (
+        A20000000000000000000001 /* AdaptFitAIApp.swift */,
+        A20000000000000000000002 /* RootView.swift */,
+        A20000000000000000000003 /* FlowView.swift */,
+        A20000000000000000000004 /* Screens.swift */,
+        A20000000000000000000005 /* ScreenWebView.swift */,
+        A20000000000000000000006 /* LocalHTMLWebView.swift */,
+      );
+      sourceTree = "<group>";
+    };
+
+    A40000000000000000000012 /* Resources */ = {
+      isa = PBXGroup;
+      children = (
+        A20000000000000000000201 /* login_and_welcome_screen.html */,
+        A20000000000000000000202 /* user_profile_setup.html */,
+        A20000000000000000000203 /* injury_identification.html */,
+        A20000000000000000000204 /* injury_assessment_questionnaire.html */,
+        A20000000000000000000205 /* choose_generation_path.html */,
+        A20000000000000000000206 /* import_or_paste_workout.html */,
+        A20000000000000000000207 /* workout_type_selection.html */,
+        A20000000000000000000208 /* strength_training_setup.html */,
+        A20000000000000000000209 /* ai_generation_loading_state.html */,
+        A2000000000000000000020A /* new_tailored_workout_plan.html */,
+        A2000000000000000000020B /* modified_workout_results.html */,
+        A2000000000000000000020C /* recovery_readiness_result.html */,
+        A2000000000000000000020D /* not_cleared_evaluation_result.html */,
+      );
+      path = Resources;
+      sourceTree = "<group>";
+    };
+
+    A40000000000000000000013 /* Preview Content */ = {
+      isa = PBXGroup;
+      children = (
+        A20000000000000000000102 /* Preview Assets.xcassets */,
+      );
+      path = "Preview Content";
+      sourceTree = "<group>";
+    };
+
+    A40000000000000000000020 /* Products */ = {
+      isa = PBXGroup;
+      children = (
+        A20000000000000000000000 /* AdaptFitAI.app */,
+      );
+      name = Products;
+      sourceTree = "<group>";
+    };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+    A50000000000000000000001 /* AdaptFitAI */ = {
+      isa = PBXNativeTarget;
+      buildConfigurationList = A70000000000000000000001 /* Build configuration list for PBXNativeTarget "AdaptFitAI" */;
+      buildPhases = (
+        A30000000000000000000002 /* Sources */,
+        A30000000000000000000003 /* Resources */,
+        A30000000000000000000001 /* Frameworks */,
+      );
+      buildRules = (
+      );
+      dependencies = (
+      );
+      name = AdaptFitAI;
+      productName = AdaptFitAI;
+      productReference = A20000000000000000000000 /* AdaptFitAI.app */;
+      productType = "com.apple.product-type.application";
+    };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+    A60000000000000000000001 /* Project object */ = {
+      isa = PBXProject;
+      attributes = {
+        BuildIndependentTargetsInParallel = 1;
+        LastSwiftUpdateCheck = 1600;
+        LastUpgradeCheck = 1600;
+        TargetAttributes = {
+          A50000000000000000000001 = {
+            CreatedOnToolsVersion = 16.0;
+          };
+        };
+      };
+      buildConfigurationList = A70000000000000000000000 /* Build configuration list for PBXProject "AdaptFitAI" */;
+      compatibilityVersion = "Xcode 15.0";
+      developmentRegion = en;
+      hasScannedForEncodings = 0;
+      knownRegions = (
+        en,
+        Base,
+      );
+      mainGroup = A40000000000000000000000;
+      productRefGroup = A40000000000000000000020 /* Products */;
+      projectDirPath = "";
+      projectRoot = "";
+      targets = (
+        A50000000000000000000001 /* AdaptFitAI */,
+      );
+    };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+    A30000000000000000000003 /* Resources */ = {
+      isa = PBXResourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+        A10000000000000000000101 /* Assets.xcassets in Resources */,
+        A10000000000000000000102 /* Preview Assets.xcassets in Resources */,
+
+        A10000000000000000000201 /* login_and_welcome_screen.html in Resources */,
+        A10000000000000000000202 /* user_profile_setup.html in Resources */,
+        A10000000000000000000203 /* injury_identification.html in Resources */,
+        A10000000000000000000204 /* injury_assessment_questionnaire.html in Resources */,
+        A10000000000000000000205 /* choose_generation_path.html in Resources */,
+        A10000000000000000000206 /* import_or_paste_workout.html in Resources */,
+        A10000000000000000000207 /* workout_type_selection.html in Resources */,
+        A10000000000000000000208 /* strength_training_setup.html in Resources */,
+        A10000000000000000000209 /* ai_generation_loading_state.html in Resources */,
+        A1000000000000000000020A /* new_tailored_workout_plan.html in Resources */,
+        A1000000000000000000020B /* modified_workout_results.html in Resources */,
+        A1000000000000000000020C /* recovery_readiness_result.html in Resources */,
+        A1000000000000000000020D /* not_cleared_evaluation_result.html in Resources */,
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+    A30000000000000000000002 /* Sources */ = {
+      isa = PBXSourcesBuildPhase;
+      buildActionMask = 2147483647;
+      files = (
+        A10000000000000000000001 /* AdaptFitAIApp.swift in Sources */,
+        A10000000000000000000002 /* RootView.swift in Sources */,
+        A10000000000000000000003 /* FlowView.swift in Sources */,
+        A10000000000000000000004 /* Screens.swift in Sources */,
+        A10000000000000000000005 /* ScreenWebView.swift in Sources */,
+        A10000000000000000000006 /* LocalHTMLWebView.swift in Sources */,
+      );
+      runOnlyForDeploymentPostprocessing = 0;
+    };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+    A80000000000000000000000 /* Debug */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ALWAYS_SEARCH_USER_PATHS = NO;
+        CLANG_ANALYZER_NONNULL = YES;
+        CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+        CLANG_CXX_LIBRARY = "libc++";
+        CLANG_ENABLE_MODULES = YES;
+        CLANG_ENABLE_OBJC_ARC = YES;
+        CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+        CLANG_WARN_BOOL_CONVERSION = YES;
+        CLANG_WARN_COMMA = YES;
+        CLANG_WARN_CONSTANT_CONVERSION = YES;
+        CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+        CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+        CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+        CLANG_WARN_EMPTY_BODY = YES;
+        CLANG_WARN_ENUM_CONVERSION = YES;
+        CLANG_WARN_INFINITE_RECURSION = YES;
+        CLANG_WARN_INT_CONVERSION = YES;
+        CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+        CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+        CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+        CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+        CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+        CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+        CLANG_WARN_STRICT_PROTOTYPES = YES;
+        CLANG_WARN_SUSPICIOUS_MOVE = YES;
+        CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+        CLANG_WARN_UNREACHABLE_CODE = YES;
+        CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+        COPY_PHASE_STRIP = NO;
+        DEBUG_INFORMATION_FORMAT = dwarf;
+        ENABLE_STRICT_OBJC_MSGSEND = YES;
+        ENABLE_TESTABILITY = YES;
+        GCC_C_LANGUAGE_STANDARD = gnu11;
+        GCC_DYNAMIC_NO_PIC = NO;
+        GCC_NO_COMMON_BLOCKS = YES;
+        GCC_OPTIMIZATION_LEVEL = 0;
+        GCC_PREPROCESSOR_DEFINITIONS = (
+          "DEBUG=1",
+          "$(inherited)",
+        );
+        GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+        GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+        GCC_WARN_UNDECLARED_SELECTOR = YES;
+        GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+        GCC_WARN_UNUSED_FUNCTION = YES;
+        GCC_WARN_UNUSED_VARIABLE = YES;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+        MTL_FAST_MATH = YES;
+        SDKROOT = iphoneos;
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+        SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+      };
+      name = Debug;
+    };
+    A80000000000000000000001 /* Release */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ALWAYS_SEARCH_USER_PATHS = NO;
+        CLANG_ANALYZER_NONNULL = YES;
+        CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+        CLANG_CXX_LIBRARY = "libc++";
+        CLANG_ENABLE_MODULES = YES;
+        CLANG_ENABLE_OBJC_ARC = YES;
+        CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+        CLANG_WARN_BOOL_CONVERSION = YES;
+        CLANG_WARN_COMMA = YES;
+        CLANG_WARN_CONSTANT_CONVERSION = YES;
+        CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+        CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+        CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+        CLANG_WARN_EMPTY_BODY = YES;
+        CLANG_WARN_ENUM_CONVERSION = YES;
+        CLANG_WARN_INFINITE_RECURSION = YES;
+        CLANG_WARN_INT_CONVERSION = YES;
+        CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+        CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+        CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+        CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+        CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+        CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+        CLANG_WARN_STRICT_PROTOTYPES = YES;
+        CLANG_WARN_SUSPICIOUS_MOVE = YES;
+        CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+        CLANG_WARN_UNREACHABLE_CODE = YES;
+        CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+        COPY_PHASE_STRIP = YES;
+        DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+        ENABLE_NS_ASSERTIONS = NO;
+        ENABLE_STRICT_OBJC_MSGSEND = YES;
+        GCC_C_LANGUAGE_STANDARD = gnu11;
+        GCC_NO_COMMON_BLOCKS = YES;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        MTL_FAST_MATH = YES;
+        SDKROOT = iphoneos;
+        SWIFT_COMPILATION_MODE = wholemodule;
+        SWIFT_OPTIMIZATION_LEVEL = "-O";
+        VALIDATE_PRODUCT = YES;
+      };
+      name = Release;
+    };
+
+    A80000000000000000000100 /* Debug */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+        CODE_SIGN_STYLE = Automatic;
+        CURRENT_PROJECT_VERSION = 1;
+        DEVELOPMENT_ASSET_PATHS = "\"AdaptFitAI/Preview Content\"";
+        DEVELOPMENT_TEAM = "";
+        ENABLE_PREVIEWS = YES;
+        GENERATE_INFOPLIST_FILE = NO;
+        INFOPLIST_FILE = AdaptFitAI/Info.plist;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        MARKETING_VERSION = 1.0;
+        PRODUCT_BUNDLE_IDENTIFIER = com.example.AdaptFitAI;
+        PRODUCT_NAME = "$(TARGET_NAME)";
+        SWIFT_VERSION = 5.0;
+        TARGETED_DEVICE_FAMILY = "1,2";
+      };
+      name = Debug;
+    };
+    A80000000000000000000101 /* Release */ = {
+      isa = XCBuildConfiguration;
+      buildSettings = {
+        ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+        CODE_SIGN_STYLE = Automatic;
+        CURRENT_PROJECT_VERSION = 1;
+        DEVELOPMENT_ASSET_PATHS = "\"AdaptFitAI/Preview Content\"";
+        DEVELOPMENT_TEAM = "";
+        ENABLE_PREVIEWS = YES;
+        GENERATE_INFOPLIST_FILE = NO;
+        INFOPLIST_FILE = AdaptFitAI/Info.plist;
+        IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+        MARKETING_VERSION = 1.0;
+        PRODUCT_BUNDLE_IDENTIFIER = com.example.AdaptFitAI;
+        PRODUCT_NAME = "$(TARGET_NAME)";
+        SWIFT_VERSION = 5.0;
+        TARGETED_DEVICE_FAMILY = "1,2";
+      };
+      name = Release;
+    };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+    A70000000000000000000000 /* Build configuration list for PBXProject "AdaptFitAI" */ = {
+      isa = XCConfigurationList;
+      buildConfigurations = (
+        A80000000000000000000000 /* Debug */,
+        A80000000000000000000001 /* Release */,
+      );
+      defaultConfigurationIsVisible = 0;
+      defaultConfigurationName = Release;
+    };
+    A70000000000000000000001 /* Build configuration list for PBXNativeTarget "AdaptFitAI" */ = {
+      isa = XCConfigurationList;
+      buildConfigurations = (
+        A80000000000000000000100 /* Debug */,
+        A80000000000000000000101 /* Release */,
+      );
+      defaultConfigurationIsVisible = 0;
+      defaultConfigurationName = Release;
+    };
+/* End XCConfigurationList section */
+  };
+  rootObject = A60000000000000000000001 /* Project object */;
+}
+

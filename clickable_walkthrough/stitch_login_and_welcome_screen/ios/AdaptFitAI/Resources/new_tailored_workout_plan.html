@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdaptFit AI: Your Tailored Workout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0ea5e9",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.375rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-4 bg-white dark:bg-slate-900 sticky top-0 z-50">
+<div class="flex items-center gap-3 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl font-bold">fitness_center</span>
+</div>
+<h2 class="text-xl font-extrabold leading-tight tracking-tight">AdaptFit <span class="text-primary font-black">AI</span></h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors text-primary" href="#">Workouts</a>
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Progress</a>
+<a class="text-sm font-semibold leading-normal hover:text-primary transition-colors" href="#">Safety Hub</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold leading-normal">
+<span class="truncate">Account</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="User profile photo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB2cm_XzMKEeuARmUlFbRwfLLwlfVY997NgTUflt4TgKbRxXxQcNi_Rk7RtW0K6G7tjulNBgPR3lfEAgOeogpmzpYBZNdxL6PVVODM6T12GQV9lO8NZ9IkzgvYVqcq0fvX-Wge4j8I-xalSy5LSg0RhRB5Ox7Bcd0DVgAXtTuCmXyBX76snIBRsgf-LqJ-AYT5kojkAmO5IgFaCvGBuIg2fMyFWsfv540D4entPn1STSIXr7baYslrqC-gi4F7Cml6jV1qVTjCDO70");'></div>
+</div>
+</div>
+</header>
+<main class="px-10 lg:px-40 flex flex-1 justify-center py-10">
+<div class="layout-content-container flex flex-col max-w-[1000px] flex-1">
+<div class="flex flex-wrap justify-between items-end gap-6 pb-10">
+<div class="flex min-w-72 flex-col gap-3">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined text-xl">verified_user</span>
+<span class="text-xs uppercase tracking-[0.2em]">Injury-Aware Protocol</span>
+</div>
+<h1 class="text-slate-900 dark:text-slate-100 text-5xl font-black leading-tight tracking-[-0.04em]">AdaptFit AI: Your Tailored Workout</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg font-medium">Rehabilitation Focus: Knee Tendonitis (Recovery Phase 2)</p>
+</div>
+<div class="flex gap-4">
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center gap-2 rounded-xl h-12 px-5 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-slate-300 transition-colors">
+<span class="material-symbols-outlined text-lg">refresh</span>
+<span class="truncate">Regenerate</span>
+</button>
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center gap-2 rounded-xl h-12 px-5 bg-primary text-white text-sm font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">
+<span class="material-symbols-outlined text-lg">bookmark</span>
+<span class="truncate">Save Workout</span>
+</button>
+</div>
+</div>
+<div class="mb-12 @container">
+<div class="flex flex-1 flex-col items-start justify-between gap-6 rounded-2xl border border-primary/30 bg-primary/5 dark:bg-primary/10 p-6 @[480px]:flex-row @[480px]:items-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1.5 h-full bg-primary"></div>
+<div class="flex gap-5">
+<div class="bg-primary text-white rounded-xl p-3 flex items-center justify-center size-12 shrink-0 shadow-md">
+<span class="material-symbols-outlined text-2xl">health_and_safety</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-primary text-sm font-black uppercase tracking-widest">AdaptFit Safety Banner</p>
+<p class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight">Pain Threshold Alert</p>
+<p class="text-slate-600 dark:text-slate-400 text-base font-normal leading-relaxed max-w-2xl">Stop exercise immediately if pain exceeds <strong>level 3</strong> on a 10-point scale. Our AI prioritizes your joint health over intensity.</p>
+</div>
+</div>
+<button class="flex min-w-[160px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-11 px-6 bg-primary/10 hover:bg-primary/20 text-primary text-sm font-bold transition-all border border-primary/20">
+<span class="truncate">Safety Guide</span>
+</button>
+</div>
+</div>
+<div class="mb-12">
+<div class="flex items-center gap-4 mb-6">
+<div class="size-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-primary font-bold">1</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-2xl font-black tracking-tight">Warmup Phase</h2>
+<div class="h-px flex-1 bg-slate-200 dark:border-slate-800"></div>
+<span class="text-slate-500 text-sm font-bold bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">8-10 Min</span>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div class="flex flex-col lg:flex-row items-stretch justify-between gap-8 rounded-2xl bg-white dark:bg-slate-900 p-6 shadow-sm border border-slate-200 dark:border-slate-800 hover:border-primary/40 transition-colors group">
+<div class="flex flex-[2_2_0px] flex-col gap-5">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="bg-primary/10 text-primary text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Mobility</span>
+<div class="flex items-center gap-1 text-slate-400 dark:text-slate-500 text-[11px] font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">timer</span>
+                                            Tempo: 2-0-2
+                                        </div>
+</div>
+<h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold group-hover:text-primary transition-colors">Cat-Cow Mobility Flow</h3>
+<p class="text-slate-700 dark:text-slate-300 text-md font-semibold">2 sets x 12 reps</p>
+<div class="flex items-start gap-2 text-slate-500 dark:text-slate-400 text-sm italic">
+<span class="material-symbols-outlined text-sm text-primary">info</span>
+<p>Focus on articulating each vertebrae slowly and breathing deeply.</p>
+</div>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-xl h-10 px-5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold w-fit border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-base">videocam</span>
+<span class="truncate">View Technique</span>
+</button>
+</div>
+<div class="w-full lg:w-72 bg-center bg-no-repeat aspect-video bg-cover rounded-xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner group-hover:scale-[1.02] transition-transform" data-alt="Person performing yoga cat cow stretch" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA4KDQTTpcAeDCR-PlhJHfBkAGSOB0Ch6I_ai7QyNgA3z3jf1pcRacivHS0BwWHZXv-nhXaMmIlQdNrl2SNuCjQLdI-rhWU_jsmECDtY3mu-z4bCviyMhGYz2D8bKk0PWDXWqBweMEHTCFmFEEQxnSQMr9h_9o62e8jJL1tLRgLcw10pfNZbQM4-m6OoCLrsH-0BkFbRRV5Bi195smGuGyL3ufK6USAI3YFAqxZpyvCfS5a1bOQ1UT3u-F7EvWvxQi3lmTQEldKWx0");'></div>
+</div>
+</div>
+</div>
+<div class="mb-12">
+<div class="flex items-center gap-4 mb-6">
+<div class="size-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold">2</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-2xl font-black tracking-tight">Main Protocol</h2>
+<div class="h-px flex-1 bg-slate-200 dark:border-slate-800"></div>
+<div class="flex items-center gap-3">
+<span class="text-slate-500 text-sm font-bold bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">35-40 Min</span>
+<div class="flex items-center gap-1 text-primary text-xs font-black bg-primary/10 px-3 py-1 rounded-full uppercase tracking-widest border border-primary/20">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                                Peak Focus
+                            </div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div class="flex flex-col lg:flex-row items-stretch justify-between gap-8 rounded-2xl bg-white dark:bg-slate-900 p-6 shadow-md border border-slate-200 dark:border-slate-800 hover:border-primary/40 transition-all group">
+<div class="flex flex-[2_2_0px] flex-col gap-5">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="bg-primary/10 text-primary text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Strength</span>
+<div class="flex items-center gap-1 text-slate-400 dark:text-slate-500 text-[11px] font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">timer</span>
+                                            Tempo: 3-1-1
+                                        </div>
+</div>
+<h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold group-hover:text-primary transition-colors">Eccentric Split Squats</h3>
+<p class="text-slate-700 dark:text-slate-300 text-md font-semibold">3 sets x 8 reps <span class="text-slate-400 font-normal">(per side)</span></p>
+<div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-xl border border-primary/10">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-primary text-lg">psychology</span>
+<p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed"><strong class="text-primary uppercase text-[10px] tracking-widest block mb-1">AdaptFit Coaching Note:</strong> Lower down slowly for a full 3-second count to stimulate tendon remodeling. Use a stable chair or wall for balance if knee stability feels compromised.</p>
+</div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-xl h-10 px-5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold w-fit border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-base">videocam</span>
+<span class="truncate">View Technique</span>
+</button>
+</div>
+<div class="w-full lg:w-72 bg-center bg-no-repeat aspect-video bg-cover rounded-xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner group-hover:scale-[1.02] transition-transform" data-alt="Person doing lunges or split squats" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC94Cxpr9wuF3_GXRyklaOV7bu1O5rrE04HeLh2I9_ue2ezGFNZj_fK-i185lkEHx-R7BlP93HemsL2MtiyFi1szyAQjdY6JBvhOGVUbVbSn5_IQyGHf7xVtkkUfhyNHV7YXlc4ndgmmINjEPLMsVqgQdmfOgRDEStuREQu_1-Rw7NGAwCtVVFeG6HC_giwsuLVgD_5-TJ0Lc3cNclN4axP12CjIp9lPwDaasl6-5_4pbedg_0vOfhXEI3OzyJWvUECGN9c-ghnKR4");'></div>
+</div>
+<div class="flex flex-col lg:flex-row items-stretch justify-between gap-8 rounded-2xl bg-white dark:bg-slate-900 p-6 shadow-md border border-slate-200 dark:border-slate-800 hover:border-primary/40 transition-all group">
+<div class="flex flex-[2_2_0px] flex-col gap-5">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="bg-primary/10 text-primary text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Hypertrophy</span>
+<div class="flex items-center gap-1 text-slate-400 dark:text-slate-500 text-[11px] font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm">timer</span>
+                                            Tempo: 2-0-2
+                                        </div>
+</div>
+<h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold group-hover:text-primary transition-colors">Seated Leg Curls (Band)</h3>
+<p class="text-slate-700 dark:text-slate-300 text-md font-semibold">4 sets x 15 reps</p>
+<div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-xl border border-primary/10">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-primary text-lg">psychology</span>
+<p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed"><strong class="text-primary uppercase text-[10px] tracking-widest block mb-1">AdaptFit Coaching Note:</strong> Maintain constant tension on the band throughout. If knee discomfort rises, reduce the range of motion by 20%.</p>
+</div>
+</div>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-xl h-10 px-5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold w-fit border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-base">videocam</span>
+<span class="truncate">View Technique</span>
+</button>
+</div>
+<div class="w-full lg:w-72 bg-center bg-no-repeat aspect-video bg-cover rounded-xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner group-hover:scale-[1.02] transition-transform" data-alt="Person exercising with resistance bands" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA7neBNIfBIEjFeFj-HGj7fx54Ff5iXmogD5wbHpPlwnYgDzaFGTgGD2z3t3W7HL2NYZ5LaT7RkMGiRY8qLGiuKk5045MVzGwBwpgQvHb1xwjRl9-Wtag5B6_oxGGCM5ZWngJTR3Re9h_zod90klA15tb4_3UA9IGhA3vIKJ56nryIJvy8ccrrbT0_VOtNZaovv4VmOm56VwkhIrk5FE6qDwYRVu7EqOCY_cY2TF7TG41hICNTYB8JWASWqm-fEC5ncFEAe9MZaaLo");'></div>
+</div>
+</div>
+</div>
+<div class="mb-16">
+<div class="flex items-center gap-4 mb-6">
+<div class="size-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-primary font-bold">3</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-2xl font-black tracking-tight">Recovery &amp; Cooldown</h2>
+<div class="h-px flex-1 bg-slate-200 dark:border-slate-800"></div>
+<span class="text-slate-500 text-sm font-bold bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">5 Min</span>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div class="flex flex-col lg:flex-row items-stretch justify-between gap-8 rounded-2xl bg-white dark:bg-slate-900 p-6 shadow-sm border border-slate-200 dark:border-slate-800 hover:border-primary/40 transition-colors group">
+<div class="flex flex-[2_2_0px] flex-col gap-5">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="bg-primary/10 text-primary text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">Flexibility</span>
+</div>
+<h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold group-hover:text-primary transition-colors">Static Quad Stretch</h3>
+<p class="text-slate-700 dark:text-slate-300 text-md font-semibold">2 sets x 45 second holds <span class="text-slate-400 font-normal">(per side)</span></p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-xl h-10 px-5 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold w-fit border border-slate-200 dark:border-slate-700 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-base">videocam</span>
+<span class="truncate">View Technique</span>
+</button>
+</div>
+<div class="w-full lg:w-72 bg-center bg-no-repeat aspect-video bg-cover rounded-xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-inner group-hover:scale-[1.02] transition-transform" data-alt="Person stretching their quadriceps" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDWoAeM5lqJXn0O_v5xMapZ0VeA55_xKQ_GW9oP_5OJkJS4wknQuBKT0x7OUFjwGyMJV9sGXws6_LpEebXqKdL7uKstDxIWMZAcCic4hzXb0ar98klJGl0mQmd6eeYEXuJIXW7f7GAs7KSSdxSMgHmqGD87hQtagq54FoJmxP3isOIWhS7QW8mC295Pf-i5x_RVOx2ASFTqvTJvv0cvkqd-9llcfxnUdqWcGBBYOAM_S3zFcfEam6pslaQgOx1I5JeTyEjELcxSDI");'></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-6 justify-center items-center py-12 border-t border-slate-200 dark:border-slate-800">
+<button class="flex min-w-[280px] cursor-pointer items-center justify-center gap-3 rounded-2xl h-16 px-8 bg-primary text-white text-lg font-black shadow-xl shadow-primary/30 hover:bg-primary/90 hover:scale-[1.02] transition-all">
+<span class="material-symbols-outlined">save_as</span>
+<span class="truncate uppercase tracking-tight">Add to My Training Log</span>
+</button>
+<button class="flex min-w-[280px] cursor-pointer items-center justify-center gap-3 rounded-2xl h-16 px-8 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-lg font-black hover:bg-slate-300 dark:hover:bg-slate-700 hover:scale-[1.02] transition-all">
+<span class="material-symbols-outlined">restart_alt</span>
+<span class="truncate uppercase tracking-tight">Generate Different Focus</span>
+</button>
+</div>
+</div>
+</main>
+<footer class="px-10 lg:px-40 py-12 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-center">
+<div class="flex flex-col items-center gap-4">
+<div class="flex items-center gap-2 text-slate-400">
+<div class="size-6 bg-slate-200 dark:bg-slate-800 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">fitness_center</span>
+</div>
+<span class="text-sm font-bold tracking-tighter">AdaptFit AI</span>
+</div>
+<p class="text-slate-400 dark:text-slate-500 text-sm max-w-xl mx-auto leading-relaxed">
+                    © 2024 AdaptFit AI. Our algorithms are designed for injury support, but professional medical advice should always be sought before starting any new exercise program. Form over weight, safety over speed.
+                </p>
+</div>
+</footer>
+</div>
+</div>
+
+</body></html>
+

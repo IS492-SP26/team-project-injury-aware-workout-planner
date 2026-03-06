@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdaptFit AI: Import Workout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3">
+<div class="flex items-center gap-4 text-slate-900 dark:text-white">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-2xl">health_and_safety</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">AdaptFit AI</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Workouts</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Progress</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUzV3Uuu6bcVLc72WGySK80Ie6TQOW7rFsJCWJjgearKdrF5THvcwORt1EfWOO8BviB5AqrzVSQ-dE2dmplOSLI9D749o0gCY9Q9w_O5h3pWKl1J1xYPUVc943AV5VixXEICVqeChtgfXRowXpzWqazTlPJX3n82-UKMfS3Y9Ba0_8uFcUzqBI65EWhBUrBAL8yubyH9RrPMCNce4QHVLLL79Dc4OO2xLMWBu8EjGtaKSoJEexo9QyiGeKsJSk0IMYXuH7ynrAmOY")'></div>
+</div>
+</div>
+</header>
+<main class="px-10 md:px-20 lg:px-40 flex flex-1 justify-center py-8">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<div class="flex flex-wrap gap-2 py-2">
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Workouts</a>
+<span class="text-slate-400 dark:text-slate-600 text-sm font-medium leading-normal">/</span>
+<span class="text-slate-900 dark:text-slate-100 text-sm font-medium leading-normal">Import Workout</span>
+</div>
+<div class="flex flex-wrap justify-between gap-3 py-6">
+<div class="flex min-w-72 flex-col gap-2">
+<h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">AdaptFit AI: Import Workout</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg font-normal leading-normal">Injury-aware workout generator for safe rehabilitation. Upload your current routine for safety analysis.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-8 mt-4">
+<section class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Option 1: Paste Workout Text</h2>
+</div>
+<div class="flex flex-col gap-4">
+<label class="flex flex-col w-full">
+<p class="text-slate-700 dark:text-slate-300 text-base font-semibold leading-normal pb-2">Workout Details</p>
+<textarea class="form-input flex w-full min-w-0 flex-1 resize-none rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 placeholder:text-slate-400 dark:placeholder:text-slate-500 min-h-48 p-4 text-base font-normal leading-relaxed" placeholder="e.g. Barbell Squat 4x8, Bench Press 3x10, Overhead Press 3x12..."></textarea>
+</label>
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm italic">
+<span class="material-symbols-outlined text-sm">info</span>
+<span>Separate exercises with commas or new lines. Include sets and reps for better analysis.</span>
+</div>
+</div>
+</section>
+<section class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<div class="size-10 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center text-red-600 dark:text-red-400">
+<span class="material-symbols-outlined">smart_display</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Option 2: Import from YouTube</h2>
+</div>
+<div class="flex flex-col gap-6">
+<div class="flex flex-col w-full">
+<label class="text-slate-700 dark:text-slate-300 text-base font-semibold leading-normal pb-2">Video Link</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined">link</span>
+</div>
+<input class="form-input flex w-full min-w-0 rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 pl-10 pr-4 py-3 text-base font-normal leading-normal" placeholder="https://www.youtube.com/watch?v=..." type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-slate-100 font-semibold text-sm">AI Transcription</span>
+<span class="text-slate-500 dark:text-slate-400 text-xs">Analyze video audio for instructions</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Visual OCR</span>
+<span class="text-slate-500 dark:text-slate-400 text-xs">Scan video for exercise text/reps</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<div class="flex flex-col gap-4 py-8 items-center border-t border-slate-200 dark:border-slate-800">
+<button class="w-full md:w-auto min-w-[300px] flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white text-lg font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-primary/25">
+<span class="material-symbols-outlined">clinical_notes</span>
+                            Analyze Workout for Safety
+                        </button>
+<p class="text-slate-400 dark:text-slate-500 text-sm text-center">
+                            AdaptFit AI will cross-reference these exercises with your rehabilitation profile.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+<footer class="fixed bottom-0 left-0 right-0 h-1 bg-slate-200 dark:bg-slate-800 hidden md:block">
+<div class="h-full bg-primary" style="width: 85%;"></div>
+</footer>
+</div>
+</div>
+
+</body></html>
+

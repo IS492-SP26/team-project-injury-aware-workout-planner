@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdaptFit AI: Injury Assessment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 md:px-20 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">fitness_center</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">AdaptFit AI</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Workouts</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Assessments</a>
+<a class="text-slate-700 dark:text-slate-300 hover:text-primary transition-colors text-sm font-medium" href="#">Profile</a>
+</nav>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-all">
+<span>Save Progress</span>
+</button>
+<div class="bg-slate-200 dark:bg-slate-700 aspect-square rounded-full size-10 flex items-center justify-center overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAlSKWHaz_Bq72FphXJgbKkZGfgYLbCI1qUSG7BWVu_B0EJ-58r0Cuj-7YeMnmhzrq1YloSbZE8Q-4kzAVeinVImlRU3j140NhG-S9kHGBgE-0Ctm7SVZUBm75KlvAh3qps13XBnDUZFqj_VR2Ahd0UVpLixAYhlsZWk0OUlUbkijxfjZHWJStW1Gl0drmjI4S7HwXv5KH-Sb56m720r8EuifJ4zxHJT_CHid4IChdkF3WBtsVQY67ePkPxe0BKgIjCR8MaePGznY"/>
+</div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-10 px-4">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<div class="flex flex-wrap justify-between gap-3 p-4 mb-6">
+<div class="flex min-w-72 flex-col gap-2">
+<h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tight">AdaptFit AI: Injury Assessment</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg font-normal">Injury-aware workout generator for safe rehabilitation and training.</p>
+</div>
+</div>
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 mb-8 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center font-bold">A</span>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight">Pain Assessment</h2>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-base font-normal pb-6">Please rate your pain level (0 = No Pain, 10 = Severe Pain) during the following activities:</p>
+<div class="space-y-8">
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<label class="text-slate-800 dark:text-slate-200 font-semibold">Overall Daily Pain
+                                    <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-lg text-primary font-bold ml-2">3</span>
+</label>
+</div>
+<div class="relative w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full">
+<div class="absolute top-0 left-0 h-full w-[30%] bg-primary rounded-full"></div>
+<div class="absolute top-1/2 left-[30%] -translate-y-1/2 size-5 rounded-full bg-white border-2 border-primary shadow-md cursor-pointer"></div>
+</div>
+<div class="flex justify-between text-xs text-slate-400">
+<span>No pain</span>
+<span>Moderate</span>
+<span>Unbearable</span>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<label class="text-slate-800 dark:text-slate-200 font-semibold">Deep Squats
+                                    <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-lg text-primary font-bold ml-2">6</span>
+</label>
+</div>
+<div class="relative w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full">
+<div class="absolute top-0 left-0 h-full w-[60%] bg-primary rounded-full"></div>
+<div class="absolute top-1/2 left-[60%] -translate-y-1/2 size-5 rounded-full bg-white border-2 border-primary shadow-md cursor-pointer"></div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<label class="text-slate-800 dark:text-slate-200 font-semibold">Stairs (Ascending/Descending)
+                                    <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-lg text-primary font-bold ml-2">4</span>
+</label>
+</div>
+<div class="relative w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-full">
+<div class="absolute top-0 left-0 h-full w-[40%] bg-primary rounded-full"></div>
+<div class="absolute top-1/2 left-[40%] -translate-y-1/2 size-5 rounded-full bg-white border-2 border-primary shadow-md cursor-pointer"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 mb-8 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center font-bold">B</span>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight">Functional Screening</h2>
+</div>
+<p class="text-slate-600 dark:text-slate-300 text-base font-normal mb-6">Complete the following tasks and rate your confidence level:</p>
+<div class="space-y-6">
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 flex flex-col gap-4 border border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white">Single Leg Balance (30s)</h3>
+<p class="text-sm text-slate-500">Can you maintain stability without touching down?</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold">Yes</button>
+<button class="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 text-sm font-semibold">No</button>
+</div>
+</div>
+<div class="pt-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block">Stability Confidence</label>
+<div class="flex gap-1 h-3">
+<div class="flex-1 bg-primary rounded-l-full"></div>
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-slate-200 dark:bg-slate-700"></div>
+<div class="flex-1 bg-slate-200 dark:bg-slate-700"></div>
+<div class="flex-1 bg-slate-200 dark:bg-slate-700 rounded-r-full"></div>
+</div>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 flex flex-col gap-4 border border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white">Glute Bridge Hold</h3>
+<p class="text-sm text-slate-500">Do you feel any discomfort in the lower back?</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 text-sm font-semibold">Yes</button>
+<button class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-semibold">No</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 mb-8 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center font-bold">C</span>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight">Movement Limitations</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<label class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary transition-colors">
+<input class="rounded text-primary focus:ring-primary h-5 w-5 bg-transparent border-slate-300 dark:border-slate-600" type="checkbox"/>
+<span class="text-slate-800 dark:text-slate-200 font-medium">Reduced Knee Flexion</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary transition-colors">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-transparent border-slate-300 dark:border-slate-600" type="checkbox"/>
+<span class="text-slate-800 dark:text-slate-200 font-medium">Ankle Stiffness</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary transition-colors">
+<input class="rounded text-primary focus:ring-primary h-5 w-5 bg-transparent border-slate-300 dark:border-slate-600" type="checkbox"/>
+<span class="text-slate-800 dark:text-slate-200 font-medium">Hip Impingement</span>
+</label>
+<label class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-primary transition-colors">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-transparent border-slate-300 dark:border-slate-600" type="checkbox"/>
+<span class="text-slate-800 dark:text-slate-200 font-medium">Lower Back Tightness</span>
+</label>
+</div>
+</section>
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 mb-12 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center font-bold">D</span>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold leading-tight">Rehab Status &amp; Notes</h2>
+</div>
+<div class="flex flex-col gap-4">
+<label class="text-slate-700 dark:text-slate-300 font-medium">Briefly describe any current therapy or exercises you are performing:</label>
+<textarea class="w-full min-h-[120px] rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-4 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-slate-800 dark:text-slate-100" placeholder="e.g., Currently doing physical therapy 2x a week, focusing on eccentric loading for the patellar tendon..."></textarea>
+</div>
+</section>
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-slate-900 dark:bg-primary text-white p-6 rounded-xl mb-12">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-3xl">analytics</span>
+<div>
+<p class="font-bold text-lg">Analysis Ready</p>
+<p class="text-sm opacity-80">Our engine will generate a safe training plan based on your inputs.</p>
+</div>
+</div>
+<button class="w-full md:w-auto px-8 py-3 bg-white text-slate-900 font-black rounded-lg hover:bg-slate-100 transition-colors uppercase tracking-wider">
+                        Generate Workout Plan
+                    </button>
+</div>
+</div>
+</main>
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-10 px-6">
+<div class="max-w-[960px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm">© 2024 AdaptFit AI. Medical Disclaimer: Consult a doctor before starting any exercise program.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+
+</body></html>

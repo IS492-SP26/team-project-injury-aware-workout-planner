@@ -1,0 +1,159 @@
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<nav class="border-b border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16 items-center">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-icons text-white text-sm">fitness_center</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-primary">AdaptFit AI</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">My Progress</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Safety Tips</a>
+<button class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-icons text-slate-600 dark:text-slate-400">person_outline</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 py-12">
+<div class="text-center mb-12">
+<h1 class="text-3xl md:text-4xl font-extrabold mb-4">AdaptFit AI: Recovery Readiness</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">We've analyzed your current physical markers and rehabilitation progress. Here is your current readiness status for safe training.</p>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-xl shadow-primary/5 overflow-hidden border border-slate-100 dark:border-slate-800">
+<div class="p-8 md:p-12">
+<div class="flex flex-col items-center">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-slate-100 dark:text-slate-800" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="16"></circle>
+<circle class="text-emerald-500" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-dasharray="691" stroke-dashoffset="152" stroke-linecap="round" stroke-width="16"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-5xl font-black text-slate-900 dark:text-white">78</span>
+<span class="text-slate-500 dark:text-slate-400 font-semibold">/ 100</span>
+</div>
+</div>
+<div class="mt-8 flex items-center gap-2 px-6 py-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 rounded-full border border-emerald-100 dark:border-emerald-800/30 font-bold text-lg">
+<span class="material-icons text-lg">check_circle</span>
+                        Safe for structured training
+                    </div>
+<div class="mt-10 text-center">
+<h2 class="text-2xl font-bold mb-3">Mid-Rehabilitation Stage</h2>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-lg">
+                            Excellent progress! Your AdaptFit AI analysis indicates you are currently in the <strong>mid-rehabilitation stage</strong>. You have regained significant mobility and basic strength. It is now safe to proceed with structured resistance training, focusing on controlled movements and stability.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mt-12">
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-icons text-sm">trending_up</span>
+<span class="text-xs font-bold uppercase tracking-wider">Mobility</span>
+</div>
+<div class="text-xl font-bold">82%</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-icons text-sm">fitness_center</span>
+<span class="text-xs font-bold uppercase tracking-wider">Strength</span>
+</div>
+<div class="text-xl font-bold">65%</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-icons text-sm">psychology</span>
+<span class="text-xs font-bold uppercase tracking-wider">Pain Index</span>
+</div>
+<div class="text-xl font-bold text-emerald-500">Low</div>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2">
+<div class="bg-emerald-500 h-1.5 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+</div>
+<div class="mt-12 flex flex-col sm:flex-row gap-4 w-full">
+<button class="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                            Continue to Workout Selection
+                            <span class="material-icons">arrow_forward</span>
+                        </button>
+<button class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold py-4 px-8 rounded-xl transition-all flex items-center justify-center gap-2">
+<span class="material-icons">description</span>
+                            View Detailed Report
+                        </button>
+</div>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 p-6 flex items-start gap-4">
+<span class="material-icons text-amber-500">info</span>
+<p class="text-xs text-slate-500 dark:text-slate-400">
+                    This AdaptFit AI readiness score is generated based on your self-reported data and physiological metrics. Always listen to your body. If you experience sharp pain during any workout, stop immediately and consult with your physical therapist or doctor.
+                </p>
+</div>
+</div>
+<div class="mt-12">
+<h3 class="text-lg font-bold mb-6">Recommended for you today</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+<img alt="Yoga stretches" class="w-20 h-20 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa531Ep619oxuu6jMn9VWdnymw2qfV8euqgCKs4choLMo1vkSYK3Gs8AsprxM0nehh_uCocVC1fXnr5c-EFoEGnQQflIv0fYgsLjdhP9IXD1Q9aE329fwqYVAaEl19P4aG_KQ7Vc9G1gXR8SF30tqoohE0QxyfHZeR3fX2ytXfyC3e-TvmNIoii5QsoEV3BCUtKBcAZA7VncvoO5BNUorJIFl55edthHwDwG8ZLsZ2R8UuTYW3ffCJyftUqLZPVxQ3YgFjsqqx-Os"/>
+<div class="ml-4">
+<h4 class="font-bold">Active Recovery</h4>
+<p class="text-sm text-slate-500">15 min • Low Intensity</p>
+</div>
+</div>
+<div class="flex items-center p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+<img alt="Strength training" class="w-20 h-20 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD08yOGbeDFFQcevQ0EM_8UMd3YU2p-36pm9xGGg8MUoziQFrMFXmIy5BT3zWZpiPCwE1YYk-SPWqFtKmATAY-41X_tNYvh3A7CiJoleNrEio9c_w7FffEIOfmqFkrTJO89EkC5gA88Yx7W3qSTR_6688vx8d46-Ls1Bxvf7uYcjGK2SmbIFUXtxOx4DebJ0E4gE653rukeJ2tU0arTzuU8KngpmOOKDof-ntCo_aYMT9nU66MnB4viENDxwIxjoCy7h2mJF0pf--E"/>
+<div class="ml-4">
+<h4 class="font-bold">Foundational Strength</h4>
+<p class="text-sm text-slate-500">30 min • Med Intensity</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-8">
+<div class="max-w-7xl mx-auto px-4 text-center">
+<p class="text-slate-500 text-sm">© 2024 AdaptFit AI Readiness Score. Injury-aware workout generator for safe rehabilitation.</p>
+</div>
+</footer>
+
+</body></html>
+

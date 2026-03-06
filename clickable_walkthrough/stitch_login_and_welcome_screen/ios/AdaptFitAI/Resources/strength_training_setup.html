@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdaptFit AI: Strength Config</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 md:px-20 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">health_and_safety</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">AdaptFit AI</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Workouts</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Progress</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Rehab</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Profile</a>
+</nav>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold transition-all hover:bg-primary/90">
+<span>Start Workout</span>
+</button>
+<div class="bg-slate-200 dark:bg-slate-700 rounded-full size-10 flex items-center justify-center overflow-hidden border border-slate-300 dark:border-slate-600">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUX0nnLBt9VN5Pj53s0OWTrXH0TnwnpxeKLWPybgOQzdsEYX71c1O0rXH6bds1u8w0r99JSo4PjbOlcTq1-ukB0dWOUS5AUotgkSCrZkj3LFycIqLsT_YFukYjw4z6-0M1ke2dYSqroEaTa0B5IhKJ-RVZNnk94RdECXu1_MTfuLtkThLkklfmjczmiqtLExC4BK2rgWeKl-B-S_5FmnvSA4mQ-CZ_WbhuhoCYU7kb5J6nCo78FUiB7KkdXfW-MOookQdL8GWND_o"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex justify-center py-10 px-4 md:px-20">
+<div class="max-w-[800px] w-full flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<h1 class="text-slate-900 dark:text-white text-3xl font-black tracking-tight">AdaptFit AI: Strength Config</h1>
+<span class="text-primary text-sm font-semibold">Step 7 of 10</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[70%]"></div>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-base">Injury-aware workout generator for safe rehabilitation and training.</p>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-8">
+<section class="flex flex-col gap-4">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold">What type of strength workout?</h3>
+<div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl h-12 w-full">
+<label class="flex-1 cursor-pointer">
+<input checked="" class="peer hidden" name="workout-type" type="radio"/>
+<div class="h-full flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 peer-checked:bg-white dark:peer-checked:bg-slate-700 peer-checked:text-primary peer-checked:shadow-sm font-semibold transition-all">
+                                Compound
+                            </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer hidden" name="workout-type" type="radio"/>
+<div class="h-full flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 peer-checked:bg-white dark:peer-checked:bg-slate-700 peer-checked:text-primary peer-checked:shadow-sm font-semibold transition-all">
+                                Single Muscle Group
+                            </div>
+</label>
+</div>
+</section>
+<section class="flex flex-col gap-4">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold">Focus Area</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<label class="cursor-pointer">
+<input checked="" class="peer hidden" name="focus" type="checkbox"/>
+<div class="flex flex-col items-center justify-center p-4 border-2 border-slate-100 dark:border-slate-800 rounded-xl text-slate-500 dark:text-slate-400 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all hover:border-slate-300">
+<span class="material-symbols-outlined mb-2">accessibility_new</span>
+<span class="text-sm font-medium">Full Body</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer hidden" name="focus" type="checkbox"/>
+<div class="flex flex-col items-center justify-center p-4 border-2 border-slate-100 dark:border-slate-800 rounded-xl text-slate-500 dark:text-slate-400 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all hover:border-slate-300">
+<span class="material-symbols-outlined mb-2">vertical_align_top</span>
+<span class="text-sm font-medium">Upper</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer hidden" name="focus" type="checkbox"/>
+<div class="flex flex-col items-center justify-center p-4 border-2 border-slate-100 dark:border-slate-800 rounded-xl text-slate-500 dark:text-slate-400 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all hover:border-slate-300">
+<span class="material-symbols-outlined mb-2">vertical_align_bottom</span>
+<span class="text-sm font-medium">Lower</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer hidden" name="focus" type="checkbox"/>
+<div class="flex flex-col items-center justify-center p-4 border-2 border-slate-100 dark:border-slate-800 rounded-xl text-slate-500 dark:text-slate-400 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary transition-all hover:border-slate-300">
+<span class="material-symbols-outlined mb-2">more_horiz</span>
+<span class="text-sm font-medium">Specific</span>
+</div>
+</label>
+</div>
+</section>
+<section class="flex flex-col gap-4">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold">Equipment Available</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<label class="cursor-pointer">
+<input checked="" class="peer hidden" name="equipment" type="radio"/>
+<div class="flex items-center gap-3 p-4 border border-slate-200 dark:border-slate-800 rounded-xl peer-checked:bg-primary peer-checked:text-white transition-all">
+<span class="material-symbols-outlined">person</span>
+<span class="font-medium">Bodyweight</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer hidden" name="equipment" type="radio"/>
+<div class="flex items-center gap-3 p-4 border border-slate-200 dark:border-slate-800 rounded-xl peer-checked:bg-primary peer-checked:text-white transition-all">
+<span class="material-symbols-outlined">exercise</span>
+<span class="font-medium">Dumbbells</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer hidden" name="equipment" type="radio"/>
+<div class="flex items-center gap-3 p-4 border border-slate-200 dark:border-slate-800 rounded-xl peer-checked:bg-primary peer-checked:text-white transition-all">
+<span class="material-symbols-outlined">apartment</span>
+<span class="font-medium">Full Gym</span>
+</div>
+</label>
+</div>
+</section>
+<section class="flex flex-col gap-4">
+<h3 class="text-slate-900 dark:text-white text-xl font-bold">Workout Duration</h3>
+<div class="flex gap-4">
+<label class="flex-1 cursor-pointer">
+<input class="peer hidden" name="duration" type="radio"/>
+<div class="flex items-center justify-center py-3 border border-slate-200 dark:border-slate-800 rounded-xl peer-checked:border-primary peer-checked:text-primary font-bold">
+                                20 min
+                            </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input checked="" class="peer hidden" name="duration" type="radio"/>
+<div class="flex items-center justify-center py-3 border border-slate-200 dark:border-slate-800 rounded-xl peer-checked:border-primary peer-checked:text-primary font-bold">
+                                30 min
+                            </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer hidden" name="duration" type="radio"/>
+<div class="flex items-center justify-center py-3 border border-slate-200 dark:border-slate-800 rounded-xl peer-checked:border-primary peer-checked:text-primary font-bold">
+                                45 min
+                            </div>
+</label>
+</div>
+</section>
+<div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+<button class="px-6 h-12 flex items-center justify-center text-slate-500 dark:text-slate-400 font-bold hover:text-slate-700 transition-colors">
+                        Back
+                    </button>
+<button class="px-10 h-12 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all">
+                        Next Step
+                    </button>
+</div>
+</div>
+<div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-900/30 p-4 rounded-xl flex gap-3">
+<span class="material-symbols-outlined text-amber-600 dark:text-amber-500">info</span>
+<p class="text-sm text-amber-800 dark:text-amber-400 font-medium">
+                    Based on your profile, AdaptFit AI will avoid exercises that impact your recovery. All generated movements will include safe alternatives tailored to your injury history.
+                </p>
+</div>
+</div>
+</main>
+<footer class="py-10 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-slate-400 text-sm">© 2024 AdaptFit AI Training. All rights reserved.</p>
+</footer>
+</div>
+
+</body></html>
+

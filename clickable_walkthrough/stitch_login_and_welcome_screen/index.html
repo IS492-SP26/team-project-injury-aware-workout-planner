@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AdaptFit AI – Clickable Walkthrough</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #020617;
+        --bg-alt: #0f172a;
+        --card: #020617;
+        --border: #1f2937;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --accent: #137fec;
+        --accent-soft: rgba(19, 127, 236, 0.2);
+        --radius-lg: 16px;
+        --shadow-soft: 0 24px 40px rgba(15, 23, 42, 0.6);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Inter", sans-serif;
+        background: radial-gradient(circle at top, #1d283a 0, #020617 55%);
+        color: var(--text);
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      .shell {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: min(1200px, 100vw);
+        padding: 16px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-badge {
+        width: 32px;
+        height: 32px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #137fec, #22d3ee);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        font-weight: 800;
+        box-shadow: 0 10px 25px rgba(15, 118, 178, 0.65);
+      }
+
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .brand-title {
+        font-weight: 750;
+        letter-spacing: -0.03em;
+        font-size: 18px;
+      }
+
+      .brand-sub {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+      }
+
+      main {
+        display: flex;
+        flex: 1;
+        gap: 16px;
+        min-height: 0;
+      }
+
+      .sidebar {
+        width: 260px;
+        max-width: 40vw;
+        background: linear-gradient(
+          145deg,
+          rgba(15, 23, 42, 0.98),
+          rgba(2, 6, 23, 0.98)
+        );
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .sidebar-header {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .sidebar-title {
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .sidebar-sub {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .steps {
+        list-style: none;
+        padding: 0;
+        margin: 8px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        overflow: auto;
+      }
+
+      .step {
+        border-radius: 999px;
+        padding: 6px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: background 0.15s ease, border-color 0.15s ease,
+          color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      }
+
+      .step:hover {
+        background: rgba(15, 23, 42, 0.9);
+        border-color: rgba(148, 163, 184, 0.45);
+        transform: translateY(-0.5px);
+      }
+
+      .step-number {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .step-label {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .step.active {
+        background: linear-gradient(135deg, #137fec, #22c55e);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 12px 30px rgba(37, 99, 235, 0.7);
+      }
+
+      .step.active .step-number {
+        background: rgba(15, 23, 42, 0.2);
+      }
+
+      .content {
+        flex: 1;
+        min-width: 0;
+        background: radial-gradient(circle at top left, #1f2937 0, #020617 55%);
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        box-shadow: var(--shadow-soft);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .content-header {
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+        backdrop-filter: blur(18px);
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.9),
+          rgba(2, 6, 23, 0.9)
+        );
+      }
+
+      .content-title {
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .content-sub {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .pill {
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.45);
+        font-size: 11px;
+        color: var(--muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .pill-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .frame-wrap {
+        flex: 1;
+        min-height: 0;
+        background: #020617;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: #020617;
+      }
+
+      .controls {
+        padding: 10px 16px 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        border-top: 1px solid rgba(148, 163, 184, 0.25);
+        backdrop-filter: blur(16px);
+        background: linear-gradient(
+          to top,
+          rgba(15, 23, 42, 0.95),
+          rgba(15, 23, 42, 0.8)
+        );
+      }
+
+      .btn {
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 12px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        background: rgba(15, 23, 42, 0.9);
+        color: var(--muted);
+        transition: background 0.15s ease, border-color 0.15s ease,
+          color 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
+      }
+
+      .btn:hover:not(:disabled) {
+        background: rgba(15, 23, 42, 0.95);
+        border-color: rgba(148, 163, 184, 0.5);
+        color: var(--text);
+        transform: translateY(-0.5px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #137fec, #22c55e);
+        color: white;
+        box-shadow: 0 12px 25px rgba(37, 99, 235, 0.65);
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        box-shadow: 0 16px 32px rgba(37, 99, 235, 0.8);
+      }
+
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: default;
+        box-shadow: none;
+        transform: none;
+      }
+
+      .counter {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 960px) {
+        main {
+          flex-direction: column;
+        }
+        .sidebar {
+          width: 100%;
+          max-width: 100%;
+          order: 2;
+        }
+        .content {
+          order: 1;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .shell {
+          padding: 12px;
+        }
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .content-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .controls {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .btn {
+          justify-content: center;
+          width: 100%;
+        }
+        .counter {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <div class="brand">
+          <div class="brand-badge">A</div>
+          <div class="brand-text">
+            <div class="brand-title">AdaptFit&nbsp;AI</div>
+            <div class="brand-sub">Clickable product walkthrough</div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <div class="sidebar-title">Flow steps</div>
+            <div class="sidebar-sub">
+              Click any step or use Next / Back to walk through.
+            </div>
+          </div>
+          <ul id="steps" class="steps"></ul>
+        </aside>
+
+        <section class="content">
+          <div class="content-header">
+            <div>
+              <div id="stepTitle" class="content-title"></div>
+              <div id="stepSubtitle" class="content-sub"></div>
+            </div>
+            <div class="pill">
+              <span class="pill-dot"></span>
+              <span id="stepCounter">1 / 1</span>
+            </div>
+          </div>
+          <div class="frame-wrap">
+            <iframe
+              id="frame"
+              title="AdaptFit AI walkthrough"
+              src="about:blank"
+            ></iframe>
+          </div>
+          <div class="controls">
+            <button id="prevBtn" class="btn" type="button">
+              ← Back
+            </button>
+            <span class="counter" id="hint">
+              Tip: you can also tap any step on the left.
+            </span>
+            <button id="nextBtn" class="btn btn-primary" type="button">
+              Next →
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const steps = [
+        {
+          id: "login",
+          title: "Login & Welcome",
+          subtitle: "Marketing landing + sign-in",
+          path: "login_and_welcome_screen/code.html",
+        },
+        {
+          id: "profile",
+          title: "Profile Setup",
+          subtitle: "Training background & goals",
+          path: "user_profile_setup/code.html",
+        },
+        {
+          id: "injury-id",
+          title: "Injury Identification",
+          subtitle: "Where & what hurts",
+          path: "injury_identification/code.html",
+        },
+        {
+          id: "injury-assess",
+          title: "Injury Assessment",
+          subtitle: "Pain score & functional tests",
+          path: "injury_assessment_questionnaire/code.html",
+        },
+        {
+          id: "gen-path",
+          title: "Choose Generation Path",
+          subtitle: "New vs existing workout",
+          path: "choose_generation_path/code.html",
+        },
+        {
+          id: "import",
+          title: "Import / Paste Workout",
+          subtitle: "Upload routine or link",
+          path: "import_or_paste_workout/code.html",
+        },
+        {
+          id: "workout-type",
+          title: "Workout Type",
+          subtitle: "Strength, HIIT, endurance, running",
+          path: "workout_type_selection/code.html",
+        },
+        {
+          id: "strength-setup",
+          title: "Strength Config",
+          subtitle: "Equipment, duration, focus",
+          path: "strength_training_setup/code.html",
+        },
+        {
+          id: "ai-loading",
+          title: "AI Generation",
+          subtitle: "Safety & modifications loading",
+          path: "ai_generation_loading_state/code.html",
+        },
+        {
+          id: "new-plan",
+          title: "New Tailored Plan",
+          subtitle: "Generated injury-aware workout",
+          path: "new_tailored_workout_plan/code.html",
+        },
+        {
+          id: "modified",
+          title: "Modified Workout Results",
+          subtitle: "Risk table + substitutions",
+          path: "modified_workout_results/code.html",
+        },
+        {
+          id: "ready",
+          title: "Recovery Readiness",
+          subtitle: "Score when cleared to train",
+          path: "recovery_readiness_result/code.html",
+        },
+        {
+          id: "not-ready",
+          title: "Not Cleared",
+          subtitle: "Low-score recovery guidance",
+          path: "not_cleared_evaluation_result/code.html",
+        },
+      ];
+
+      const stepsEl = document.getElementById("steps");
+      const frameEl = document.getElementById("frame");
+      const titleEl = document.getElementById("stepTitle");
+      const subtitleEl = document.getElementById("stepSubtitle");
+      const counterEl = document.getElementById("stepCounter");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      let current = 0;
+
+      function renderSteps() {
+        stepsEl.innerHTML = "";
+        steps.forEach((step, index) => {
+          const li = document.createElement("li");
+          li.className = "step" + (index === current ? " active" : "");
+          li.dataset.index = index.toString();
+
+          const num = document.createElement("div");
+          num.className = "step-number";
+          num.textContent = (index + 1).toString();
+
+          const label = document.createElement("div");
+          label.className = "step-label";
+          label.textContent = step.title;
+
+          li.appendChild(num);
+          li.appendChild(label);
+          li.addEventListener("click", () => goTo(index));
+          stepsEl.appendChild(li);
+        });
+      }
+
+      function goTo(index) {
+        if (index < 0 || index >= steps.length) return;
+        current = index;
+        const step = steps[current];
+
+        frameEl.src = step.path;
+        titleEl.textContent = step.title;
+        subtitleEl.textContent = step.subtitle;
+        counterEl.textContent = `${current + 1} / ${steps.length}`;
+
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === steps.length - 1;
+        nextBtn.textContent =
+          current === steps.length - 1 ? "Done" : "Next →";
+
+        renderSteps();
+      }
+
+      prevBtn.addEventListener("click", () => goTo(current - 1));
+      nextBtn.addEventListener("click", () => {
+        if (current < steps.length - 1) {
+          goTo(current + 1);
+        }
+      });
+
+      // Initial render
+      renderSteps();
+      goTo(0);
+    </script>
+  </body>
+</html>
+

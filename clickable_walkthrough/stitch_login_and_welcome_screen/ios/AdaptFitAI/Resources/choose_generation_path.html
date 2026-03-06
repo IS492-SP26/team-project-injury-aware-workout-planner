@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdaptFit AI: Generation Path</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-3 bg-white dark:bg-background-dark">
+<div class="flex items-center gap-4">
+<div class="text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">health_metrics</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">AdaptFit AI</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Workouts</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Progress</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCs3R6kmRnOBs8OBa5EqsRV9IaFKQDGK0uYjJMZFvpuedMihWoMkXSHNL4vCztRWOHE3PQfj9NOe4356a3iCO1G7VDdKIhhYfC2clMBmfMhmD1Amj1hmpnN6iwx22FCNEsrMZRduWP-Lb-pfozOO_oTUB9qwVsMcwzcobdUem_pOc2Q6XmeJn2afj1AeNfBiywshFMGhh67JNESdDwD0dBtEzh0S8vTXywhy09p4tQb-uflGShonNaiVjJkB6B0lgMDQ1U0pxrCSco");'>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-4 py-12 md:px-40">
+<div class="layout-content-container flex flex-col max-w-[960px] w-full gap-8">
+<div class="flex flex-col gap-3 text-center mb-4">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]">AdaptFit AI: Generation Path</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg font-normal max-w-2xl mx-auto">
+                            Injury-aware workout generator for safe rehabilitation. Select how you would like to build your routine today.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-4">
+<div class="flex flex-col group bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:border-primary">
+<div class="relative h-64 w-full bg-primary/10 flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
+<span class="material-symbols-outlined text-primary text-7xl group-hover:scale-110 transition-transform duration-300">fitness_center</span>
+<div class="absolute bottom-4 left-4 right-4 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-1/3"></div>
+</div>
+</div>
+<div class="p-8 flex flex-col gap-4">
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 text-2xl font-bold mb-2">Generate New Workout</h3>
+<p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+                                        Build a tailored plan from scratch. We'll perform a quick assessment of your injury history, current mobility, and fitness targets to craft a safe routine.
+                                    </p>
+</div>
+<ul class="space-y-2">
+<li class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span> Comprehensive assessment
+                                    </li>
+<li class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span> Safe rehab protocols
+                                    </li>
+</ul>
+<button class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-lg h-14 px-6 bg-primary text-white text-lg font-bold hover:bg-primary/90 transition-colors">
+<span class="truncate">Start Assessment</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col group bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all hover:border-primary">
+<div class="relative h-64 w-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-tr from-slate-200 dark:from-slate-700 to-transparent"></div>
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-7xl group-hover:scale-110 transition-transform duration-300">upload_file</span>
+<div class="absolute bottom-4 left-4 right-4 flex gap-1">
+<div class="h-1 bg-primary w-1/4 rounded-full"></div>
+<div class="h-1 bg-primary w-1/4 rounded-full"></div>
+<div class="h-1 bg-slate-300 dark:bg-slate-600 w-1/4 rounded-full"></div>
+<div class="h-1 bg-slate-300 dark:bg-slate-600 w-1/4 rounded-full"></div>
+</div>
+</div>
+<div class="p-8 flex flex-col gap-4">
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 text-2xl font-bold mb-2">Modify Existing Workout</h3>
+<p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+                                        Upload or paste your current routine. Our AI will analyze exercises for risks related to your injury and suggest safer alternatives or modifications.
+                                    </p>
+</div>
+<ul class="space-y-2">
+<li class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span> Upload PDF, Image, or Text
+                                    </li>
+<li class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span> Risk identification
+                                    </li>
+</ul>
+<button class="mt-4 flex w-full cursor-pointer items-center justify-center rounded-lg h-14 px-6 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white text-lg font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+<span class="truncate">Upload Routine</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center gap-6 py-8">
+<p class="text-slate-500 dark:text-slate-500 text-sm font-medium uppercase tracking-widest">More Options</p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="flex items-center gap-2 px-6 py-3 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">history</span>
+                                Load Previous Session
+                            </button>
+<button class="flex items-center gap-2 px-6 py-3 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">medical_services</span>
+                                Physio Consultation
+                            </button>
+</div>
+</div>
+</div>
+</main>
+<footer class="flex flex-col gap-6 px-5 py-10 text-center border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark">
+<div class="flex flex-wrap items-center justify-center gap-6 md:flex-row md:justify-around">
+<a class="text-slate-500 dark:text-slate-400 text-sm font-normal hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-normal hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-normal hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+<div class="flex items-center justify-center gap-2 text-slate-400 dark:text-slate-500 text-sm font-normal">
+<span class="material-symbols-outlined text-base">copyright</span>
+<p>2024 AdaptFit AI. Empowering safe recovery through intelligent coaching.</p>
+</div>
+</footer>
+</div>
+</div>
+
+</body></html>
+
