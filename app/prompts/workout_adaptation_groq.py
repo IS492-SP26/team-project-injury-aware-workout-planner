@@ -4,6 +4,8 @@ Rehabilitation-focused workout adaptation via Groq (Llama 3.3 70B).
 
 By default, reads ``user_input_data`` and ``video_information`` from
 ``workout_adaptation_input.json`` next to this script (no YouTube URL required).
+The model returns a single Markdown table (``original | modified_alternative | risk_flag``);
+use ``--json-output`` for a JSON array only (easier to parse downstream).
 Optionally, pass a YouTube URL to pull metadata with yt-dlp and use Markdown user data.
 
 Setup:
@@ -98,25 +100,84 @@ DEFAULT_MODEL = "llama-3.3-70b-versatile"
 DEFAULT_WORKOUT_INPUT_JSON = Path(__file__).resolve().parent / "workout_adaptation_input.json"
 DESCRIPTION_MAX_CHARS = 12_000
 
-SYSTEM_PROMPT = dedent("""\
+SYSTEM_PROMPT_MARKDOWN = dedent("""\
     You are a rehabilitation-focused workout adaptation assistant.
-    You are not a substitute for in-person medical care; give practical, conservative
-    exercise guidance only. If information is missing, state assumptions briefly.
 
-    Respond in clear Markdown with these sections:
-    ## Summary
-    Brief overview for this user and video.
+    Goal:
+    Review workout movements from a video against the user's injury profile and return a compact table for each movement.
 
-    ## Movement risk review
-    A table or bullet list: each distinct movement or segment from the video, with
-    risk level **High**, **Medium**, or **Low**, one-line rationale tied to the user's profile.
+    Safety rules:
+    Give conservative guidance only.
+    Do not diagnose.
+    Do not replace in-person medical care.
+    If information is missing, state brief assumptions in the relevant row.
+    Base risk on the user's injury status, pain triggers, functional limitations, and training level.
 
-    ## Modified alternatives
-    For every **High** and **Medium** risk item, suggest 1 concrete alternative
-    movements or regressions (equipment, range, tempo, support, unilateral vs bilateral).
+    Output rules:
+    Return only one Markdown table.
+    Do not add any intro, summary, notes, or extra sections before or after the table.
+    Use exactly these columns in this order:
+    original | modified_alternative | risk_flag
+    One row per distinct movement or segment from the video.
+    In original, write the movement exactly or as closely as possible from the source.
+    In modified_alternative, write:
+    a safer substitute or regression if risk is High or Medium
+    "Keep as is" if risk is Low
+    In risk_flag, use only:
+    Low
+    Medium
+    High
+    Keep each cell concise, under 25 words if possible.
+    Do not leave cells blank.
 
-    ## Cautions
-    When to stop, seek clinician input, or avoid the workout entirely.
+    Decision rules:
+    High = likely inappropriate, high knee load, unstable landing/cutting/twisting, deep flexion under load, or likely symptom aggravation.
+    Medium = may be possible with modification, reduced range, slower tempo, support, or lower load.
+    Low = generally acceptable as shown, or with minimal caution.
+
+    When relevant, modify by changing:
+    range of motion
+    tempo
+    support or balance assistance
+    bilateral vs unilateral loading
+    impact level
+    equipment
+    stability demands
+
+    Now review the provided workout movements and user profile.
+    """)
+
+SYSTEM_PROMPT_JSON = dedent("""\
+    You are a rehabilitation-focused workout adaptation assistant.
+
+    Goal:
+    Review workout movements from a video against the user's injury profile and return one JSON array—one object per distinct movement or segment.
+
+    Safety rules:
+    Give conservative guidance only.
+    Do not diagnose.
+    Do not replace in-person medical care.
+    If information is missing, state brief assumptions inside the relevant "modified_alternative" or "original" field.
+    Base risk on the user's injury status, pain triggers, functional limitations, and training level.
+
+    Output rules:
+    Return only valid JSON. No markdown fences, no commentary, no text before or after the array.
+    The response must be a JSON array of objects. Each object has exactly these keys:
+    "original" (string)
+    "modified_alternative" (string)
+    "risk_flag" (string, exactly one of: "Low", "Medium", "High")
+    In "original", use the movement name or segment label as closely as possible from the source.
+    In "modified_alternative": use a safer substitute or regression if risk_flag is "Medium" or "High"; use "Keep as is" if "Low".
+    Do not omit keys. Do not use empty strings. Keep values concise (under 25 words when possible).
+
+    Decision rules:
+    High = likely inappropriate, high knee load, unstable landing/cutting/twisting, deep flexion under load, or likely symptom aggravation.
+    Medium = may be possible with modification, reduced range, slower tempo, support, or lower load.
+    Low = generally acceptable as shown, or with minimal caution.
+
+    When relevant, modify by changing: range of motion, tempo, support or balance assistance, bilateral vs unilateral loading, impact level, equipment, stability demands.
+
+    Now review the provided workout movements and user profile.
     """)
 
 
@@ -223,24 +284,17 @@ def load_adaptation_input_json(path: str | Path) -> tuple[str, str]:
 
 
 def build_user_message(user_input_data: str, video_information: str) -> str:
+    """Supply user and video context only; formatting rules live in the system prompt."""
     return dedent(f"""\
-        Use the following user profile, injury detail, and functional assessment data:
+        User profile, injury detail, and functional assessment:
 
         {user_input_data.strip()}
 
         ---
 
-        The user wants to continue following a YouTube workout video. The video information is as follows:
+        Workout video information (movements / segments):
 
         {video_information.strip()}
-
-        ---
-
-        Your task is:
-        1. Flag each movement with a high, medium, or low risk level.
-        2. Suggest modified alternative movements for all high- and medium-risk movements.
-
-        Follow the response structure described in your system instructions.
         """)
 
 
@@ -248,6 +302,7 @@ def run_groq(
     user_message: str,
     *,
     api_key: str,
+    system_prompt: str,
     model: str = DEFAULT_MODEL,
     temperature: float = 0.3,
 ) -> str:
@@ -256,7 +311,7 @@ def run_groq(
         model=model,
         temperature=temperature,
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message},
         ],
     )
@@ -300,6 +355,11 @@ def main() -> None:
         default=0.3,
         help="Sampling temperature (default: 0.3).",
     )
+    parser.add_argument(
+        "--json-output",
+        action="store_true",
+        help="Ask the model for JSON only: [{original, modified_alternative, risk_flag}, ...] (easier to parse).",
+    )
     args = parser.parse_args()
 
     api_key = os.environ.get("GROQ_API_KEY", "").strip()
@@ -339,10 +399,12 @@ def main() -> None:
             raise SystemExit(1) from e
 
     user_message = build_user_message(user_md, video_block)
+    system_prompt = SYSTEM_PROMPT_JSON if args.json_output else SYSTEM_PROMPT_MARKDOWN
     try:
         reply = run_groq(
             user_message,
             api_key=api_key,
+            system_prompt=system_prompt,
             model=args.model,
             temperature=args.temperature,
         )
