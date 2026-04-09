@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI — Injury-aware Workout Adaptation</title>
+
+  <!-- UI libs used by the adaptation view -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { primary: "#137fec", "background-light": "#f6f7f8", "background-dark": "#101922" },
+          fontFamily: { display: ["Inter"] },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+        },
+      },
+    };
+  </script>
+
+  <!-- Fonts used by the onboarding view -->
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f4f7ff;
+    --bg2:#eaf0ff;
+    --surface:#ffffff;
+    --surface2:#f7faff;
+    --border:rgba(43,65,110,0.10);
+    --border2:rgba(43,65,110,0.18);
+    --text:#18233d;
+    --muted:#7281a0;
+    --muted2:#4e607f;
+    --accent:#5f7cff;
+    --accent-dim:rgba(95,124,255,0.12);
+    --accent-glow:rgba(95,124,255,0.28);
+    --blue:#3f7cff;
+    --blue-dim:rgba(63,124,255,0.12);
+    --red:#e35f6c;
+    --red-dim:rgba(227,95,108,0.12);
+    --amber:#e7a845;
+    --amber-dim:rgba(231,168,69,0.12);
+    --font-d:'Clash Display',sans-serif;
+    --font-b:'Satoshi',sans-serif;
+    --ease:cubic-bezier(0.4,0,0.2,1);
+    --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  }
+  html,body{height:100%;overflow-y:auto;overflow-x:hidden}
+  body{
+    background:radial-gradient(1200px 700px at 50% -180px,var(--bg2),var(--bg) 65%);
+    color:var(--text);
+    font-family:var(--font-b);
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ── SCROLLABLE PAGES CONTAINER ────────────────── */
+  .app{position:relative;width:100%;height:100vh;overflow:hidden}
+
+  /* ── PAGE ──────────────────────────────────────── */
+  .page{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;
+    opacity:0;pointer-events:none;
+    transform:translateX(60px);
+    transition:opacity 0.45s var(--ease),transform 0.45s var(--ease);
+    overflow-y:auto;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y:contain;
+    scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+  }
+  .page.active{opacity:1;pointer-events:all;transform:translateX(0)}
+  .page.exit{opacity:0;transform:translateX(-60px)}
+
+  /* ── SHARED NAV ─────────────────────────────────── */
+  .top-bar{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:24px 40px;
+    max-width:1180px;
+    width:100%;
+    margin:0 auto;
+    background:linear-gradient(to bottom,rgba(244,247,255,0.95) 75%,transparent);
+    backdrop-filter:blur(4px);
+    flex-shrink:0;
+  }
+  .logo{font-family:var(--font-d);font-size:22px;font-weight:700;letter-spacing:-0.5px;display:flex;align-items:center;gap:10px}
+  .logo-pip{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .steps-row{display:flex;align-items:center;gap:6px}
+  .step-pip{width:6px;height:6px;border-radius:3px;background:var(--border2);transition:all 0.4s var(--ease)}
+  .step-pip.done{background:rgba(200,245,90,0.4)}
+  .step-pip.now{width:20px;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+
+  /* ── PAGE CONTENT ───────────────────────────────── */
+  .page-inner{flex:1;display:flex;flex-direction:column;padding:0 40px 44px;max-width:1180px;width:100%;margin:0 auto}
+  .page-header{padding-top:12px;margin-bottom:42px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .tag-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(95,124,255,0.24);padding:6px 14px;border-radius:100px;margin-bottom:18px}
+  .page-title{font-family:var(--font-d);font-size:clamp(36px,5.2vw,58px);font-weight:700;line-height:1.1;letter-spacing:-1.6px;margin-bottom:12px}
+  .page-title em{color:var(--accent);font-style:normal}
+  .page-sub{font-size:18px;color:var(--muted2);font-weight:400;line-height:1.7;max-width:720px}
+
+  /* ── FORM INPUTS ─────────────────────────────────── */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;width:100%;margin:0 auto}
+  .field{display:flex;flex-direction:column;gap:8px}
+  .field-label{font-size:13px;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted2);font-weight:700}
+  .field input,.field select,.field textarea{
+    background:var(--surface);
+    border:1px solid var(--border2);
+    border-radius:14px;
+    color:var(--text);
+    font-family:var(--font-b);
+    font-size:17px;
+    padding:16px 18px;
+    outline:none;
+    transition:border-color 0.2s,box-shadow 0.2s;
+    appearance:none;-webkit-appearance:none;
+    width:100%;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(95,124,255,0.5);box-shadow:0 0 0 3px rgba(95,124,255,0.10)}
+
+  /* gender pills */
+  .gender-pills{display:flex;gap:8px;flex-wrap:wrap}
+  .g-pill{
+    padding:12px 22px;border-radius:100px;font-size:15px;font-weight:600;
+    border:1px solid var(--border2);background:var(--surface);color:var(--muted2);
+    cursor:pointer;transition:all 0.2s var(--ease);
+  }
+  .g-pill:hover{border-color:var(--border2);color:var(--text);background:var(--surface2)}
+  .g-pill.sel{background:var(--accent-dim);border-color:rgba(95,124,255,0.35);color:var(--accent)}
+
+  /* ── BOTTOM BAR ─────────────────────────────────── */
+  .bottom-bar{
+    position:sticky;bottom:0;z-index:100;
+    padding:22px 40px 28px;
+    max-width:1180px;
+    width:100%;
+    margin:0 auto;
+    background:linear-gradient(to top,rgba(244,247,255,0.95) 70%,transparent);
+    backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:space-between;
+    flex-shrink:0;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    border:none;border-radius:100px;cursor:pointer;
+    font-family:var(--font-d);font-size:16px;font-weight:600;
+    padding:15px 30px;transition:all 0.2s var(--ease-spring);
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 24px rgba(95,124,255,0.30)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(95,124,255,0.35)}
+  .btn-primary:active{transform:translateY(0)}
+  .btn-primary:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-ghost{background:transparent;color:var(--muted2);border:1px solid var(--border2)}
+  .btn-ghost:hover{border-color:var(--border2);color:var(--text);background:var(--surface)}
+  .btn-xl{padding:18px 44px;font-size:16px}
+  .arrow{transition:transform 0.2s;display:inline-block}
+  .btn:not(:disabled):hover .arrow{transform:translateX(4px)}
+  .progress-hint{font-size:15px;color:var(--muted);flex:1;text-align:center}
+
+  /* Page 3 pain sliders + functional bits */
+  .pain-row{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--border2);border-radius:14px;margin-bottom:12px;max-width:760px;margin-left:auto;margin-right:auto}
+  .pain-label{font-size:15px;color:var(--muted2);flex:1;min-width:0}
+  .pain-slider-wrap{display:flex;align-items:center;gap:10px;flex:1.2}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:var(--surface2);outline:none;flex:1;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent-glow);cursor:pointer;transition:transform .15s}
+  input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}
+  .pain-val{font-family:var(--font-d);font-size:15px;font-weight:700;min-width:24px;text-align:right;color:var(--accent)}
+  .pain-val.hi{color:var(--red)}
+  .pain-val.med{color:var(--amber)}
+
+  .func-card{
+    display:flex;align-items:center;gap:14px;padding:16px 18px;
+    background:var(--surface);border:1px solid var(--border2);border-radius:14px;
+    margin-bottom:12px;max-width:760px;margin-left:auto;margin-right:auto;
+  }
+  .func-info{flex:1}
+  .func-name{font-size:16px;font-weight:500;margin-bottom:2px}
+  .func-note{font-size:12px;color:var(--muted);margin-top:3px;font-style:italic}
+  .toggle-wrap{display:flex;gap:8px}
+  .tog{padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+  .tog.yes.on{background:rgba(100,220,120,0.15);border-color:rgba(100,220,120,0.4);color:#64dc78}
+  .tog.no.on{background:var(--red-dim);border-color:rgba(245,91,91,0.4);color:var(--red)}
+  .discomfort-input{
+    margin-top:8px;padding:9px 12px;border-radius:9px;border:1px solid var(--border2);
+    background:var(--surface2);color:var(--text);font-family:var(--font-b);font-size:13px;
+    outline:none;width:100%;transition:border-color .2s;
+  }
+
+  /* limitation tags */
+  .tags-wrap{display:flex;flex-wrap:wrap;gap:10px;max-width:760px;margin:0 auto}
+  .lim-tag{
+    padding:9px 16px;border-radius:100px;font-size:13px;font-weight:500;
+    border:1px solid var(--border2);background:var(--surface);color:var(--muted2);
+    cursor:pointer;transition:all .2s;
+  }
+  .lim-tag:hover{border-color:var(--border2);color:var(--text);background:var(--surface2)}
+  .lim-tag.sel{background:var(--accent-dim);border-color:rgba(200,245,90,0.3);color:var(--accent)}
+
+  /* Page 4 layout */
+  .two-col-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:980px;margin:0 auto}
+  .lvl-cards{display:flex;flex-direction:column;gap:10px}
+  .lvl-card{
+    background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+    padding:16px 18px;cursor:pointer;
+    display:flex;align-items:center;gap:14px;
+    transition:all .25s var(--ease);position:relative;overflow:hidden;
+  }
+  .lvl-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c);transform:scaleY(0);transform-origin:bottom;transition:transform .3s var(--ease)}
+  .lvl-card:hover{background:var(--surface2);transform:translateX(3px)}
+  .lvl-card.sel{background:rgba(var(--cr),0.07);border-color:rgba(var(--cr),0.3)}
+  .lvl-card.sel::before{transform:scaleY(1)}
+  .lvl-card[data-lv=beginner]{--c:#4fffb0;--cr:79,255,176}
+  .lvl-card[data-lv=intermediate]{--c:var(--amber);--cr:245,166,35}
+  .lvl-card[data-lv=advanced]{--c:var(--red);--cr:245,91,91}
+  .lvl-em{font-size:26px;flex-shrink:0}
+  .lvl-name{font-family:var(--font-d);font-size:15px;font-weight:700;margin-bottom:3px}
+  .lvl-desc{font-size:12px;color:var(--muted)}
+  .lvl-chk{margin-left:auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+  .lvl-card.sel .lvl-chk{background:var(--c);border-color:var(--c)}
+  .lvl-card.sel .lvl-chk::after{content:'✓';font-size:9px;color:#07080d;font-weight:900}
+
+  .act-wrap{margin-top:18px}
+  .act-cards{display:flex;flex-direction:column;gap:10px}
+  .act-card{
+    background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+    padding:16px 18px;cursor:pointer;
+    display:flex;align-items:center;gap:14px;
+    transition:all .25s var(--ease);position:relative;overflow:hidden;
+  }
+  .act-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c);transform:scaleY(0);transform-origin:bottom;transition:transform .3s var(--ease)}
+  .act-card:hover{background:var(--surface2);transform:translateX(3px)}
+  .act-card.sel{background:rgba(var(--cr),0.07);border-color:rgba(var(--cr),0.3)}
+  .act-card.sel::before{transform:scaleY(1)}
+  .act-card[data-al=sedentary]{--c:#9aa6c4;--cr:154,166,196}
+  .act-card[data-al=lightly]{--c:#4fffb0;--cr:79,255,176}
+  .act-card[data-al=moderately]{--c:var(--amber);--cr:245,166,35}
+  .act-card[data-al=very]{--c:var(--red);--cr:245,91,91}
+  .act-em{font-size:26px;flex-shrink:0}
+  .act-name{font-family:var(--font-d);font-size:15px;font-weight:700;margin-bottom:3px}
+  .act-desc{font-size:12px;color:var(--muted)}
+  .act-chk{margin-left:auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+  .act-card.sel .act-chk{background:var(--c);border-color:var(--c)}
+  .act-card.sel .act-chk::after{content:'✓';font-size:9px;color:#07080d;font-weight:900}
+
+  .goal-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .goal-card{
+    background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+    padding:16px;cursor:pointer;
+    transition:all .25s var(--ease);text-align:center;
+  }
+  .goal-card:hover{background:var(--surface2);transform:translateY(-3px)}
+  .goal-card.sel{background:var(--blue-dim);border-color:rgba(91,142,245,0.35);transform:translateY(-3px);box-shadow:0 8px 24px rgba(91,142,245,0.1)}
+  .goal-em{font-size:28px;margin-bottom:10px;display:block;transition:transform .2s var(--ease-spring)}
+  .goal-card:hover .goal-em{transform:scale(1.15)}
+  .goal-name{font-family:var(--font-d);font-size:13px;font-weight:700;margin-bottom:4px}
+  .goal-desc{font-size:11px;color:var(--muted);line-height:1.45}
+  .col-head{font-family:var(--font-d);font-size:20px;font-weight:700;margin-bottom:18px;color:var(--text);text-align:center}
+  .col-head span{color:var(--accent)}
+
+  @media (max-width: 980px){
+    .top-bar,.page-inner,.bottom-bar{padding-left:24px;padding-right:24px}
+    .two-col-layout{grid-template-columns:1fr;gap:24px}
+    .form-grid{grid-template-columns:1fr}
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────────────────────────────────────
+       ONBOARDING (merged from recoverfit-onboarding)
+       ───────────────────────────────────────────── -->
+  <div id="onboarding-app" class="app">
+    <!-- PAGE 1 — BASIC INFO -->
+    <div class="page active" id="p1">
+      <div class="top-bar">
+        <div class="logo"><div class="logo-pip"></div>AdaptFit AI</div>
+        <div class="steps-row">
+          <div class="step-pip now" id="sp0"></div>
+          <div class="step-pip" id="sp1"></div>
+          <div class="step-pip" id="sp2"></div>
+          <div class="step-pip" id="sp3"></div>
+          <div class="step-pip" id="sp4"></div>
+        </div>
+        <div style="width:60px"></div>
+      </div>
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="tag-pill"><span>👋</span> Welcome</div>
+          <h1 class="page-title">Let's get to<br>know <em>you</em></h1>
+          <p class="page-sub">A few quick details to personalise your recovery-aware training plan.</p>
+        </div>
+        <div class="form-grid" style="max-width:520px">
+          <div class="field" style="grid-column:1/-1">
+            <label class="field-label">Full Name</label>
+            <input type="text" id="inp-name" placeholder="e.g. Alex Johnson" autocomplete="name">
+          </div>
+          <div class="field">
+            <label class="field-label">Age</label>
+            <input type="number" id="inp-age" placeholder="28" min="10" max="100">
+          </div>
+          <div class="field">
+            <label class="field-label">Height</label>
+            <input type="text" id="inp-height" placeholder="175 cm or 5'9&quot;">
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label class="field-label">Gender</label>
+            <div class="gender-pills">
+              <div class="g-pill" data-g="Male">Male</div>
+              <div class="g-pill" data-g="Female">Female</div>
+              <div class="g-pill" data-g="Non-binary">Non-binary</div>
+              <div class="g-pill" data-g="Prefer not to say">Prefer not to say</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar">
+        <div style="width:80px"></div>
+        <div class="progress-hint">Step 1 of 5</div>
+        <button class="btn btn-primary" id="btn1" disabled>Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- PAGE 3 — ASSESSMENT (simplified: we keep your existing pain + functional + limitations) -->
+    <div class="page" id="p3">
+      <div class="top-bar">
+        <div class="logo"><div class="logo-pip"></div>AdaptFit AI</div>
+        <div class="steps-row">
+          <div class="step-pip done"></div><div class="step-pip done"></div>
+          <div class="step-pip now"></div><div class="step-pip"></div><div class="step-pip"></div>
+        </div>
+        <div style="width:60px"></div>
+      </div>
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="tag-pill"><span>📋</span> Assessment</div>
+          <h1 class="page-title">Tell us <em>more</em></h1>
+          <p class="page-sub">Help us understand how it's affecting your movement right now.</p>
+        </div>
+
+        <div style="max-width:520px;margin:0 auto">
+          <div class="field">
+            <label class="field-label">Date of Injury</label>
+            <input type="date" id="inp-doi">
+          </div>
+        </div>
+
+        <div style="height:18px"></div>
+        <div class="pain-row">
+          <span class="pain-label">Daily overall pain</span>
+          <div class="pain-slider-wrap">
+            <input type="range" min="0" max="10" value="3" id="sl-daily">
+            <span class="pain-val" id="v-daily">3</span>
+          </div>
+        </div>
+        <div class="pain-row">
+          <span class="pain-label">Deep squats / bending</span>
+          <div class="pain-slider-wrap">
+            <input type="range" min="0" max="10" value="5" id="sl-squat">
+            <span class="pain-val med" id="v-squat">5</span>
+          </div>
+        </div>
+        <div class="pain-row">
+          <span class="pain-label">Stairs / inclines</span>
+          <div class="pain-slider-wrap">
+            <input type="range" min="0" max="10" value="4" id="sl-stairs">
+            <span class="pain-val med" id="v-stairs">4</span>
+          </div>
+        </div>
+
+        <div style="height:10px"></div>
+        <div class="func-card" id="fc-balance">
+          <div class="func-info">
+            <div class="func-name">Single Leg Balance (30s)</div>
+            <div id="fc-balance-note" class="func-note" style="display:none"></div>
+          </div>
+          <div class="toggle-wrap">
+            <button class="tog yes" data-fc="balance" data-v="yes">✓ Yes</button>
+            <button class="tog no" data-fc="balance" data-v="no">✗ No</button>
+          </div>
+        </div>
+        <div class="func-card" id="fc-bridge">
+          <div class="func-info">
+            <div class="func-name">Glute Bridge Hold (10s)</div>
+            <div id="fc-bridge-note" class="func-note" style="display:none"></div>
+          </div>
+          <div class="toggle-wrap">
+            <button class="tog yes" data-fc="bridge" data-v="yes">✓ Yes</button>
+            <button class="tog no" data-fc="bridge" data-v="no">✗ No</button>
+          </div>
+        </div>
+        <div class="func-card" id="fc-step">
+          <div class="func-info">
+            <div class="func-name">Step-Up (20cm box)</div>
+            <div id="fc-step-note" class="func-note" style="display:none"></div>
+          </div>
+          <div class="toggle-wrap">
+            <button class="tog yes" data-fc="step" data-v="yes">✓ Yes</button>
+            <button class="tog no" data-fc="step" data-v="no">✗ No</button>
+          </div>
+        </div>
+
+        <div style="height:10px"></div>
+        <div class="tags-wrap">
+          <div class="lim-tag" data-lim="Ankle Stiffness">Ankle Stiffness</div>
+          <div class="lim-tag" data-lim="Lower Back Tightness">Lower Back Tightness</div>
+          <div class="lim-tag" data-lim="Hip Flexor Tightness">Hip Flexor Tightness</div>
+          <div class="lim-tag" data-lim="Swelling / Oedema">Swelling / Oedema</div>
+          <div class="lim-tag" data-lim="Reduced ROM">Reduced ROM</div>
+          <div class="lim-tag" data-lim="Muscle Weakness">Muscle Weakness</div>
+          <div class="lim-tag" data-lim="Balance Issues">Balance Issues</div>
+          <div class="lim-tag" data-lim="Shoulder Tightness">Shoulder Tightness</div>
+        </div>
+        <div style="height:30px"></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn btn-ghost" id="b3back">← Back</button>
+        <div class="progress-hint">Step 3 of 5</div>
+        <button class="btn btn-primary" id="btn3">Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- PAGE 4 — GOALS + ACTIVITY LEVEL -->
+    <div class="page" id="p4">
+      <div class="top-bar">
+        <div class="logo"><div class="logo-pip"></div>AdaptFit AI</div>
+        <div class="steps-row">
+          <div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip done"></div>
+          <div class="step-pip now"></div><div class="step-pip"></div>
+        </div>
+        <div style="width:60px"></div>
+      </div>
+      <div class="page-inner">
+        <div class="page-header">
+          <div class="tag-pill"><span>🎯</span> Goal</div>
+          <h1 class="page-title">Set your <em>goal</em></h1>
+          <p class="page-sub">Tell us your training experience and what you want to achieve during recovery.</p>
+        </div>
+        <div class="two-col-layout">
+          <div>
+            <div class="col-head">Training <span>Level</span></div>
+            <div class="lvl-cards">
+              <div class="lvl-card" data-lv="beginner">
+                <span class="lvl-em">🌱</span>
+                <div class="lvl-info"><div class="lvl-name">Beginner</div><div class="lvl-desc">New to training or returning after a long gap</div></div>
+                <div class="lvl-chk"></div>
+              </div>
+              <div class="lvl-card" data-lv="intermediate">
+                <span class="lvl-em">🔥</span>
+                <div class="lvl-info"><div class="lvl-name">Intermediate</div><div class="lvl-desc">Regular exerciser, comfortable with most movements</div></div>
+                <div class="lvl-chk"></div>
+              </div>
+              <div class="lvl-card" data-lv="advanced">
+                <span class="lvl-em">⚡</span>
+                <div class="lvl-info"><div class="lvl-name">Advanced</div><div class="lvl-desc">Experienced athlete managing injury at high volume</div></div>
+                <div class="lvl-chk"></div>
+              </div>
+            </div>
+
+            <div class="act-wrap">
+              <div class="col-head" style="margin:22px 0 14px;font-size:16px">Activity <span>Level</span></div>
+              <div class="act-cards">
+                <div class="act-card" data-al="sedentary">
+                  <span class="act-em">🪑</span>
+                  <div class="act-info"><div class="act-name">Sedentary</div><div class="act-desc">Mostly sitting, little weekly exercise</div></div>
+                  <div class="act-chk"></div>
+                </div>
+                <div class="act-card" data-al="lightly">
+                  <span class="act-em">🚶</span>
+                  <div class="act-info"><div class="act-name">Lightly Active</div><div class="act-desc">Some movement, 1–2 light workouts/week</div></div>
+                  <div class="act-chk"></div>
+                </div>
+                <div class="act-card" data-al="moderately">
+                  <span class="act-em">🏃</span>
+                  <div class="act-info"><div class="act-name">Moderately Active</div><div class="act-desc">Regular activity, 3–4 workouts/week</div></div>
+                  <div class="act-chk"></div>
+                </div>
+                <div class="act-card" data-al="very">
+                  <span class="act-em">🏋️</span>
+                  <div class="act-info"><div class="act-name">Very Active</div><div class="act-desc">High activity, training most days</div></div>
+                  <div class="act-chk"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="col-head">Primary <span>Goal</span></div>
+            <div class="goal-cards">
+              <div class="goal-card" data-goal="strength"><span class="goal-em">🏋️</span><div class="goal-name">Maintain Strength</div><div class="goal-desc">Keep muscle & fitness during recovery</div></div>
+              <div class="goal-card" data-goal="cardio"><span class="goal-em">💓</span><div class="goal-name">Cardio Fitness</div><div class="goal-desc">Stay aerobically active safely</div></div>
+              <div class="goal-card" data-goal="rehab"><span class="goal-em">🩹</span><div class="goal-name">Active Rehab</div><div class="goal-desc">Rebuild strength at the injury site</div></div>
+              <div class="goal-card" data-goal="return"><span class="goal-em">🚀</span><div class="goal-name">Return to Sport</div><div class="goal-desc">Safe progression back to full activity</div></div>
+              <div class="goal-card" data-goal="weight"><span class="goal-em">⚖️</span><div class="goal-name">Weight Control</div><div class="goal-desc">Manage body composition safely</div></div>
+              <div class="goal-card" data-goal="mobility"><span class="goal-em">🧘</span><div class="goal-name">Mobility</div><div class="goal-desc">Improve range of motion & flexibility</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="height:30px"></div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn btn-ghost" id="b4back">← Back</button>
+        <div class="progress-hint">Step 4 of 5</div>
+        <button class="btn btn-primary" id="btn4" disabled>Continue <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- PAGE 5 — SUBMIT -->
+    <div class="page" id="p5">
+      <div class="top-bar">
+        <div class="logo"><div class="logo-pip"></div>AdaptFit AI</div>
+        <div class="steps-row">
+          <div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip done"></div>
+          <div class="step-pip now"></div>
+        </div>
+        <div style="width:60px"></div>
+      </div>
+      <div class="page-inner" style="display:flex;align-items:center;justify-content:center">
+        <div style="max-width:760px;width:100%;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center">
+          <div class="tag-pill"><span>✅</span> Ready</div>
+          <h1 class="page-title" style="margin-bottom:0">Continue to <em>Adaptation</em></h1>
+          <p class="page-sub">We'll save your profile and move to the YouTube workout adaptation screen.</p>
+          <button class="btn btn-primary btn-xl" id="btn-submit-survey">Save & Continue <span class="arrow">→</span></button>
+          <div id="submit-status" style="font-size:13px;color:var(--muted);min-height:18px"></div>
+        </div>
+      </div>
+      <div class="bottom-bar">
+        <button class="btn btn-ghost" id="b5back">← Back</button>
+        <div class="progress-hint">Step 5 of 5</div>
+        <div style="width:140px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────
+       ADAPTATION (merged from workout_adapt_frontend)
+       ───────────────────────────────────────────── -->
+  <div id="adaptation-app" class="hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen">
+    <div class="min-h-screen flex flex-col">
+      <header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 md:px-10 py-3 bg-white dark:bg-background-dark">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-3xl">health_metrics</span>
+          <h2 class="text-lg font-bold tracking-[-0.015em]">AdaptFit AI</h2>
+        </div>
+        <span id="adapt-session-pill" class="hidden text-sm px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          Session: <span class="font-mono" id="adapt-session-id-short"></span>
+        </span>
+      </header>
+
+      <main class="flex-1 flex justify-center px-6 md:px-10 py-10">
+        <div class="w-full max-w-[1024px] flex flex-col gap-8">
+          <div id="adaptation-intro" class="flex flex-col gap-2">
+            <h1 class="text-4xl md:text-5xl font-black tracking-[-0.033em]">Workout Adaptation</h1>
+            <p class="text-slate-600 dark:text-slate-400 text-lg max-w-3xl">
+              Generate a new plan (coming soon) or modify an existing routine from pasted text or a YouTube follow-along. We assess each movement’s risk and suggest safer alternatives.
+            </p>
+          </div>
+
+          <!-- Step 1: choose path -->
+          <section id="adapt-view-choose" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+              <div class="relative h-48 w-full bg-primary/10 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-7xl">fitness_center</span>
+              </div>
+              <div class="p-6 flex flex-col gap-3 flex-1">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Generate New Workout</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Build a tailored plan from scratch. This path is not available in the demo yet.
+                </p>
+                <button type="button" disabled class="mt-auto flex w-full cursor-not-allowed items-center justify-center rounded-lg h-12 px-6 bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-base font-bold opacity-80">
+                  Coming soon
+                </button>
+              </div>
+            </div>
+            <div class="flex flex-col bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:border-primary/50 hover:shadow-lg transition-all cursor-pointer group" id="adapt-card-modify" role="button" tabindex="0">
+              <div class="relative h-48 w-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                <span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-7xl group-hover:scale-105 transition-transform">upload_file</span>
+              </div>
+              <div class="p-6 flex flex-col gap-3 flex-1">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Modify Existing Workout</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Paste a text plan or a YouTube link. We’ll analyze exercises for risks and suggest modifications.
+                </p>
+                <button type="button" class="mt-auto flex w-full items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold hover:bg-primary/90 transition-colors">
+                  Continue
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 2: import (text or YouTube) -->
+          <section id="adapt-view-import" class="hidden flex flex-col gap-6">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Import workout</h2>
+              <button type="button" id="btn-adapt-back" class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                Back
+              </button>
+            </div>
+
+            <div class="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 p-1 bg-slate-50 dark:bg-slate-800/50 w-full max-w-md">
+              <button type="button" id="adapt-tab-text" class="adapt-tab flex-1 py-2.5 px-4 rounded-md text-sm font-bold transition-colors bg-white dark:bg-slate-900 shadow-sm text-primary">
+                Paste text
+              </button>
+              <button type="button" id="adapt-tab-youtube" class="adapt-tab flex-1 py-2.5 px-4 rounded-md text-sm font-bold transition-colors text-slate-600 dark:text-slate-400">
+                YouTube link
+              </button>
+            </div>
+
+            <div id="adapt-panel-text" class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-4">
+              <label class="flex flex-col gap-2">
+                <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Workout text</span>
+                <textarea id="workout-text" rows="8" class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-base resize-y min-h-[180px]" placeholder="e.g. Barbell Squat 4x8, Bench Press 3x10…"></textarea>
+              </label>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Separate exercises with commas or new lines. Include sets and reps when possible.</p>
+            </div>
+
+            <div id="adapt-panel-youtube" class="hidden bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-4">
+              <label class="flex flex-col gap-2">
+                <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">YouTube URL</span>
+                <input id="youtube-url" class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3" placeholder="https://www.youtube.com/watch?v=..." type="text"/>
+              </label>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3">
+              <button type="button" id="btn-analyze" class="min-w-[240px] flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white text-base font-bold py-3 px-6 rounded-xl transition-all shadow-lg shadow-primary/25 disabled:opacity-50 disabled:shadow-none">
+                <span class="material-symbols-outlined">clinical_notes</span>
+                Analyze for Safety
+              </button>
+              <span id="status" class="text-sm text-slate-500 dark:text-slate-400"></span>
+            </div>
+
+            <div id="results" class="hidden flex flex-col gap-4">
+              <div class="flex items-end justify-between gap-3">
+                <div>
+                  <div class="text-xl font-bold">Risk Assessment &amp; Alternatives</div>
+                  <div class="text-sm text-slate-500 dark:text-slate-400">One row per movement/segment.</div>
+                </div>
+                <button id="btn-copy-md" class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Copy Markdown Table</button>
+              </div>
+              <div class="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left border-collapse min-w-[640px]">
+                    <thead>
+                    <tr class="bg-slate-50 dark:bg-slate-800/50">
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Time Range</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Original</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Modified Alternative</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Risk Flag</th>
+                      </tr>
+                    </thead>
+                    <tbody id="results-body" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+  // Backend base URL (override via devtools: window.API_BASE='http://localhost:8000')
+  window.API_BASE = window.API_BASE || 'http://localhost:8000';
+
+  // ── Onboarding state (subset needed for backend mapping) ─────────────────────
+  const S = {
+    name:'',age:'',gender:'',
+    level:null,levelLabel:'',
+    goals:[],goalLabels:[],
+    activityLevel:null,activityLevelLabel:'',
+  };
+
+  // ── Navigation helpers (only the pages we keep in this merged demo) ─────────
+  let current = 1;
+  function goPage(n){
+    const prev = document.getElementById('p'+current);
+    const next = document.getElementById('p'+n);
+    if(!prev || !next) return;
+    prev.classList.add('exit');
+    setTimeout(()=>{ prev.classList.remove('active','exit') },450);
+    next.classList.add('active');
+    current = n;
+  }
+
+  // ── Page 1 bindings ─────────────────────────────────────────────────────────
+  const btn1 = document.getElementById('btn1');
+  document.querySelectorAll('.g-pill').forEach(p=>{
+    p.addEventListener('click',()=>{
+      document.querySelectorAll('.g-pill').forEach(x=>x.classList.remove('sel'));
+      p.classList.add('sel');
+      S.gender = p.dataset.g;
+      validateP1();
+    });
+  });
+  ['inp-name','inp-age'].forEach(id=>{
+    document.getElementById(id).addEventListener('input',validateP1);
+  });
+  function validateP1(){
+    S.name = document.getElementById('inp-name').value.trim();
+    S.age  = document.getElementById('inp-age').value.trim();
+    btn1.disabled = !(S.name && S.age && S.gender);
+  }
+  btn1.addEventListener('click',()=>goPage(3));
+
+  // ── Page 3 bindings ─────────────────────────────────────────────────────────
+  function sliderColor(id,valId){
+    const sl = document.getElementById(id);
+    const vl = document.getElementById(valId);
+    sl.addEventListener('input',()=>{
+      const v = +sl.value;
+      vl.textContent = v;
+      vl.className = 'pain-val'+(v>=7?' hi':v>=4?' med':'');
+    });
+  }
+  sliderColor('sl-daily','v-daily');
+  sliderColor('sl-squat','v-squat');
+  sliderColor('sl-stairs','v-stairs');
+
+  const fcState = {};
+  document.querySelectorAll('.tog').forEach(t=>{
+    t.addEventListener('click',()=>{
+      const fc = t.dataset.fc, v = t.dataset.v;
+      fcState[fc] = v;
+      document.querySelectorAll(`.tog[data-fc="${fc}"]`).forEach(b=>b.classList.remove('on'));
+      t.classList.add('on');
+      const noteEl = document.getElementById(`fc-${fc}-note`);
+      if(v==='no'){
+        noteEl.style.display='block';
+        if(!noteEl.querySelector('input')){
+          const inp = document.createElement('input');
+          inp.className='discomfort-input';
+          inp.placeholder='Describe the discomfort (optional)…';
+          noteEl.appendChild(inp);
+        }
+      } else {
+        noteEl.style.display='none';
+      }
+    });
+  });
+  document.querySelectorAll('.lim-tag').forEach(t=>{
+    t.addEventListener('click',()=>t.classList.toggle('sel'));
+  });
+  document.getElementById('b3back').addEventListener('click',()=>goPage(1));
+  document.getElementById('btn3').addEventListener('click',()=>goPage(4));
+
+  // ── Page 4 bindings ─────────────────────────────────────────────────────────
+  const btn4 = document.getElementById('btn4');
+  let lvlSel=false;
+  let actSel=false;
+  const activityLabelMap = { sedentary:'Sedentary', lightly:'Lightly Active', moderately:'Moderately Active', very:'Very Active' };
+
+  document.querySelectorAll('.lvl-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('.lvl-card').forEach(x=>x.classList.remove('sel'));
+      c.classList.add('sel');
+      S.level = c.dataset.lv;
+      S.levelLabel = {beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[c.dataset.lv];
+      lvlSel=true;
+      btn4.disabled = !(lvlSel && actSel && S.goals.length >= 2);
+    });
+  });
+  document.querySelectorAll('.act-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      document.querySelectorAll('.act-card').forEach(x=>x.classList.remove('sel'));
+      c.classList.add('sel');
+      S.activityLevel = c.dataset.al;
+      S.activityLevelLabel = activityLabelMap[c.dataset.al] || '';
+      actSel=true;
+      btn4.disabled = !(lvlSel && actSel && S.goals.length >= 2);
+    });
+  });
+  document.querySelectorAll('.goal-card').forEach(c=>{
+    c.addEventListener('click',()=>{
+      c.classList.toggle('sel');
+      const gmap={strength:'Maintain Strength',cardio:'Cardio Fitness',rehab:'Active Rehabilitation',return:'Return to Sport',weight:'Weight Control',mobility:'Mobility'};
+      const selectedCards = [...document.querySelectorAll('.goal-card.sel')];
+      S.goals = selectedCards.map(card=>card.dataset.goal);
+      S.goalLabels = selectedCards.map(card=>gmap[card.dataset.goal]);
+      btn4.disabled = !(lvlSel && actSel && S.goals.length >= 2);
+    });
+  });
+  document.getElementById('b4back').addEventListener('click',()=>goPage(3));
+  btn4.addEventListener('click',()=>goPage(5));
+
+  // ── Page 5 actions ──────────────────────────────────────────────────────────
+  document.getElementById('b5back').addEventListener('click',()=>goPage(4));
+
+  function _selectedMovementLimitations(){
+    return [...document.querySelectorAll('.lim-tag.sel')].map(el=>el.dataset.lim).filter(Boolean);
+  }
+  function _buildFunctionalScreening(){
+    const tasks = [
+      { key: 'balance', label: 'Single Leg Balance (30s)' },
+      { key: 'bridge', label: 'Glute Bridge Hold (10s)' },
+      { key: 'step', label: 'Step-Up (20cm box)' },
+    ];
+    return tasks.map(t=>{
+      const v = fcState[t.key];
+      const success = v === 'yes' ? true : v === 'no' ? false : null;
+      const noteEl = document.getElementById(`fc-${t.key}-note`);
+      const noteInp = noteEl ? noteEl.querySelector('input') : null;
+      const discomfort = noteInp ? (noteInp.value || '').trim() : '';
+      const obj = { task: t.label };
+      if (success !== null) obj.success = success;
+      if (!success && discomfort) obj.discomfort_reported = discomfort;
+      return obj;
+    });
+  }
+
+  // Always start from onboarding on page load (demo requirement).
+  // We intentionally do NOT resume previous sessions from localStorage.
+  localStorage.removeItem('adaptfit_session_id');
+  let currentSessionId = '';
+
+  async function submitSurvey(){
+    const raw = {
+      name: S.name,
+      age: S.age,
+      gender: S.gender,
+      level: S.level,
+      levelLabel: S.levelLabel,
+      activityLevel: S.activityLevel,
+      activityLevelLabel: S.activityLevelLabel,
+      goals: S.goals,
+      goalLabels: S.goalLabels,
+      zone: null,
+      injury: null,
+      injuryLabel: null,
+      date_of_injury: (document.getElementById('inp-doi')?.value || '').trim(),
+      pain_levels: {
+        daily_overall: +document.getElementById('sl-daily').value,
+        deep_squats: +document.getElementById('sl-squat').value,
+        stairs: +document.getElementById('sl-stairs').value,
+      },
+      functional_screening: _buildFunctionalScreening(),
+      movement_limitations: _selectedMovementLimitations(),
+    };
+    const res = await fetch(`${window.API_BASE}/api/survey`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ raw }),
+    });
+    if(!res.ok) throw new Error(`Survey submit failed (${res.status}): ${await res.text()}`);
+    return await res.json();
+  }
+
+  function showAdaptChoose() {
+    const ch = document.getElementById('adapt-view-choose');
+    const im = document.getElementById('adapt-view-import');
+    const res = document.getElementById('results');
+    if (ch) ch.classList.remove('hidden');
+    if (im) im.classList.add('hidden');
+    if (res) res.classList.add('hidden');
+    const st = document.getElementById('status');
+    if (st) st.textContent = '';
+  }
+
+  function showAdaptation(){
+    document.getElementById('onboarding-app').classList.add('hidden');
+    document.getElementById('adaptation-app').classList.remove('hidden');
+    if (currentSessionId) {
+      document.getElementById('adapt-session-pill').classList.remove('hidden');
+      document.getElementById('adapt-session-id-short').textContent = currentSessionId.slice(0, 8);
+    }
+    showAdaptChoose();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  document.getElementById('btn-submit-survey').addEventListener('click', async ()=>{
+    const btn = document.getElementById('btn-submit-survey');
+    const status = document.getElementById('submit-status');
+    btn.disabled = true;
+    status.textContent = 'Saving profile...';
+    try{
+      const data = await submitSurvey();
+      currentSessionId = data.session_id;
+      localStorage.setItem('adaptfit_session_id', currentSessionId);
+      status.textContent = 'Saved. Loading adaptation...';
+      showAdaptation();
+    }catch(e){
+      status.textContent = e?.message || String(e);
+      btn.disabled = false;
+    }
+  });
+
+  // ── Adaptation view bindings ────────────────────────────────────────────────
+  const statusEl = document.getElementById('status');
+  const resultsEl = document.getElementById('results');
+  const resultsBody = document.getElementById('results-body');
+  let lastMarkdown = '';
+  let adaptSource = 'youtube';
+
+  const tabActive = 'flex-1 py-2.5 px-4 rounded-md text-sm font-bold transition-colors bg-white dark:bg-slate-900 shadow-sm text-primary';
+  const tabIdle = 'flex-1 py-2.5 px-4 rounded-md text-sm font-bold transition-colors text-slate-600 dark:text-slate-400';
+
+  function setAdaptSource(s) {
+    adaptSource = s;
+    const panelText = document.getElementById('adapt-panel-text');
+    const panelYt = document.getElementById('adapt-panel-youtube');
+    const textTab = document.getElementById('adapt-tab-text');
+    const ytTab = document.getElementById('adapt-tab-youtube');
+    if (s === 'text') {
+      panelText.classList.remove('hidden');
+      panelYt.classList.add('hidden');
+      textTab.className = 'adapt-tab ' + tabActive;
+      ytTab.className = 'adapt-tab ' + tabIdle;
+    } else {
+      panelText.classList.add('hidden');
+      panelYt.classList.remove('hidden');
+      textTab.className = 'adapt-tab ' + tabIdle;
+      ytTab.className = 'adapt-tab ' + tabActive;
+    }
+  }
+
+  function openAdaptImport() {
+    document.getElementById('adapt-view-choose').classList.add('hidden');
+    document.getElementById('adapt-view-import').classList.remove('hidden');
+    setAdaptSource(adaptSource);
+  }
+
+  document.getElementById('adapt-card-modify').addEventListener('click', openAdaptImport);
+  document.getElementById('adapt-card-modify').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAdaptImport(); }
+  });
+  document.getElementById('btn-adapt-back').addEventListener('click', showAdaptChoose);
+
+  document.getElementById('adapt-tab-text').addEventListener('click', () => setAdaptSource('text'));
+  document.getElementById('adapt-tab-youtube').addEventListener('click', () => setAdaptSource('youtube'));
+
+  function riskBadge(flag) {
+    const f = String(flag || '').toLowerCase();
+    if (f === 'high') return ['High', 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'];
+    if (f === 'medium') return ['Medium', 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'];
+    return ['Low', 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300'];
+  }
+  function renderRows(rows) {
+    resultsBody.innerHTML = '';
+    for (const r of rows) {
+      const risk = String(r.risk_flag || '').toLowerCase();
+      if (risk === 'low') continue; // hide Low risk rows
+      const [label, cls] = riskBadge(r.risk_flag);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="px-6 py-5 text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap">${(r.time_range || '').toString()}</td>
+        <td class="px-6 py-5 text-sm font-normal text-slate-500 dark:text-slate-400 line-through decoration-red-400 decoration-1">${(r.original || '').toString()}</td>
+        <td class="px-6 py-5 text-sm font-bold text-slate-900 dark:text-slate-100">${(r.modified_alternative || '').toString()}</td>
+        <td class="px-6 py-5"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${cls} text-xs font-bold">${label}</span></td>
+      `;
+      resultsBody.appendChild(tr);
+    }
+  }
+
+  document.getElementById('btn-analyze').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-analyze');
+    if (!currentSessionId) return alert('Missing session. Please complete onboarding first.');
+    let body;
+    if (adaptSource === 'youtube') {
+      const url = document.getElementById('youtube-url').value.trim();
+      if (!url) return alert('Please paste a YouTube URL.');
+      body = { session_id: currentSessionId, source: 'youtube', youtube_url: url, output_format: 'both' };
+    } else {
+      const text = document.getElementById('workout-text').value.trim();
+      if (!text) return alert('Please paste your workout text.');
+      body = { session_id: currentSessionId, source: 'text', workout_text: text, output_format: 'both' };
+    }
+    btn.disabled = true;
+    statusEl.textContent = 'Analyzing...';
+    resultsEl.classList.add('hidden');
+    try {
+      const res = await fetch(`${window.API_BASE}/api/adapt/workout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error(`API error (${res.status}): ${await res.text()}`);
+      const data = await res.json();
+      renderRows(data.result_json || []);
+      lastMarkdown = data.result_markdown_table || '';
+      resultsEl.classList.remove('hidden');
+      statusEl.textContent = `Done. Output saved under sessions/${currentSessionId}/`;
+      resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (e) {
+      alert(e?.message || String(e));
+      statusEl.textContent = 'Failed.';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById('btn-copy-md').addEventListener('click', async () => {
+    if (!lastMarkdown) return;
+    try {
+      await navigator.clipboard.writeText(lastMarkdown);
+      alert('Copied markdown table.');
+    } catch {
+      alert('Copy failed (browser blocked clipboard).');
+    }
+  });
+
+  // Do not auto-skip to adaptation.
+  </script>
+</body>
+</html>

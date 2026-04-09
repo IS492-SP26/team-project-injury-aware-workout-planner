@@ -1,0 +1,38 @@
+{
+  "user_profile": {
+    "age": 26,
+    "training_experience": "Beginner",
+    "activity_level": "Lightly Active",
+    "goals": [
+      "Maintain Strength",
+      "Cardio Fitness"
+    ]
+  },
+  "injury_details": {
+    "affected_body_part": null,
+    "diagnosis": null,
+    "date_of_injury": "2026-01-01"
+  },
+  "assessments": {
+    "pain_levels": {
+      "daily_overall": null,
+      "deep_squats": 1,
+      "stairs": 2
+    },
+    "functional_screening": [
+      {
+        "task": "Single Leg Balance (30s)",
+        "success": true
+      },
+      {
+        "task": "Glute Bridge Hold (10s)",
+        "success": true
+      },
+      {
+        "task": "Step-Up (20cm box)",
+        "success": true
+      }
+    ],
+    "movement_limitations": []
+  }
+}

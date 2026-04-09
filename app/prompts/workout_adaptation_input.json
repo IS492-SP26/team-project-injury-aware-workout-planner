@@ -4,7 +4,7 @@
       "age": 28,
       "training_experience": "Beginner",
       "activity_level": "Moderately Active",
-      "goal": "Rehabilitate and Return to Strength Training"
+      "goals": ["Rehabilitate and Return to Strength Training"]
     },
     "injury_details": {
       "affected_body_part": "Knee",

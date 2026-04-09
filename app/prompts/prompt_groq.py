@@ -34,6 +34,7 @@ import os
 import sys
 from pathlib import Path
 from textwrap import dedent
+from typing import Any
 
 
 def _repo_root() -> Path:
@@ -104,7 +105,7 @@ SYSTEM_PROMPT_MARKDOWN = dedent("""\
     You are a rehabilitation-focused workout adaptation assistant.
 
     Goal:
-    Review workout movements from a video against the user's injury profile and return a compact table for each movement.
+    Review workout movements from the workout (video metadata or pasted plan) against the user's injury profile and return a compact table for each movement.
 
     Safety rules:
     Give conservative guidance only.
@@ -112,13 +113,14 @@ SYSTEM_PROMPT_MARKDOWN = dedent("""\
     Do not replace in-person medical care.
     If information is missing, state brief assumptions in the relevant row.
     Base risk on the user's injury status, pain triggers, functional limitations, and training level.
+    Consider the user's goals (may be multiple) when selecting safer alternatives, but safety overrides performance goals.
 
     Output rules:
     Return only one Markdown table.
     Do not add any intro, summary, notes, or extra sections before or after the table.
     Use exactly these columns in this order:
     original | modified_alternative | risk_flag
-    One row per distinct movement or segment from the video.
+    One row per distinct movement or segment from the workout source.
     In original, write the movement exactly or as closely as possible from the source.
     In modified_alternative, write:
     a safer substitute or regression if risk is High or Medium
@@ -151,7 +153,7 @@ SYSTEM_PROMPT_JSON = dedent("""\
     You are a rehabilitation-focused workout adaptation assistant.
 
     Goal:
-    Review workout movements from a video against the user's injury profile and return one JSON array—one object per distinct movement or segment.
+    Review workout movements from the workout (video metadata or pasted plan) against the user's injury profile and return one JSON array—one object per distinct movement or segment.
 
     Safety rules:
     Give conservative guidance only.
@@ -159,6 +161,7 @@ SYSTEM_PROMPT_JSON = dedent("""\
     Do not replace in-person medical care.
     If information is missing, state brief assumptions inside the relevant "modified_alternative" or "original" field.
     Base risk on the user's injury status, pain triggers, functional limitations, and training level.
+    Consider the user's goals (may be multiple) when selecting safer alternatives, but safety overrides performance goals.
 
     Output rules:
     Return only valid JSON. No markdown fences, no commentary, no text before or after the array.
@@ -234,6 +237,29 @@ def format_video_information_from_dict(v: dict, *, fallback_url: str = "") -> st
         """)
 
 
+PASTED_PLAN_TITLE = "User-pasted workout plan"
+
+
+def video_information_from_pasted_text(raw_text: str) -> dict[str, Any]:
+    """
+    Build a ``video_information``-shaped dict for a pasted text workout so the same
+    Groq pipeline and ``format_video_information_from_dict`` apply as for YouTube.
+    """
+    text = (raw_text or "").strip()
+    text = "\n".join(line.rstrip() for line in text.splitlines())
+    if len(text) > DESCRIPTION_MAX_CHARS:
+        text = text[:DESCRIPTION_MAX_CHARS] + "\n\n[Description truncated for length.]"
+    return {
+        "title": PASTED_PLAN_TITLE,
+        "id": "",
+        "channel": "",
+        "webpage_url": "",
+        "chapters": [],
+        "description": text,
+        "workout_source": "pasted_text",
+    }
+
+
 def fetch_video_information(url: str) -> str:
     """Return a human-readable block for the LLM by fetching public YouTube metadata."""
     opts = {
@@ -278,6 +304,17 @@ def load_adaptation_input_json(path: str | Path) -> tuple[str, str]:
         raise TypeError("'user_input_data' must be a JSON object.")
     if not isinstance(video_obj, dict):
         raise TypeError("'video_information' must be a JSON object.")
+    # Backwards-compatible: allow legacy "goal" while standardizing to "goals".
+    try:
+        profile = user_obj.get("user_profile")
+        if isinstance(profile, dict):
+            goals = profile.get("goals")
+            goal = profile.get("goal")
+            if goals is None and isinstance(goal, str) and goal.strip():
+                profile["goals"] = [goal.strip()]
+    except Exception:
+        # Never fail JSON loading due to optional normalization.
+        pass
     user_block = json.dumps(user_obj, indent=2, ensure_ascii=False)
     video_block = format_video_information_from_dict(video_obj)
     return user_block, video_block
@@ -292,7 +329,7 @@ def build_user_message(user_input_data: str, video_information: str) -> str:
 
         ---
 
-        Workout video information (movements / segments):
+        Workout source information (video metadata or pasted plan — movements / segments):
 
         {video_information.strip()}
         """)

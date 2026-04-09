@@ -1,0 +1,49 @@
+{
+  "user_input_data": {
+    "user_profile": {
+      "age": 26,
+      "training_experience": "Intermediate",
+      "activity_level": "Lightly Active",
+      "goals": [
+        "Maintain Strength",
+        "Cardio Fitness"
+      ]
+    },
+    "injury_details": {
+      "affected_body_part": null,
+      "diagnosis": null,
+      "date_of_injury": "2026-01-01"
+    },
+    "assessments": {
+      "pain_levels": {
+        "daily_overall": 3,
+        "deep_squats": 5,
+        "stairs": 4
+      },
+      "functional_screening": [
+        {
+          "task": "Single Leg Balance (30s)",
+          "success": true
+        },
+        {
+          "task": "Glute Bridge Hold (10s)",
+          "success": true
+        },
+        {
+          "task": "Step-Up (20cm box)",
+          "success": true
+        }
+      ],
+      "movement_limitations": []
+    }
+  },
+  "video_information": {
+    "title": "User-pasted workout plan",
+    "id": "",
+    "channel": "",
+    "webpage_url": "",
+    "chapters": [],
+    "description": "Jumping Jacks – 50 reps\n\nBodyweight Squats – 30 reps\n\nMountain Climbers – 60 reps (30 per leg)\n\nPush-Ups – 20 reps\n\nHigh Knees – 80 reps (40 per leg)\n\nReverse Lunges – 24 reps (12 per leg)\n\nPlank Shoulder Taps – 40 reps (20 per arm)\n\nBurpees – 12 reps\n\nBicycle Crunches – 40 reps (20 per side)\n\nGlute Bridges – 25 reps",
+    "workout_source": "pasted_text"
+  }
+}

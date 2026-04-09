@@ -1,0 +1,47 @@
+[
+  {
+    "original": "Reverse Crunch",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low"
+  },
+  {
+    "original": "Hip Lift",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low"
+  },
+  {
+    "original": "Frog Crunch",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low"
+  },
+  {
+    "original": "Plank & Ankle Tap",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low"
+  },
+  {
+    "original": "Mountain Climber",
+    "modified_alternative": "Reduce tempo, use support if needed",
+    "risk_flag": "Medium"
+  },
+  {
+    "original": "Speed Skater",
+    "modified_alternative": "Reduce impact, use lower step or support",
+    "risk_flag": "Medium"
+  },
+  {
+    "original": "Jumping Jacks",
+    "modified_alternative": "Step-out instead of jump, reduce tempo",
+    "risk_flag": "Medium"
+  },
+  {
+    "original": "X-Crunch",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low"
+  },
+  {
+    "original": "Bear Hop Burpees",
+    "modified_alternative": "Remove jump, use step-in instead",
+    "risk_flag": "High"
+  }
+]

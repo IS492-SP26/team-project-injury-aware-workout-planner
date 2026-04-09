@@ -1,0 +1,107 @@
+{
+  "user_input_data": {
+    "user_profile": {
+      "age": 25,
+      "training_experience": "Beginner",
+      "activity_level": "Lightly Active",
+      "goals": [
+        "Maintain Strength",
+        "Cardio Fitness"
+      ]
+    },
+    "injury_details": {
+      "affected_body_part": null,
+      "diagnosis": null,
+      "date_of_injury": "2026-04-01"
+    },
+    "assessments": {
+      "pain_levels": {
+        "daily_overall": 3,
+        "deep_squats": 5,
+        "stairs": 4
+      },
+      "functional_screening": [
+        {
+          "task": "Single Leg Balance (30s)",
+          "success": true
+        },
+        {
+          "task": "Glute Bridge Hold (10s)",
+          "success": true
+        },
+        {
+          "task": "Step-Up (20cm box)",
+          "success": true
+        }
+      ],
+      "movement_limitations": []
+    }
+  },
+  "video_information": {
+    "id": "AS7t3doAEdw",
+    "title": "DAY 3 // THE DAILY10: 10 Min Cardio & Abs Workout",
+    "webpage_url": "https://www.youtube.com/watch?v=AS7t3doAEdw",
+    "chapters": [
+      {
+        "index": 1,
+        "title": "The Daily DAY 03 OF 30",
+        "start_time": 0.0,
+        "end_time": 15.0
+      },
+      {
+        "index": 2,
+        "title": "UP NEXT Reverse Crunch",
+        "start_time": 15.0,
+        "end_time": 74.0
+      },
+      {
+        "index": 3,
+        "title": "UP NEXT/ Hip Lift",
+        "start_time": 74.0,
+        "end_time": 194.0
+      },
+      {
+        "index": 4,
+        "title": "UP NEXT Frog Crunch",
+        "start_time": 194.0,
+        "end_time": 254.0
+      },
+      {
+        "index": 5,
+        "title": "UP NEXT Plank & Ankle Tap",
+        "start_time": 254.0,
+        "end_time": 314.0
+      },
+      {
+        "index": 6,
+        "title": "UP NEXT Mountain Climber",
+        "start_time": 314.0,
+        "end_time": 374.0
+      },
+      {
+        "index": 7,
+        "title": "UP NEXT Speed Skater",
+        "start_time": 374.0,
+        "end_time": 434.0
+      },
+      {
+        "index": 8,
+        "title": "UP NEXT Jumping Jacks",
+        "start_time": 434.0,
+        "end_time": 494.0
+      },
+      {
+        "index": 9,
+        "title": "UP NEXT X-Crunch",
+        "start_time": 494.0,
+        "end_time": 554.0
+      },
+      {
+        "index": 10,
+        "title": "UP NEXT Bear Hop Burpees",
+        "start_time": 554.0,
+        "end_time": 637
+      }
+    ]
+  }
+}

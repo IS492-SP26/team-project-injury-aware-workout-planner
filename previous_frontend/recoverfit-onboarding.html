@@ -309,6 +309,30 @@ input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}
 .lvl-card.sel .lvl-chk{background:var(--c);border-color:var(--c)}
 .lvl-card.sel .lvl-chk::after{content:'✓';font-size:9px;color:#07080d;font-weight:900}
 
+/* activity level cards (mirrors training level UI) */
+.act-wrap{margin-top:18px}
+.act-cards{display:flex;flex-direction:column;gap:10px}
+.act-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+  padding:16px 18px;cursor:pointer;
+  display:flex;align-items:center;gap:14px;
+  transition:all .25s var(--ease);position:relative;overflow:hidden;
+}
+.act-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c);transform:scaleY(0);transform-origin:bottom;transition:transform .3s var(--ease)}
+.act-card:hover{background:var(--surface2);transform:translateX(3px)}
+.act-card.sel{background:rgba(var(--cr),0.07);border-color:rgba(var(--cr),0.3)}
+.act-card.sel::before{transform:scaleY(1)}
+.act-card[data-al=sedentary]{--c:#9aa6c4;--cr:154,166,196}
+.act-card[data-al=lightly]{--c:#4fffb0;--cr:79,255,176}
+.act-card[data-al=moderately]{--c:var(--amber);--cr:245,166,35}
+.act-card[data-al=very]{--c:var(--red);--cr:245,91,91}
+.act-em{font-size:26px;flex-shrink:0}
+.act-name{font-family:var(--font-d);font-size:15px;font-weight:700;margin-bottom:3px}
+.act-desc{font-size:12px;color:var(--muted)}
+.act-chk{margin-left:auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.act-card.sel .act-chk{background:var(--c);border-color:var(--c)}
+.act-card.sel .act-chk::after{content:'✓';font-size:9px;color:#07080d;font-weight:900}
+
 /* goal cards */
 .goal-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .goal-card{
@@ -697,6 +721,31 @@ input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}
             <div class="lvl-chk"></div>
           </div>
         </div>
+        <div class="act-wrap">
+          <div class="col-head" style="margin:22px 0 14px;font-size:16px">Activity <span>Level</span></div>
+          <div class="act-cards">
+            <div class="act-card" data-al="sedentary">
+              <span class="act-em">🪑</span>
+              <div class="act-info"><div class="act-name">Sedentary</div><div class="act-desc">Mostly sitting, little weekly exercise</div></div>
+              <div class="act-chk"></div>
+            </div>
+            <div class="act-card" data-al="lightly">
+              <span class="act-em">🚶</span>
+              <div class="act-info"><div class="act-name">Lightly Active</div><div class="act-desc">Some movement, 1–2 light workouts/week</div></div>
+              <div class="act-chk"></div>
+            </div>
+            <div class="act-card" data-al="moderately">
+              <span class="act-em">🏃</span>
+              <div class="act-info"><div class="act-name">Moderately Active</div><div class="act-desc">Regular activity, 3–4 workouts/week</div></div>
+              <div class="act-chk"></div>
+            </div>
+            <div class="act-card" data-al="very">
+              <span class="act-em">🏋️</span>
+              <div class="act-info"><div class="act-name">Very Active</div><div class="act-desc">High activity, training most days</div></div>
+              <div class="act-chk"></div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- GOAL -->
       <div>
@@ -751,8 +800,8 @@ input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}
     </div>
 
     <div class="cta-stack">
-      <button class="btn btn-primary btn-xl" onclick="alert('Let\'s go! 🚀')">
-        AdaptFit AI has got you <span class="arrow">→</span>
+      <button class="btn btn-primary btn-xl" id="btn-submit-survey">
+        Continue to Workout Adaptation <span class="arrow">→</span>
       </button>
       <span style="font-size:13px;color:var(--muted)">You can safely train through recovery. We'll guide every step.</span>
     </div>
@@ -762,11 +811,15 @@ input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}
 </div><!-- .app -->
 
 <script>
+// Configure backend base URL (override by setting window.API_BASE in devtools)
+window.API_BASE = window.API_BASE || 'http://localhost:8000';
+
 // ── STATE ─────────────────────────────────────────
 const S = {
   name:'',age:'',gender:'',
   zone:null,injury:null,injuryLabel:'',
   level:null,levelLabel:'',goals:[],goalLabels:[],
+  activityLevel:null,activityLevelLabel:'',
   recoveryWeeks:12
 };
 
@@ -954,6 +1007,13 @@ document.getElementById('b3back').addEventListener('click',()=>goPage(2));
 // ── PAGE 4 ────────────────────────────────────────
 const btn4 = document.getElementById('btn4');
 let lvlSel=false;
+let actSel=false;
+const activityLabelMap = {
+  sedentary: 'Sedentary',
+  lightly: 'Lightly Active',
+  moderately: 'Moderately Active',
+  very: 'Very Active',
+};
 document.querySelectorAll('.lvl-card').forEach(c=>{
   c.addEventListener('click',()=>{
     document.querySelectorAll('.lvl-card').forEach(x=>x.classList.remove('sel'));
@@ -961,7 +1021,17 @@ document.querySelectorAll('.lvl-card').forEach(c=>{
     S.level = c.dataset.lv;
     S.levelLabel = {beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[c.dataset.lv];
     lvlSel=true;
-    btn4.disabled = !(lvlSel && S.goals.length >= 2);
+    btn4.disabled = !(lvlSel && actSel && S.goals.length >= 2);
+  });
+});
+document.querySelectorAll('.act-card').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.act-card').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel');
+    S.activityLevel = c.dataset.al;
+    S.activityLevelLabel = activityLabelMap[c.dataset.al] || '';
+    actSel = true;
+    btn4.disabled = !(lvlSel && actSel && S.goals.length >= 2);
   });
 });
 document.querySelectorAll('.goal-card').forEach(c=>{
@@ -971,7 +1041,7 @@ document.querySelectorAll('.goal-card').forEach(c=>{
     const selectedCards = [...document.querySelectorAll('.goal-card.sel')];
     S.goals = selectedCards.map(card=>card.dataset.goal);
     S.goalLabels = selectedCards.map(card=>gmap[card.dataset.goal]);
-    btn4.disabled = !(lvlSel && S.goals.length >= 2);
+    btn4.disabled = !(lvlSel && actSel && S.goals.length >= 2);
   });
 });
 
@@ -1011,6 +1081,86 @@ function buildRevealPage(){
   };
   document.getElementById('recov-sub').textContent = (subs[S.injury] || 'With the right adaptations, you can train safely through recovery.') + ' AdaptFit AI has got you.';
 }
+
+function _selectedMovementLimitations(){
+  return [...document.querySelectorAll('.lim-tag.sel')].map(el=>el.dataset.lim).filter(Boolean);
+}
+
+function _buildFunctionalScreening(){
+  // Uses fcState + optional discomfort inputs attached to the note elements.
+  const tasks = [
+    { key: 'balance', label: 'Single Leg Balance (30s)' },
+    { key: 'bridge', label: 'Glute Bridge Hold (10s)' },
+    { key: 'step', label: 'Step-Up (20cm box)' },
+  ];
+  return tasks.map(t=>{
+    const v = fcState[t.key];
+    const success = v === 'yes' ? true : v === 'no' ? false : null;
+    const noteEl = document.getElementById(`fc-${t.key}-note`);
+    const noteInp = noteEl ? noteEl.querySelector('input') : null;
+    const discomfort = noteInp ? (noteInp.value || '').trim() : '';
+    const obj = { task: t.label };
+    if (success !== null) obj.success = success;
+    if (!success && discomfort) obj.discomfort_reported = discomfort;
+    return obj;
+  });
+}
+
+async function submitSurvey(){
+  const raw = {
+    // core profile
+    name: S.name,
+    age: S.age,
+    gender: S.gender,
+    level: S.level,
+    levelLabel: S.levelLabel,
+    activityLevel: S.activityLevel,
+    activityLevelLabel: S.activityLevelLabel,
+    goals: S.goals,
+    goalLabels: S.goalLabels,
+
+    // injury
+    zone: S.zone,
+    injury: S.injury,
+    injuryLabel: S.injuryLabel,
+    date_of_injury: (document.getElementById('inp-doi')?.value || '').trim(),
+
+    // assessments
+    pain_levels: {
+      daily_overall: +document.getElementById('sl-daily').value,
+      deep_squats: +document.getElementById('sl-squat').value,
+      stairs: +document.getElementById('sl-stairs').value,
+    },
+    functional_screening: _buildFunctionalScreening(),
+    movement_limitations: _selectedMovementLimitations(),
+  };
+
+  const res = await fetch(`${window.API_BASE}/api/survey`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ raw }),
+  });
+  if(!res.ok){
+    const msg = await res.text();
+    throw new Error(`Survey submit failed (${res.status}): ${msg}`);
+  }
+  return await res.json();
+}
+
+document.getElementById('btn-submit-survey')?.addEventListener('click', async ()=>{
+  const btn = document.getElementById('btn-submit-survey');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+  try{
+    const data = await submitSurvey();
+    localStorage.setItem('adaptfit_session_id', data.session_id);
+    window.location.href = 'app/prompts/workout_adapt_frontend.html';
+  }catch(e){
+    alert(e?.message || String(e));
+    btn.disabled = false;
+    btn.innerHTML = 'Continue to Workout Adaptation <span class="arrow">→</span>';
+  }
+});
 </script>
 </body>
 </html>

@@ -1,0 +1,74 @@
+[
+  {
+    "original": "Reverse Crunch",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "start_time": 0.0,
+    "end_time": 15.0,
+    "time_range": "00:00–00:15"
+  },
+  {
+    "original": "Hip Lift",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "start_time": 15.0,
+    "end_time": 74.0,
+    "time_range": "00:15–01:14"
+  },
+  {
+    "original": "Frog Crunch",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "start_time": 74.0,
+    "end_time": 194.0,
+    "time_range": "01:14–03:14"
+  },
+  {
+    "original": "Plank & Ankle Tap",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "start_time": 194.0,
+    "end_time": 254.0,
+    "time_range": "03:14–04:14"
+  },
+  {
+    "original": "Mountain Climber",
+    "modified_alternative": "Reduce tempo, use support if needed",
+    "risk_flag": "Medium",
+    "start_time": 254.0,
+    "end_time": 314.0,
+    "time_range": "04:14–05:14"
+  },
+  {
+    "original": "Speed Skater",
+    "modified_alternative": "Reduce impact, use lower step or bodyweight",
+    "risk_flag": "Medium",
+    "start_time": 314.0,
+    "end_time": 374.0,
+    "time_range": "05:14–06:14"
+  },
+  {
+    "original": "Jumping Jacks",
+    "modified_alternative": "Step-touch instead of jump, reduce tempo",
+    "risk_flag": "Medium",
+    "start_time": 374.0,
+    "end_time": 434.0,
+    "time_range": "06:14–07:14"
+  },
+  {
+    "original": "X-Crunch",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "start_time": 434.0,
+    "end_time": 494.0,
+    "time_range": "07:14–08:14"
+  },
+  {
+    "original": "Bear Hop Burpees",
+    "modified_alternative": "Remove jump, use bodyweight or reduce reps",
+    "risk_flag": "High",
+    "start_time": 494.0,
+    "end_time": 554.0,
+    "time_range": "08:14–09:14"
+  }
+]

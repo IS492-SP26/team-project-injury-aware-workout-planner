@@ -1,0 +1,62 @@
+[
+  {
+    "original": "Jumping Jacks",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "time_range": ""
+  },
+  {
+    "original": "Bodyweight Squats",
+    "modified_alternative": "Reduced depth, slower tempo",
+    "risk_flag": "Medium",
+    "time_range": ""
+  },
+  {
+    "original": "Mountain Climbers",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "time_range": ""
+  },
+  {
+    "original": "Push-Ups",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "time_range": ""
+  },
+  {
+    "original": "High Knees",
+    "modified_alternative": "Marching in place",
+    "risk_flag": "Medium",
+    "time_range": ""
+  },
+  {
+    "original": "Reverse Lunges",
+    "modified_alternative": "Assisted lunges with support",
+    "risk_flag": "Medium",
+    "time_range": ""
+  },
+  {
+    "original": "Plank Shoulder Taps",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "time_range": ""
+  },
+  {
+    "original": "Burpees",
+    "modified_alternative": "Step-back burpees, no jump",
+    "risk_flag": "High",
+    "time_range": ""
+  },
+  {
+    "original": "Bicycle Crunches",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "time_range": ""
+  },
+  {
+    "original": "Glute Bridges",
+    "modified_alternative": "Keep as is",
+    "risk_flag": "Low",
+    "time_range": ""
+  }
+]
