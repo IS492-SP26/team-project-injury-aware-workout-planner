@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppFit — Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f7ff;
+  --bg2:#eaf0ff;
+  --surface:#ffffff;
+  --surface2:#f7faff;
+  --border:rgba(43,65,110,0.10);
+  --border2:rgba(43,65,110,0.18);
+  --text:#18233d;
+  --muted:#7281a0;
+  --muted2:#4e607f;
+  --accent:#5f7cff;
+  --accent-dim:rgba(95,124,255,0.12);
+  --accent-glow:rgba(95,124,255,0.28);
+  --blue:#3f7cff;
+  --blue-dim:rgba(63,124,255,0.12);
+  --red:#e35f6c;
+  --red-dim:rgba(227,95,108,0.12);
+  --amber:#e7a845;
+  --amber-dim:rgba(231,168,69,0.12);
+  --font-d:'Clash Display',sans-serif;
+  --font-b:'Satoshi',sans-serif;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+html,body{height:100%;overflow-y:auto;overflow-x:hidden}
+body{
+  background:radial-gradient(1200px 700px at 50% -180px,var(--bg2),var(--bg) 65%);
+  color:var(--text);
+  font-family:var(--font-b);
+  display:flex;
+  flex-direction:column;
+}
+
+/* ── SCROLLABLE PAGES CONTAINER ────────────────── */
+.app{position:relative;width:100%;height:100vh;overflow:hidden}
+
+/* ── PAGE ──────────────────────────────────────── */
+.page{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transform:translateX(60px);
+  transition:opacity 0.45s var(--ease),transform 0.45s var(--ease);
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+.page.active{opacity:1;pointer-events:all;transform:translateX(0)}
+.page.exit{opacity:0;transform:translateX(-60px)}
+
+/* ── SHARED NAV ─────────────────────────────────── */
+.top-bar{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 40px;
+  max-width:1180px;
+  width:100%;
+  margin:0 auto;
+  background:linear-gradient(to bottom,rgba(244,247,255,0.95) 75%,transparent);
+  backdrop-filter:blur(4px);
+  flex-shrink:0;
+}
+.logo{font-family:var(--font-d);font-size:22px;font-weight:700;letter-spacing:-0.5px;display:flex;align-items:center;gap:10px}
+.logo-pip{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.steps-row{display:flex;align-items:center;gap:6px}
+.step-pip{width:6px;height:6px;border-radius:3px;background:var(--border2);transition:all 0.4s var(--ease)}
+.step-pip.done{background:rgba(200,245,90,0.4)}
+.step-pip.now{width:20px;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+.skip-btn{font-size:13px;color:var(--muted);cursor:pointer;padding:6px 12px;border-radius:8px;background:transparent;border:none;transition:color 0.2s}
+.skip-btn:hover{color:var(--muted2)}
+
+/* ── PAGE CONTENT ───────────────────────────────── */
+.page-inner{flex:1;display:flex;flex-direction:column;padding:0 40px 44px;max-width:1180px;width:100%;margin:0 auto}
+.page-header{padding-top:12px;margin-bottom:42px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.tag-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(95,124,255,0.24);padding:6px 14px;border-radius:100px;margin-bottom:18px}
+.page-title{font-family:var(--font-d);font-size:clamp(36px,5.2vw,58px);font-weight:700;line-height:1.1;letter-spacing:-1.6px;margin-bottom:12px}
+.page-title em{color:var(--accent);font-style:normal}
+.page-sub{font-size:18px;color:var(--muted2);font-weight:400;line-height:1.7;max-width:720px}
+
+/* ── FORM INPUTS ─────────────────────────────────── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;width:100%;margin:0 auto}
+.form-grid.full{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:8px}
+.field-label{font-size:13px;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted2);font-weight:700}
+.field input,.field select,.field textarea{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  color:var(--text);
+  font-family:var(--font-b);
+  font-size:17px;
+  padding:16px 18px;
+  outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  appearance:none;-webkit-appearance:none;
+  width:100%;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(95,124,255,0.5);box-shadow:0 0 0 3px rgba(95,124,255,0.10)}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a6378' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer}
+.field select option{background:var(--surface2);color:var(--text)}
+.field textarea{resize:none;min-height:90px;line-height:1.6}
+
+/* gender pills */
+.gender-pills{display:flex;gap:8px;flex-wrap:wrap}
+.g-pill{
+  padding:12px 22px;border-radius:100px;font-size:15px;font-weight:600;
+  border:1px solid var(--border2);background:var(--surface);color:var(--muted2);
+  cursor:pointer;transition:all 0.2s var(--ease);
+}
+.g-pill:hover{border-color:var(--border2);color:var(--text);background:var(--surface2)}
+.g-pill.sel{background:var(--accent-dim);border-color:rgba(95,124,255,0.35);color:var(--accent)}
+
+/* ── BOTTOM BAR ─────────────────────────────────── */
+.bottom-bar{
+  position:sticky;bottom:0;z-index:100;
+  padding:22px 40px 28px;
+  max-width:1180px;
+  width:100%;
+  margin:0 auto;
+  background:linear-gradient(to top,rgba(244,247,255,0.95) 70%,transparent);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:none;border-radius:100px;cursor:pointer;
+  font-family:var(--font-d);font-size:16px;font-weight:600;
+  padding:15px 30px;transition:all 0.2s var(--ease-spring);
+}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 24px rgba(95,124,255,0.30)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(95,124,255,0.35)}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-ghost{background:transparent;color:var(--muted2);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:var(--border2);color:var(--text);background:var(--surface)}
+.btn-xl{padding:18px 44px;font-size:16px}
+.arrow{transition:transform 0.2s;display:inline-block}
+.btn:not(:disabled):hover .arrow{transform:translateX(4px)}
+.progress-hint{font-size:15px;color:var(--muted);flex:1;text-align:center}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 2 — BODY MAP
+═══════════════════════════════════════════════════ */
+.body-stage-wrap{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  position:relative;min-height:0;
+}
+.body-center{
+  position:relative;width:240px;flex-shrink:0;
+  transition:transform 0.5s var(--ease);
+}
+.body-center svg{width:100%;height:auto;display:block}
+
+/* hotspot */
+.hs{
+  position:absolute;transform:translate(-50%,-50%);
+  width:42px;height:42px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.04);backdrop-filter:blur(6px);
+  transition:all 0.25s var(--ease-spring);
+}
+.hs:hover{transform:translate(-50%,-50%) scale(1.15)}
+.hs-dot{width:9px;height:9px;border-radius:50%;background:var(--muted);transition:all 0.25s}
+.hs.lit{border-color:var(--accent);background:var(--accent-dim);box-shadow:0 0 20px var(--accent-glow)}
+.hs.lit .hs-dot{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.hs.lit::after{content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--accent);animation:hspulse 1.8s ease-out infinite}
+@keyframes hspulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+
+/* injury panels that slide in */
+.injury-panel{
+  position:absolute;top:39%;transform:translateY(-50%);
+  width:320px;display:flex;flex-direction:column;gap:14px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s var(--ease),transform 0.4s var(--ease);
+  z-index:2;
+  max-height:none;
+  overflow:visible;
+  padding-right:0;
+}
+.injury-panel.left{transform:translateY(-50%) translateX(16px)}
+.injury-panel.right{transform:translateY(-50%) translateX(-16px)}
+.injury-panel.visible{opacity:1;pointer-events:all}
+.injury-panel.left.visible{transform:translateY(-50%) translateX(0)}
+.injury-panel.right.visible{transform:translateY(-50%) translateX(0)}
+
+.inj-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:14px;
+  padding:18px 18px;cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  transition:all 0.22s var(--ease);
+}
+.inj-card:hover{background:var(--surface2);border-color:rgba(255,255,255,0.15);transform:translateX(4px)}
+.inj-panel.right .inj-card:hover{transform:translateX(-4px)}
+.inj-card.sel{background:var(--accent-dim);border-color:rgba(95,124,255,0.35)}
+.inj-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:rgba(255,255,255,0.05)}
+.inj-card.sel .inj-icon{background:var(--accent-dim)}
+.inj-name{font-family:var(--font-d);font-size:17px;font-weight:600;color:var(--text);margin-bottom:3px;line-height:1.25;word-break:break-word}
+.inj-sub{font-size:14px;color:var(--muted);line-height:1.5;word-break:break-word}
+.inj-check{margin-left:auto;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.inj-card.sel .inj-check{background:var(--accent);border-color:var(--accent)}
+.inj-card.sel .inj-check::after{content:'✓';font-size:10px;color:#07080d;font-weight:700}
+
+/* unknown option */
+.unknown-opt{
+  margin-top:8px;background:var(--surface);border:1px dashed var(--border2);border-radius:14px;
+  padding:18px 18px;cursor:pointer;text-align:center;
+  font-size:16px;color:var(--muted2);transition:all .22s;
+  line-height:1.4;
+  word-break:break-word;
+}
+.unknown-opt:hover{border-color:var(--border2);color:var(--text);background:var(--surface2)}
+.unknown-opt.sel{border-color:rgba(200,245,90,0.3);color:var(--accent);background:var(--accent-dim)}
+
+/* zone label */
+.zone-label{
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
+  text-align:center;margin-bottom:10px;transition:opacity 0.3s;
+}
+
+/* SVG highlights */
+#hl-knee-l,#hl-knee-r,#hl-sh-l,#hl-sh-r{transition:all 0.35s var(--ease)}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 3 — INJURY DETAILS
+═══════════════════════════════════════════════════ */
+.section-divider{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin:30px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:640px}
+.details-grid.three{grid-template-columns:1fr 1fr 1fr}
+.details-grid.full{grid-template-columns:1fr;max-width:640px}
+
+/* pain sliders */
+.pain-row{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--border2);border-radius:14px;margin-bottom:12px;max-width:760px;margin-left:auto;margin-right:auto}
+.pain-label{font-size:15px;color:var(--muted2);flex:1;min-width:0}
+.pain-slider-wrap{display:flex;align-items:center;gap:10px;flex:1.2}
+input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:var(--surface2);outline:none;flex:1;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent-glow);cursor:pointer;transition:transform .15s}
+input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.15)}
+.pain-val{font-family:var(--font-d);font-size:15px;font-weight:700;min-width:24px;text-align:right;color:var(--accent)}
+.pain-val.hi{color:var(--red)}
+.pain-val.med{color:var(--amber)}
+
+/* functional screening */
+.func-card{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;
+  background:var(--surface);border:1px solid var(--border2);border-radius:14px;
+  margin-bottom:12px;max-width:760px;margin-left:auto;margin-right:auto;
+}
+.func-info{flex:1}
+.func-name{font-size:16px;font-weight:500;margin-bottom:2px}
+.func-note{font-size:12px;color:var(--muted);margin-top:3px;font-style:italic}
+.toggle-wrap{display:flex;gap:8px}
+.tog{padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.tog.yes.on{background:rgba(100,220,120,0.15);border-color:rgba(100,220,120,0.4);color:#64dc78}
+.tog.no.on{background:var(--red-dim);border-color:rgba(245,91,91,0.4);color:var(--red)}
+.discomfort-input{
+  margin-top:8px;padding:9px 12px;border-radius:9px;border:1px solid var(--border2);
+  background:var(--surface2);color:var(--text);font-family:var(--font-b);font-size:13px;
+  outline:none;width:100%;transition:border-color .2s;
+}
+.discomfort-input:focus{border-color:rgba(200,245,90,0.3)}
+
+/* limitation tags */
+.tags-wrap{display:flex;flex-wrap:wrap;gap:10px;max-width:760px;margin:0 auto}
+.lim-tag{
+  padding:9px 16px;border-radius:100px;font-size:13px;font-weight:500;
+  border:1px solid var(--border2);background:var(--surface);color:var(--muted2);
+  cursor:pointer;transition:all .2s;
+}
+.lim-tag:hover{border-color:var(--border2);color:var(--text);background:var(--surface2)}
+.lim-tag.sel{background:var(--accent-dim);border-color:rgba(200,245,90,0.3);color:var(--accent)}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 4 — GOALS (level + goal combined)
+═══════════════════════════════════════════════════ */
+.two-col-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:980px;margin:0 auto}
+
+/* level cards */
+.lvl-cards{display:flex;flex-direction:column;gap:10px}
+.lvl-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+  padding:16px 18px;cursor:pointer;
+  display:flex;align-items:center;gap:14px;
+  transition:all .25s var(--ease);position:relative;overflow:hidden;
+}
+.lvl-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c);transform:scaleY(0);transform-origin:bottom;transition:transform .3s var(--ease)}
+.lvl-card:hover{background:var(--surface2);transform:translateX(3px)}
+.lvl-card.sel{background:rgba(var(--cr),0.07);border-color:rgba(var(--cr),0.3)}
+.lvl-card.sel::before{transform:scaleY(1)}
+.lvl-card[data-lv=beginner]{--c:#4fffb0;--cr:79,255,176}
+.lvl-card[data-lv=intermediate]{--c:var(--amber);--cr:245,166,35}
+.lvl-card[data-lv=advanced]{--c:var(--red);--cr:245,91,91}
+.lvl-em{font-size:26px;flex-shrink:0}
+.lvl-name{font-family:var(--font-d);font-size:15px;font-weight:700;margin-bottom:3px}
+.lvl-desc{font-size:12px;color:var(--muted)}
+.lvl-chk{margin-left:auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.lvl-card.sel .lvl-chk{background:var(--c);border-color:var(--c)}
+.lvl-card.sel .lvl-chk::after{content:'✓';font-size:9px;color:#07080d;font-weight:900}
+
+/* goal cards */
+.goal-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.goal-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+  padding:16px;cursor:pointer;
+  transition:all .25s var(--ease);text-align:center;
+}
+.goal-card:hover{background:var(--surface2);transform:translateY(-3px)}
+.goal-card.sel{background:var(--blue-dim);border-color:rgba(91,142,245,0.35);transform:translateY(-3px);box-shadow:0 8px 24px rgba(91,142,245,0.1)}
+.goal-em{font-size:28px;margin-bottom:10px;display:block;transition:transform .2s var(--ease-spring)}
+.goal-card:hover .goal-em{transform:scale(1.15)}
+.goal-name{font-family:var(--font-d);font-size:13px;font-weight:700;margin-bottom:4px}
+.goal-desc{font-size:11px;color:var(--muted);line-height:1.45}
+.col-head{font-family:var(--font-d);font-size:20px;font-weight:700;margin-bottom:18px;color:var(--text);text-align:center}
+.col-head span{color:var(--accent)}
+
+/* ═══════════════════════════════════════════════════
+   PAGE 5 — RECOVERY REVEAL
+═══════════════════════════════════════════════════ */
+.reveal-page{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px;position:relative;overflow:hidden;max-width:1180px;width:100%;margin:0 auto}
+.orbit-ring{
+  position:absolute;border-radius:50%;border:1px solid;pointer-events:none;
+  animation:orbspin linear infinite;
+}
+@keyframes orbspin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.big-num{
+  font-family:var(--font-d);font-size:clamp(80px,14vw,140px);font-weight:700;
+  line-height:1;letter-spacing:-4px;color:var(--accent);
+  text-shadow:0 0 60px rgba(200,245,90,0.3);
+  animation:numReveal 0.8s var(--ease-spring) both 0.3s;
+}
+@keyframes numReveal{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+.unit-label{font-family:var(--font-d);font-size:28px;font-weight:600;color:var(--muted2);letter-spacing:-1px;margin-bottom:6px;animation:fadeUp 0.6s var(--ease) both 0.6s}
+.reveal-headline{font-family:var(--font-d);font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-1px;margin-bottom:14px;animation:fadeUp .6s var(--ease) both .8s}
+.reveal-sub{font-size:16px;color:var(--muted2);font-weight:300;line-height:1.65;max-width:420px;animation:fadeUp .6s var(--ease) both 1s}
+.reveal-card{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:var(--surface);border:1px solid var(--border2);border-radius:20px;
+  padding:34px 54px;margin-bottom:34px;
+  animation:fadeUp .6s var(--ease) both .2s;
+  position:relative;z-index:2;
+}
+.chips-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px;animation:fadeUp .6s var(--ease) both 1.2s}
+.stat-chip{
+  display:flex;align-items:center;gap:8px;padding:10px 18px;
+  background:var(--surface);border:1px solid var(--border2);border-radius:100px;
+  font-size:14px;color:var(--muted2);
+}
+.stat-dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.cta-stack{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:24px;animation:fadeUp .6s var(--ease) both 1.4s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── MISC ───────────────────────────────────────── */
+.note-text{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}
+.required-star{color:var(--red);margin-left:2px}
+
+/* center section content consistently */
+#p3 .details-grid,
+#p3 .tags-wrap,
+#p4 .two-col-layout{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* improve responsiveness while keeping content centered */
+@media (max-width: 980px){
+  .top-bar,.page-inner,.bottom-bar,.reveal-page{padding-left:24px;padding-right:24px}
+  .details-grid,.details-grid.three{grid-template-columns:1fr}
+  .two-col-layout{grid-template-columns:1fr;gap:24px}
+  .injury-panel{width:280px;max-height:none;top:37%}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═════════════════════════════════════════
+     PAGE 1 — LOGIN / BASIC INFO
+═════════════════════════════════════════ -->
+<div class="page active" id="p1">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-pip"></div>AppFit</div>
+    <div class="steps-row">
+      <div class="step-pip now" id="sp0"></div>
+      <div class="step-pip" id="sp1"></div>
+      <div class="step-pip" id="sp2"></div>
+      <div class="step-pip" id="sp3"></div>
+      <div class="step-pip" id="sp4"></div>
+    </div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="tag-pill"><span>👋</span> Welcome</div>
+      <h1 class="page-title">Let's get to<br>know <em>you</em></h1>
+      <p class="page-sub">A few quick details to personalise your recovery-aware training plan.</p>
+    </div>
+    <div class="form-grid" style="max-width:520px">
+      <div class="field" style="grid-column:1/-1">
+        <label class="field-label">Full Name <span class="required-star">*</span></label>
+        <input type="text" id="inp-name" placeholder="e.g. Alex Johnson" autocomplete="name">
+      </div>
+      <div class="field">
+        <label class="field-label">Age <span class="required-star">*</span></label>
+        <input type="number" id="inp-age" placeholder="28" min="10" max="100">
+      </div>
+      <div class="field">
+        <label class="field-label">Height</label>
+        <input type="text" id="inp-height" placeholder="175 cm or 5'9&quot;">
+      </div>
+      <div class="field" style="grid-column:1/-1">
+        <label class="field-label">Gender <span class="required-star">*</span></label>
+        <div class="gender-pills">
+          <div class="g-pill" data-g="Male">Male</div>
+          <div class="g-pill" data-g="Female">Female</div>
+          <div class="g-pill" data-g="Non-binary">Non-binary</div>
+          <div class="g-pill" data-g="Prefer not to say">Prefer not to say</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <div style="width:80px"></div>
+    <div class="progress-hint">Step 1 of 5</div>
+    <button class="btn btn-primary" id="btn1" disabled>Continue <span class="arrow">→</span></button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════
+     PAGE 2 — BODY MAP + INJURY SELECTION
+═════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-pip"></div>AppFit</div>
+    <div class="steps-row">
+      <div class="step-pip done" id="s2p0"></div>
+      <div class="step-pip now"></div>
+      <div class="step-pip" id="s2p2"></div>
+      <div class="step-pip" id="s2p3"></div>
+      <div class="step-pip" id="s2p4"></div>
+    </div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="page-inner" style="padding-bottom:0">
+    <div class="page-header" style="margin-bottom:20px">
+      <div class="tag-pill"><span>🩺</span> Injury</div>
+      <h1 class="page-title">Where does it <em>hurt?</em></h1>
+      <p class="page-sub">Tap the area on the body or hover to select. Then pick your diagnosis — or say you haven't been told yet.</p>
+    </div>
+  </div>
+
+  <!-- body map takes remaining space -->
+  <div id="body-stage" style="flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:380px;padding:0 120px 16px;max-width:1180px;width:100%;margin:0 auto;overflow:visible">
+    <!-- LEFT panel: knee injuries -->
+    <div class="injury-panel left" id="panel-knee">
+      <div class="zone-label">Knee Injuries</div>
+      <div class="inj-card" data-inj="acl" data-zone="knee"><div class="inj-icon">🦵</div><div><div class="inj-name">ACL Reconstruction</div><div class="inj-sub">Post-surgical ligament</div></div><div class="inj-check"></div></div>
+      <div class="inj-card" data-inj="meniscal" data-zone="knee"><div class="inj-icon">🔘</div><div><div class="inj-name">Meniscal Repair</div><div class="inj-sub">Cartilage protection</div></div><div class="inj-check"></div></div>
+      <div class="inj-card" data-inj="pfp" data-zone="knee"><div class="inj-icon">⚡</div><div><div class="inj-name">Patellofemoral Pain</div><div class="inj-sub">Kneecap tracking issue</div></div><div class="inj-check"></div></div>
+      <div class="inj-card" data-inj="oa" data-zone="knee"><div class="inj-icon">🦴</div><div><div class="inj-name">Knee Osteoarthritis</div><div class="inj-sub">Joint degeneration</div></div><div class="inj-check"></div></div>
+      <div class="unknown-opt" data-zone="knee" id="unk-knee">Not diagnosed yet — just know it's my <strong>knee</strong></div>
+    </div>
+
+    <!-- BODY FIGURE -->
+    <div class="body-center" id="bodyCenter">
+      <svg viewBox="0 0 220 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="kg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f55b5b" stop-opacity=".25"/><stop offset="100%" stop-color="#f55b5b" stop-opacity="0"/></radialGradient>
+          <radialGradient id="sg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5b8ef5" stop-opacity=".25"/><stop offset="100%" stop-color="#5b8ef5" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- head -->
+        <ellipse cx="110" cy="44" rx="28" ry="34" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- neck -->
+        <rect x="101" y="76" width="18" height="16" rx="3" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- torso -->
+        <path d="M74 91 Q62 100 60 158 Q58 198 63 238 L157 238 Q162 198 160 158 Q158 100 146 91 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- l arm -->
+        <path d="M74 97 Q50 110 42 150 Q38 174 44 207 Q48 222 54 222 Q60 222 61 207 Q63 178 67 153 Q72 128 82 109 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- r arm -->
+        <path d="M146 97 Q170 110 178 150 Q182 174 176 207 Q172 222 166 222 Q160 222 159 207 Q157 178 153 153 Q148 128 138 109 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- l hand -->
+        <ellipse cx="48" cy="223" rx="10" ry="14" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- r hand -->
+        <ellipse cx="172" cy="223" rx="10" ry="14" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- pelvis -->
+        <path d="M67 236 Q65 258 68 278 L152 278 Q155 258 153 236 Z" fill="#131820" stroke="#252f44" stroke-width="1.5"/>
+        <!-- l thigh -->
+        <path d="M74 276 Q65 298 63 328 Q61 353 65 368 L93 368 Q97 353 97 328 Q97 303 97 276 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- r thigh -->
+        <path d="M146 276 Q155 298 157 328 Q159 353 155 368 L127 368 Q123 353 123 328 Q123 303 123 276 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- l shin -->
+        <path d="M65 368 Q61 398 63 428 Q65 452 69 458 L91 458 Q95 452 95 428 Q95 398 93 368 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- r shin -->
+        <path d="M127 368 Q123 398 125 428 Q127 452 131 458 L153 458 Q157 452 157 428 Q157 398 155 368 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+        <!-- feet -->
+        <path d="M63 456 Q57 462 55 470 L93 470 Q95 462 91 456 Z" fill="#131820" stroke="#252f44" stroke-width="1.5"/>
+        <path d="M127 456 Q123 462 125 470 L157 470 Q161 462 157 456 Z" fill="#131820" stroke="#252f44" stroke-width="1.5"/>
+        <!-- glow highlights -->
+        <ellipse id="hl-sh-l" cx="67" cy="95" rx="20" ry="14" fill="rgba(91,142,245,0)" stroke="rgba(91,142,245,0)" stroke-width="2"/>
+        <ellipse id="hl-sh-r" cx="153" cy="95" rx="20" ry="14" fill="rgba(91,142,245,0)" stroke="rgba(91,142,245,0)" stroke-width="2"/>
+        <ellipse id="hl-knee-l" cx="79" cy="370" rx="24" ry="15" fill="rgba(245,91,91,0)" stroke="rgba(245,91,91,0)" stroke-width="2"/>
+        <ellipse id="hl-knee-r" cx="141" cy="370" rx="24" ry="15" fill="rgba(245,91,91,0)" stroke="rgba(245,91,91,0)" stroke-width="2"/>
+      </svg>
+      <!-- hotspots -->
+      <div class="hs" id="hs-knee" style="top:77%;left:36%" data-zone="knee"><div class="hs-dot"></div></div>
+      <div class="hs" id="hs-knee-r" style="top:77%;left:64%" data-zone="knee"><div class="hs-dot"></div></div>
+      <div class="hs" id="hs-sh" style="top:20%;left:29%" data-zone="shoulder"><div class="hs-dot"></div></div>
+      <div class="hs" id="hs-sh-r" style="top:20%;left:71%" data-zone="shoulder"><div class="hs-dot"></div></div>
+    </div>
+
+    <!-- RIGHT panel: shoulder injuries -->
+    <div class="injury-panel right" id="panel-shoulder">
+      <div class="zone-label">Shoulder Injuries</div>
+      <div class="inj-card" data-inj="rotator" data-zone="shoulder"><div class="inj-icon">💪</div><div><div class="inj-name">Rotator Cuff</div><div class="inj-sub">Tear or tendinopathy</div></div><div class="inj-check"></div></div>
+      <div class="inj-card" data-inj="impingement" data-zone="shoulder"><div class="inj-icon">📍</div><div><div class="inj-name">Impingement</div><div class="inj-sub">Subacromial compression</div></div><div class="inj-check"></div></div>
+      <div class="inj-card" data-inj="labrum" data-zone="shoulder"><div class="inj-icon">🔄</div><div><div class="inj-name">Labral Tear</div><div class="inj-sub">SLAP / Bankart repair</div></div><div class="inj-check"></div></div>
+      <div class="inj-card" data-inj="instability" data-zone="shoulder"><div class="inj-icon">⚠️</div><div><div class="inj-name">Instability</div><div class="inj-sub">Dislocation history</div></div><div class="inj-check"></div></div>
+      <div class="unknown-opt" data-zone="shoulder" id="unk-shoulder">Not diagnosed yet — just know it's my <strong>shoulder</strong></div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <button class="btn btn-ghost" id="b2back">← Back</button>
+    <div class="progress-hint" id="p2hint">Tap a body region</div>
+    <button class="btn btn-primary" id="btn2" disabled>Continue <span class="arrow">→</span></button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════
+     PAGE 3 — INJURY DETAILS
+═════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-pip"></div>AppFit</div>
+    <div class="steps-row">
+      <div class="step-pip done"></div><div class="step-pip done"></div>
+      <div class="step-pip now"></div><div class="step-pip"></div><div class="step-pip"></div>
+    </div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="tag-pill"><span>📋</span> Assessment</div>
+      <h1 class="page-title">Tell us <em>more</em></h1>
+      <p class="page-sub">Help us understand your injury timeline and how it's affecting your movement right now.</p>
+    </div>
+
+    <!-- Injury timeline -->
+    <div class="section-divider">Injury Timeline</div>
+    <div class="details-grid" style="max-width:520px">
+      <div class="field">
+        <label class="field-label">Date of Injury</label>
+        <input type="date" id="inp-doi">
+      </div>
+      <div class="field">
+        <label class="field-label">Recovery Stage</label>
+        <select id="inp-stage">
+          <option value="" disabled selected>Select stage</option>
+          <option>Acute (0–6 weeks)</option>
+          <option>Sub-acute (6–12 weeks)</option>
+          <option>Mid-stage rehab</option>
+          <option>Late-stage rehab</option>
+          <option>Return to activity</option>
+        </select>
+      </div>
+      <div class="field" style="grid-column:1/-1">
+        <label class="field-label">Additional Notes (optional)</label>
+        <textarea id="inp-notes" placeholder="e.g. Had surgery on Jan 15, currently doing physio 2x/week..."></textarea>
+      </div>
+    </div>
+
+    <!-- Pain levels -->
+    <div class="section-divider">Pain Levels <span style="color:var(--muted);font-size:10px;letter-spacing:0;text-transform:none;font-weight:400">(0 = none, 10 = severe)</span></div>
+    <div class="pain-row">
+      <span class="pain-label">Daily overall pain</span>
+      <div class="pain-slider-wrap">
+        <input type="range" min="0" max="10" value="3" id="sl-daily">
+        <span class="pain-val" id="v-daily">3</span>
+      </div>
+    </div>
+    <div class="pain-row">
+      <span class="pain-label">Deep squats / bending</span>
+      <div class="pain-slider-wrap">
+        <input type="range" min="0" max="10" value="5" id="sl-squat">
+        <span class="pain-val med" id="v-squat">5</span>
+      </div>
+    </div>
+    <div class="pain-row">
+      <span class="pain-label">Stairs / inclines</span>
+      <div class="pain-slider-wrap">
+        <input type="range" min="0" max="10" value="4" id="sl-stairs">
+        <span class="pain-val med" id="v-stairs">4</span>
+      </div>
+    </div>
+
+    <!-- Functional screening -->
+    <div class="section-divider">Functional Screening</div>
+    <div class="func-card" id="fc-balance">
+      <div class="func-info">
+        <div class="func-name">Single Leg Balance (30s)</div>
+        <div id="fc-balance-note" class="func-note" style="display:none"></div>
+      </div>
+      <div class="toggle-wrap">
+        <button class="tog yes" data-fc="balance" data-v="yes">✓ Yes</button>
+        <button class="tog no" data-fc="balance" data-v="no">✗ No</button>
+      </div>
+    </div>
+    <div class="func-card" id="fc-bridge">
+      <div class="func-info">
+        <div class="func-name">Glute Bridge Hold (10s)</div>
+        <div id="fc-bridge-note" class="func-note" style="display:none"></div>
+      </div>
+      <div class="toggle-wrap">
+        <button class="tog yes" data-fc="bridge" data-v="yes">✓ Yes</button>
+        <button class="tog no" data-fc="bridge" data-v="no">✗ No</button>
+      </div>
+    </div>
+    <div class="func-card" id="fc-step">
+      <div class="func-info">
+        <div class="func-name">Step-Up (20cm box)</div>
+        <div id="fc-step-note" class="func-note" style="display:none"></div>
+      </div>
+      <div class="toggle-wrap">
+        <button class="tog yes" data-fc="step" data-v="yes">✓ Yes</button>
+        <button class="tog no" data-fc="step" data-v="no">✗ No</button>
+      </div>
+    </div>
+
+    <!-- Movement limitations -->
+    <div class="section-divider">Movement Limitations <span style="color:var(--muted);font-size:10px;font-weight:400;text-transform:none;letter-spacing:0">(select all that apply)</span></div>
+    <div class="tags-wrap">
+      <div class="lim-tag" data-lim="Ankle Stiffness">Ankle Stiffness</div>
+      <div class="lim-tag" data-lim="Lower Back Tightness">Lower Back Tightness</div>
+      <div class="lim-tag" data-lim="Hip Flexor Tightness">Hip Flexor Tightness</div>
+      <div class="lim-tag" data-lim="Swelling / Oedema">Swelling / Oedema</div>
+      <div class="lim-tag" data-lim="Reduced ROM">Reduced ROM</div>
+      <div class="lim-tag" data-lim="Muscle Weakness">Muscle Weakness</div>
+      <div class="lim-tag" data-lim="Balance Issues">Balance Issues</div>
+      <div class="lim-tag" data-lim="Shoulder Tightness">Shoulder Tightness</div>
+    </div>
+    <div style="height:30px"></div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-ghost" id="b3back">← Back</button>
+    <div class="progress-hint">Step 3 of 5</div>
+    <button class="btn btn-primary" id="btn3">Continue <span class="arrow">→</span></button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════
+     PAGE 4 — GOALS (level + goal combined)
+═════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-pip"></div>AppFit</div>
+    <div class="steps-row">
+      <div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip done"></div>
+      <div class="step-pip now"></div><div class="step-pip"></div>
+    </div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="tag-pill"><span>🎯</span> Goal</div>
+      <h1 class="page-title">Set your <em>goal</em></h1>
+      <p class="page-sub">Tell us your training experience and what you want to achieve during recovery.</p>
+    </div>
+    <div class="two-col-layout">
+      <!-- LEVEL -->
+      <div>
+        <div class="col-head">Training <span>Level</span></div>
+        <div class="lvl-cards">
+          <div class="lvl-card" data-lv="beginner">
+            <span class="lvl-em">🌱</span>
+            <div class="lvl-info"><div class="lvl-name">Beginner</div><div class="lvl-desc">New to training or returning after a long gap</div></div>
+            <div class="lvl-chk"></div>
+          </div>
+          <div class="lvl-card" data-lv="intermediate">
+            <span class="lvl-em">🔥</span>
+            <div class="lvl-info"><div class="lvl-name">Intermediate</div><div class="lvl-desc">Regular exerciser, comfortable with most movements</div></div>
+            <div class="lvl-chk"></div>
+          </div>
+          <div class="lvl-card" data-lv="advanced">
+            <span class="lvl-em">⚡</span>
+            <div class="lvl-info"><div class="lvl-name">Advanced</div><div class="lvl-desc">Experienced athlete managing injury at high volume</div></div>
+            <div class="lvl-chk"></div>
+          </div>
+        </div>
+      </div>
+      <!-- GOAL -->
+      <div>
+        <div class="col-head">Primary <span>Goal</span></div>
+        <div class="goal-cards">
+          <div class="goal-card" data-goal="strength"><span class="goal-em">🏋️</span><div class="goal-name">Maintain Strength</div><div class="goal-desc">Keep muscle & fitness during recovery</div></div>
+          <div class="goal-card" data-goal="cardio"><span class="goal-em">💓</span><div class="goal-name">Cardio Fitness</div><div class="goal-desc">Stay aerobically active safely</div></div>
+          <div class="goal-card" data-goal="rehab"><span class="goal-em">🩹</span><div class="goal-name">Active Rehab</div><div class="goal-desc">Rebuild strength at the injury site</div></div>
+          <div class="goal-card" data-goal="return"><span class="goal-em">🚀</span><div class="goal-name">Return to Sport</div><div class="goal-desc">Safe progression back to full activity</div></div>
+          <div class="goal-card" data-goal="weight"><span class="goal-em">⚖️</span><div class="goal-name">Weight Control</div><div class="goal-desc">Manage body composition safely</div></div>
+          <div class="goal-card" data-goal="mobility"><span class="goal-em">🧘</span><div class="goal-name">Mobility</div><div class="goal-desc">Improve range of motion & flexibility</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="height:30px"></div>
+  </div>
+  <div class="bottom-bar">
+    <button class="btn btn-ghost" id="b4back">← Back</button>
+    <div class="progress-hint">Step 4 of 5</div>
+    <button class="btn btn-primary" id="btn4" disabled>Continue <span class="arrow">→</span></button>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════
+     PAGE 5 — RECOVERY REVEAL
+═════════════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="top-bar">
+    <div class="logo"><div class="logo-pip"></div>AppFit</div>
+    <div class="steps-row">
+      <div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip done"></div><div class="step-pip done"></div>
+      <div class="step-pip now"></div>
+    </div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="reveal-page">
+    <!-- orbit rings -->
+    <div class="orbit-ring" style="width:340px;height:340px;border-color:rgba(200,245,90,0.06);top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:18s"></div>
+    <div class="orbit-ring" style="width:500px;height:500px;border-color:rgba(200,245,90,0.04);top:50%;left:50%;transform:translate(-50%,-50%);animation-duration:26s;animation-direction:reverse"></div>
+
+    <div class="reveal-card">
+      <div class="big-num" id="recov-num">12</div>
+      <div class="unit-label" id="recov-unit">weeks</div>
+    </div>
+    <h2 class="reveal-headline">estimated recovery window</h2>
+    <p class="reveal-sub" id="recov-sub">Based on your injury and recovery stage, this is a typical timeline — but with consistent, structured training you can stay strong the whole way through.</p>
+
+    <div class="chips-row">
+      <div class="stat-chip"><div class="stat-dot"></div><span id="chip-injury">ACL Reconstruction</span></div>
+      <div class="stat-chip"><div class="stat-dot" style="background:var(--blue)"></div><span id="chip-level">Intermediate</span></div>
+      <div class="stat-chip"><div class="stat-dot" style="background:var(--amber)"></div><span id="chip-goal">Active Rehab</span></div>
+    </div>
+
+    <div class="cta-stack">
+      <button class="btn btn-primary btn-xl" onclick="alert('Let\'s go! 🚀')">
+        AppFit has got you <span class="arrow">→</span>
+      </button>
+      <span style="font-size:13px;color:var(--muted)">You can safely train through recovery. We'll guide every step.</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- .app -->
+
+<script>
+// ── STATE ─────────────────────────────────────────
+const S = {
+  name:'',age:'',gender:'',
+  zone:null,injury:null,injuryLabel:'',
+  level:null,levelLabel:'',goals:[],goalLabels:[],
+  recoveryWeeks:12
+};
+
+// ── PAGE NAVIGATION ───────────────────────────────
+let current = 1;
+function goPage(n){
+  const prev = document.getElementById('p'+current);
+  const next = document.getElementById('p'+n);
+  prev.classList.add('exit');
+  setTimeout(()=>{ prev.classList.remove('active','exit') },450);
+  next.classList.add('active');
+  current = n;
+  updateStepPips(n);
+}
+function updateStepPips(n){
+  for(let i=0;i<5;i++){
+    const dots = document.querySelectorAll(`#p${n} .step-pip`);
+    // already set per-page in HTML
+  }
+}
+
+// ── PAGE 1 ────────────────────────────────────────
+const btn1 = document.getElementById('btn1');
+let g1Selected = null;
+
+document.querySelectorAll('.g-pill').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.g-pill').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel');
+    S.gender = p.dataset.g;
+    validateP1();
+  });
+});
+['inp-name','inp-age'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',validateP1);
+});
+function validateP1(){
+  S.name = document.getElementById('inp-name').value.trim();
+  S.age  = document.getElementById('inp-age').value.trim();
+  btn1.disabled = !(S.name && S.age && S.gender);
+}
+btn1.addEventListener('click',()=>goPage(2));
+
+// ── PAGE 2 ────────────────────────────────────────
+const btn2 = document.getElementById('btn2');
+const p2hint = document.getElementById('p2hint');
+const bodyStage = document.getElementById('body-stage');
+const bodyCenter = document.getElementById('bodyCenter');
+const panelKnee = document.getElementById('panel-knee');
+const panelShoulder = document.getElementById('panel-shoulder');
+
+function placeInjuryPanels(){
+  if(!bodyStage || !bodyCenter || !panelKnee || !panelShoulder) return;
+
+  // Keep cards visually close to the figure while clamping inside container bounds.
+  const gap = window.innerWidth < 980 ? 6 : 10;
+  const centerLeft = bodyCenter.offsetLeft;
+  const centerRight = centerLeft + bodyCenter.offsetWidth;
+  const stageWidth = bodyStage.clientWidth;
+  const leftWidth = panelKnee.offsetWidth;
+  const rightWidth = panelShoulder.offsetWidth;
+
+  let leftX = centerLeft - leftWidth - gap;
+  let rightX = centerRight + gap;
+
+  leftX = Math.max(0, leftX);
+  rightX = Math.min(stageWidth - rightWidth, rightX);
+
+  panelKnee.style.left = `${leftX}px`;
+  panelShoulder.style.left = `${rightX}px`;
+}
+
+function showZone(zone){
+  S.zone = zone;
+  // highlight hotspots
+  document.querySelectorAll('.hs').forEach(h=>{
+    h.classList.toggle('lit', h.dataset.zone === zone);
+  });
+  // body highlights
+  const kOpacity = zone==='knee' ? '0.15' : '0';
+  const sOpacity = zone==='shoulder' ? '0.15' : '0';
+  const kStroke  = zone==='knee' ? '0.6' : '0';
+  const sStroke  = zone==='shoulder' ? '0.6' : '0';
+  document.getElementById('hl-knee-l').setAttribute('fill',`rgba(245,91,91,${kOpacity})`);
+  document.getElementById('hl-knee-r').setAttribute('fill',`rgba(245,91,91,${kOpacity})`);
+  document.getElementById('hl-knee-l').setAttribute('stroke',`rgba(245,91,91,${kStroke})`);
+  document.getElementById('hl-knee-r').setAttribute('stroke',`rgba(245,91,91,${kStroke})`);
+  document.getElementById('hl-sh-l').setAttribute('fill',`rgba(91,142,245,${sOpacity})`);
+  document.getElementById('hl-sh-r').setAttribute('fill',`rgba(91,142,245,${sOpacity})`);
+  document.getElementById('hl-sh-l').setAttribute('stroke',`rgba(91,142,245,${sStroke})`);
+  document.getElementById('hl-sh-r').setAttribute('stroke',`rgba(91,142,245,${sStroke})`);
+  // show correct panel
+  document.getElementById('panel-knee').classList.toggle('visible', zone==='knee');
+  document.getElementById('panel-shoulder').classList.toggle('visible', zone==='shoulder');
+  // reset injury selection
+  S.injury = null; S.injuryLabel = '';
+  document.querySelectorAll('.inj-card,.unknown-opt').forEach(c=>c.classList.remove('sel'));
+  btn2.disabled = true;
+  p2hint.textContent = `Now pick your ${zone} injury`;
+}
+
+document.querySelectorAll('.hs').forEach(h=>{
+  h.addEventListener('click',()=>showZone(h.dataset.zone));
+});
+
+window.addEventListener('resize',placeInjuryPanels);
+requestAnimationFrame(placeInjuryPanels);
+
+const injLabels = {
+  acl:'ACL Reconstruction',meniscal:'Meniscal Repair',pfp:'Patellofemoral Pain',oa:'Knee Osteoarthritis',
+  rotator:'Rotator Cuff',impingement:'Shoulder Impingement',labrum:'Labral Tear',instability:'Shoulder Instability'
+};
+document.querySelectorAll('.inj-card').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.inj-card,.unknown-opt').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel');
+    S.injury = c.dataset.inj;
+    S.injuryLabel = injLabels[c.dataset.inj];
+    btn2.disabled = false;
+    p2hint.textContent = S.injuryLabel+' ✓';
+  });
+});
+document.querySelectorAll('.unknown-opt').forEach(u=>{
+  u.addEventListener('click',()=>{
+    document.querySelectorAll('.inj-card,.unknown-opt').forEach(x=>x.classList.remove('sel'));
+    u.classList.add('sel');
+    S.injury = 'unknown-'+u.dataset.zone;
+    S.injuryLabel = 'Undiagnosed '+u.dataset.zone+' injury';
+    btn2.disabled = false;
+    p2hint.textContent = S.injuryLabel+' ✓';
+  });
+});
+
+btn2.addEventListener('click',()=>goPage(3));
+document.getElementById('b2back').addEventListener('click',()=>goPage(1));
+
+// ── PAGE 3 ────────────────────────────────────────
+// Pain slider colours
+function sliderColor(id,valId){
+  const sl = document.getElementById(id);
+  const vl = document.getElementById(valId);
+  sl.addEventListener('input',()=>{
+    const v = +sl.value;
+    vl.textContent = v;
+    vl.className = 'pain-val'+(v>=7?' hi':v>=4?' med':'');
+  });
+}
+sliderColor('sl-daily','v-daily');
+sliderColor('sl-squat','v-squat');
+sliderColor('sl-stairs','v-stairs');
+
+// Functional toggles
+const fcState = {};
+document.querySelectorAll('.tog').forEach(t=>{
+  t.addEventListener('click',()=>{
+    const fc = t.dataset.fc, v = t.dataset.v;
+    fcState[fc] = v;
+    // toggle buttons
+    document.querySelectorAll(`.tog[data-fc="${fc}"]`).forEach(b=>b.classList.remove('on'));
+    t.classList.add('on');
+    // show discomfort input if 'no'
+    const noteEl = document.getElementById(`fc-${fc}-note`);
+    if(v==='no'){
+      noteEl.style.display='block';
+      if(!noteEl.querySelector('input')){
+        const inp = document.createElement('input');
+        inp.className='discomfort-input';
+        inp.placeholder='Describe the discomfort (optional)…';
+        noteEl.appendChild(inp);
+      }
+    } else {
+      noteEl.style.display='none';
+    }
+  });
+});
+
+// limitation tags
+document.querySelectorAll('.lim-tag').forEach(t=>{
+  t.addEventListener('click',()=>t.classList.toggle('sel'));
+});
+
+document.getElementById('btn3').addEventListener('click',()=>goPage(4));
+document.getElementById('b3back').addEventListener('click',()=>goPage(2));
+
+// ── PAGE 4 ────────────────────────────────────────
+const btn4 = document.getElementById('btn4');
+let lvlSel=false;
+document.querySelectorAll('.lvl-card').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.lvl-card').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel');
+    S.level = c.dataset.lv;
+    S.levelLabel = {beginner:'Beginner',intermediate:'Intermediate',advanced:'Advanced'}[c.dataset.lv];
+    lvlSel=true;
+    btn4.disabled = !(lvlSel && S.goals.length >= 2);
+  });
+});
+document.querySelectorAll('.goal-card').forEach(c=>{
+  c.addEventListener('click',()=>{
+    c.classList.toggle('sel');
+    const gmap={strength:'Maintain Strength',cardio:'Cardio Fitness',rehab:'Active Rehabilitation',return:'Return to Sport',weight:'Weight Control',mobility:'Mobility'};
+    const selectedCards = [...document.querySelectorAll('.goal-card.sel')];
+    S.goals = selectedCards.map(card=>card.dataset.goal);
+    S.goalLabels = selectedCards.map(card=>gmap[card.dataset.goal]);
+    btn4.disabled = !(lvlSel && S.goals.length >= 2);
+  });
+});
+
+btn4.addEventListener('click',()=>{
+  buildRevealPage();
+  goPage(5);
+});
+document.getElementById('b4back').addEventListener('click',()=>goPage(3));
+
+// ── PAGE 5 ────────────────────────────────────────
+const recoveryMap = {
+  acl:24,meniscal:16,pfp:8,oa:12,
+  rotator:12,impingement:8,labrum:20,instability:10,
+  'unknown-knee':12,'unknown-shoulder':10
+};
+function buildRevealPage(){
+  const wks = recoveryMap[S.injury] || 12;
+  S.recoveryWeeks = wks;
+  let num, unit;
+  if(wks <= 4){ num = wks*7; unit = 'days'; }
+  else if(wks <= 12){ num = wks; unit = 'weeks'; }
+  else { num = Math.round(wks/4.3); unit = 'months'; }
+  document.getElementById('recov-num').textContent = num;
+  document.getElementById('recov-unit').textContent = unit;
+  document.getElementById('chip-injury').textContent = S.injuryLabel || 'Your injury';
+  document.getElementById('chip-level').textContent  = S.levelLabel  || 'Your level';
+  document.getElementById('chip-goal').textContent   = (S.goalLabels && S.goalLabels.length ? S.goalLabels.join(' + ') : 'Your goals');
+  const subs = {
+    acl:'ACL recovery is a journey — but with modified training you can maintain full-body fitness and come back stronger.',
+    meniscal:'Meniscal repairs need careful loading, but upper body and core work can keep you sharp throughout.',
+    pfp:'Patellofemoral pain responds well to load management. We\'ll keep you moving without aggravating the joint.',
+    oa:'Osteoarthritis benefits from movement — we\'ll program gentle, consistent exercise to support joint health.',
+    rotator:'Rotator cuff injuries heal well with the right approach. Lower-body training remains fully available.',
+    impingement:'Impingement rarely stops you training — we just avoid overhead loading and work around it.',
+    labrum:'Labral repairs take time, but your legs and core stay fully trainable throughout.',
+    instability:'We\'ll keep shoulder loading controlled while building the stability you need to stay active.',
+  };
+  document.getElementById('recov-sub').textContent = (subs[S.injury] || 'With the right adaptations, you can train safely through recovery.') + ' AppFit has got you.';
+}
+</script>
+</body>
+</html>
