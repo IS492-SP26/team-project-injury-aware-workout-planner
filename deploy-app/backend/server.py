@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import tempfile
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,6 +12,7 @@ from typing import Any, Literal
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 from pydantic import BaseModel, Field, model_validator
 
 from backend.gemini_adaptfit_flow import build_video_information_gemini_adaptfit
@@ -34,7 +36,15 @@ def _repo_root() -> Path:
 # Single env file: `deploy-app/backend/.env` (this file's directory).
 load_dotenv(Path(__file__).resolve().parent / ".env")
 
-SESSIONS_DIR = _repo_root() / "backend" / "sessions"
+def _sessions_root() -> Path:
+    # Vercel functions cannot write back into the deployed code directory.
+    # Use the OS temp area there, and keep the local folder layout for local dev.
+    if os.environ.get("VERCEL"):
+        return Path(tempfile.gettempdir()) / "adaptfit-sessions"
+    return _repo_root() / "backend" / "sessions"
+
+
+SESSIONS_DIR = _sessions_root()
 
 
 def _now_stamp() -> str:
@@ -43,6 +53,14 @@ def _now_stamp() -> str:
 
 def _session_dir(session_id: str) -> Path:
     return (SESSIONS_DIR / session_id).resolve()
+
+
+def _public_config() -> dict[str, str]:
+    return {
+        "SUPABASE_URL": os.environ.get("SUPABASE_URL", ""),
+        "SUPABASE_ANON_KEY": os.environ.get("SUPABASE_ANON_KEY", ""),
+        "API_BASE": os.environ.get("PUBLIC_API_BASE", ""),
+    }
 
 
 def _write_json(path: Path, obj: Any) -> None:
@@ -476,10 +494,20 @@ app.add_middleware(
 
 
 @app.get("/health")
+@app.get("/api/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.get("/public-config")
+@app.get("/api/public-config")
+def public_config() -> Response:
+    payload = json.dumps(_public_config(), ensure_ascii=False)
+    body = f"window.APP_CONFIG = Object.assign(window.APP_CONFIG || {{}}, {payload});"
+    return Response(content=body, media_type="application/javascript")
+
+
+@app.post("/survey", response_model=SurveyOut)
 @app.post("/api/survey", response_model=SurveyOut)
 def api_survey(payload: SurveyIn) -> SurveyOut:
     session_id = uuid.uuid4().hex
@@ -497,6 +525,7 @@ def api_survey(payload: SurveyIn) -> SurveyOut:
     )
 
 
+@app.post("/adapt/workout", response_model=AdaptWorkoutOut)
 @app.post("/api/adapt/workout", response_model=AdaptWorkoutOut)
 def api_adapt_workout(payload: AdaptWorkoutIn) -> AdaptWorkoutOut:
     session_dir = _session_dir(payload.session_id)

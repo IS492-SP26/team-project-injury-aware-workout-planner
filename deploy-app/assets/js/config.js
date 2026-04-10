@@ -13,10 +13,13 @@ function defaultApiBase() {
   return local ? "http://127.0.0.1:8010" : "";
 }
 
-window.APP_CONFIG = window.APP_CONFIG || {
-  SUPABASE_URL: "https://your-project.supabase.co",
-  SUPABASE_ANON_KEY: "your-public-anon-key",
-  API_BASE: defaultApiBase()
-};
+window.APP_CONFIG = Object.assign(
+  {
+    SUPABASE_URL: "",
+    SUPABASE_ANON_KEY: "",
+    API_BASE: defaultApiBase()
+  },
+  window.APP_CONFIG || {}
+);
 
 export const APP_CONFIG = Object.freeze(window.APP_CONFIG);

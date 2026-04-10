@@ -3,7 +3,7 @@ import { APP_CONFIG } from "./config.js";
 function resolveApiBase() {
   const configured = String(APP_CONFIG.API_BASE || "").trim();
   if (!configured) {
-    return typeof window !== "undefined" ? `${window.location.origin}/api` : "/api";
+    return typeof window !== "undefined" ? window.location.origin : "";
   }
   return configured.replace(/\/+$/, "");
 }
@@ -11,7 +11,7 @@ function resolveApiBase() {
 function networkErrorMessage(cause) {
   const base =
     resolveApiBase() ||
-    (typeof window !== "undefined" ? `${window.location.origin}/api` : "http://127.0.0.1:8010/api");
+    (typeof window !== "undefined" ? window.location.origin : "http://127.0.0.1:8010");
   const isHttpsPage =
     typeof window !== "undefined" && window.location?.protocol === "https:";
   const isHttpApi = String(base).startsWith("http:");
