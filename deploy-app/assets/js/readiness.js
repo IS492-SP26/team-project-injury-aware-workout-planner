@@ -7,6 +7,9 @@ const statusEl = document.getElementById("readiness-status");
 const scoreEl = document.getElementById("readiness-score");
 const statusBadgeEl = document.getElementById("readiness-badge");
 const recommendationEl = document.getElementById("readiness-recommendation");
+const alertEl = document.getElementById("readiness-alert");
+const alertTitleEl = document.getElementById("readiness-alert-title");
+const alertCopyEl = document.getElementById("readiness-alert-copy");
 const factorsEl = document.getElementById("readiness-factors");
 const positivesEl = document.getElementById("readiness-positives");
 const summaryEl = document.getElementById("readiness-summary");
@@ -54,6 +57,25 @@ if (!hasSupabaseConfig()) {
       statusBadgeEl.textContent = readiness.status;
       statusBadgeEl.dataset.tone = readiness.tone;
       recommendationEl.textContent = readiness.recommendation;
+      if (readiness.highRiskConsultCase) {
+        alertEl.className = "readiness-alert readiness-alert--critical";
+        alertTitleEl.textContent = "High-risk recovery check";
+        alertCopyEl.textContent =
+          "We highly recommend you come back after consulting with a professional. If you still want to proceed, it is at your own risk.";
+        alertEl.classList.remove("hidden");
+        recommendationEl.classList.add("readiness-recommendation--critical");
+      } else if (readiness.subAcuteWarningCase) {
+        alertEl.className = "readiness-alert readiness-alert--soft";
+        alertTitleEl.textContent = "Early recovery caution";
+        alertCopyEl.textContent =
+          "Your recovery is still in an early sub-acute window, so keep modifications conservative and pay close attention to pain or instability before progressing.";
+        alertEl.classList.remove("hidden");
+        recommendationEl.classList.remove("readiness-recommendation--critical");
+      } else {
+        alertEl.className = "readiness-alert hidden";
+        alertEl.classList.add("hidden");
+        recommendationEl.classList.remove("readiness-recommendation--critical");
+      }
       summaryEl.textContent =
         `${readiness.summary.diagnosis || "Current injury"} | ${readiness.summary.recoveryStage || "Stage pending"} | ${readiness.summary.bodyPart || "Body part pending"}`;
 
@@ -103,13 +125,19 @@ if (!hasSupabaseConfig()) {
 
       document.getElementById("continue-workouts-btn").textContent = readiness.fitForSuggestions
         ? "Continue to Workout Modifications"
-        : "Continue with Recovery-Focused Modifications";
+        : readiness.highRiskConsultCase
+          ? "Proceed at Your Own Risk"
+          : readiness.subAcuteWarningCase
+            ? "Continue with Caution"
+            : "Continue with Recovery-Focused Modifications";
       setStatus(
         statusEl,
         readiness.fitForSuggestions
           ? "Assessment saved. Readiness score calculated."
-          : "Assessment saved. Keep the next workout suggestions conservative.",
-        readiness.fitForSuggestions ? "success" : "danger"
+          : readiness.subAcuteWarningCase
+            ? "Assessment saved. Stay conservative while symptoms settle."
+            : "Assessment saved. Keep the next workout suggestions conservative.",
+        readiness.fitForSuggestions ? "success" : readiness.subAcuteWarningCase ? "warning" : "danger"
       );
     }
   } catch (error) {
