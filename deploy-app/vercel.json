@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/index.py", "use": "@vercel/python" },
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "assets/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "^/api/(.*)$", "dest": "/api/index.py" },
+    { "src": "^/$", "dest": "/index.html" },
+    { "src": "^/onboarding$", "dest": "/onboarding-basic.html" },
+    { "src": "^/onboarding-basic$", "dest": "/onboarding-basic.html" },
+    { "src": "^/onboarding-injury$", "dest": "/onboarding-injury.html" },
+    { "src": "^/onboarding-assessment$", "dest": "/onboarding-assessment.html" },
+    { "src": "^/onboarding-goals$", "dest": "/onboarding-goals.html" },
+    { "src": "^/workouts$", "dest": "/workouts.html" },
+    { "src": "^/results$", "dest": "/results.html" },
+    { "handle": "filesystem" },
+    { "src": "^/(.*)$", "dest": "/index.html" }
+  ]
+}

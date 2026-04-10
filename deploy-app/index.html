@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI | Auth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero-grid">
+      <div class="hero-panel">
+        <div>
+          <div class="brand"><span class="brand-dot"></span>AdaptFit AI</div>
+          <div class="eyebrow" style="margin-top:34px;">Recovery-aware training</div>
+          <h1 class="hero-title">Train with clarity, <em>recover</em> with confidence.</h1>
+          <p class="hero-copy">Build a persistent injury profile, adapt YouTube workouts around your current movement limits, and keep a record of safer substitutions that match your rehab stage.</p>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card"><strong>Real user accounts</strong><span>Supabase auth keeps each rehab profile and analysis history attached to the right user.</span></div>
+          <div class="feature-card"><strong>Stored assessments</strong><span>Save pain signals, body part, and recovery context instead of re-entering them every session.</span></div>
+          <div class="feature-card"><strong>Video timestamp history</strong><span>Persist timestamped risk flags and substitutions so past analyses stay reviewable.</span></div>
+        </div>
+      </div>
+
+      <div class="content-panel">
+        <div class="brand"><span class="brand-dot"></span>AdaptFit AI</div>
+        <div class="auth-tabs">
+          <button class="auth-tab is-active" type="button" data-auth-mode="signin">Sign in</button>
+          <button class="auth-tab" type="button" data-auth-mode="signup">Create account</button>
+          <button class="auth-tab" type="button" data-auth-mode="reset">Forgot password</button>
+        </div>
+
+        <section class="auth-panel-view is-active" data-auth-panel="signin">
+          <h1 style="margin-top:24px;">Sign in to begin</h1>
+          <p>Access your onboarding, saved assessment, and workout analysis history.</p>
+          <form id="sign-in-form" class="form-stack">
+            <div class="field-group">
+              <label for="signin-email">Email</label>
+              <input id="signin-email" class="input" type="email" placeholder="alex@adaptfit.ai" autocomplete="email">
+            </div>
+            <div class="field-group">
+              <label for="signin-password">Password</label>
+              <input id="signin-password" class="input" type="password" placeholder="At least 8 characters" autocomplete="current-password">
+            </div>
+            <div class="button-row" style="margin-top:10px;">
+              <button id="sign-in-btn" class="button" type="submit">Sign In</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="auth-panel-view" data-auth-panel="signup">
+          <h1 style="margin-top:24px;">Create your account</h1>
+          <p>Start with your email and password, then continue into onboarding.</p>
+          <form id="sign-up-form" class="form-stack">
+            <div class="field-group">
+              <label for="signup-email">Email</label>
+              <input id="signup-email" class="input" type="email" placeholder="alex@adaptfit.ai" autocomplete="email">
+            </div>
+            <div class="field-group">
+              <label for="signup-password">Password</label>
+              <input id="signup-password" class="input" type="password" placeholder="Create a password" autocomplete="new-password">
+            </div>
+            <div class="field-group">
+              <label for="signup-confirm-password">Confirm password</label>
+              <input id="signup-confirm-password" class="input" type="password" placeholder="Repeat your password" autocomplete="new-password">
+            </div>
+            <div class="button-row" style="margin-top:10px;">
+              <button id="create-account-btn" class="button secondary" type="submit">Create Account</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="auth-panel-view" data-auth-panel="reset">
+          <h1 style="margin-top:24px;">Reset your password</h1>
+          <p>We’ll send a password reset email through Supabase.</p>
+          <form id="reset-form" class="form-stack">
+            <div class="field-group">
+              <label for="reset-email">Email</label>
+              <input id="reset-email" class="input" type="email" placeholder="alex@adaptfit.ai" autocomplete="email">
+            </div>
+            <div class="button-row" style="margin-top:10px;">
+              <button id="reset-password-btn" class="button secondary" type="submit">Send Reset Link</button>
+            </div>
+          </form>
+        </section>
+
+        <div id="auth-status" class="status" style="margin-top:18px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./assets/js/auth.js"></script>
+</body>
+</html>

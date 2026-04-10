@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI | Goals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <div class="page-shell onboarding-shell compact-page compact-goals">
+    <header class="top-bar">
+      <div class="logo"><span class="logo-pip"></span>AdaptFit AI</div>
+      <div class="steps-row" aria-label="Onboarding progress">
+        <span class="step-pip done"></span>
+        <span class="step-pip done"></span>
+        <span class="step-pip done"></span>
+        <span class="step-pip now"></span>
+      </div>
+      <button id="sign-out-btn" class="skip-btn" type="button">Sign Out</button>
+    </header>
+
+    <main class="page-inner">
+      <section class="page-header">
+        <div class="tag-pill">Goal</div>
+        <h1 class="page-title">Set your <em>goal</em></h1>
+      </section>
+
+      <section class="two-col-layout goals-layout">
+        <div>
+          <div class="col-head">Training <span>Level</span></div>
+          <div class="lvl-cards">
+            <div class="lvl-card" data-lv="Beginner">
+              <span class="lvl-em">🌱</span>
+                <div class="lvl-info">
+                  <div class="lvl-name">Beginner</div>
+                  <div class="lvl-desc">New to training</div>
+                </div>
+              <div class="lvl-chk"></div>
+            </div>
+            <div class="lvl-card" data-lv="Intermediate">
+              <span class="lvl-em">🔥</span>
+                <div class="lvl-info">
+                  <div class="lvl-name">Intermediate</div>
+                  <div class="lvl-desc">Regular exerciser</div>
+                </div>
+              <div class="lvl-chk"></div>
+            </div>
+            <div class="lvl-card" data-lv="Advanced">
+              <span class="lvl-em">⚡</span>
+                <div class="lvl-info">
+                  <div class="lvl-name">Advanced</div>
+                  <div class="lvl-desc">Experienced athlete</div>
+                </div>
+              <div class="lvl-chk"></div>
+            </div>
+          </div>
+
+          <div class="act-wrap">
+            <div class="col-head col-head-small">Activity <span>Level</span></div>
+            <div class="act-cards">
+              <div class="act-card" data-al="Sedentary">
+                <span class="act-em">🪑</span>
+                <div class="act-info">
+                  <div class="act-name">Sedentary</div>
+                  <div class="act-desc">Mostly sitting, little weekly exercise</div>
+                </div>
+                <div class="act-chk"></div>
+              </div>
+              <div class="act-card" data-al="Lightly Active">
+                <span class="act-em">🚶</span>
+                <div class="act-info">
+                  <div class="act-name">Lightly Active</div>
+                  <div class="act-desc">Some movement, 1 to 2 light workouts/week</div>
+                </div>
+                <div class="act-chk"></div>
+              </div>
+              <div class="act-card" data-al="Moderately Active">
+                <span class="act-em">🏃</span>
+                <div class="act-info">
+                  <div class="act-name">Moderately Active</div>
+                  <div class="act-desc">Regular activity, 3 to 4 workouts/week</div>
+                </div>
+                <div class="act-chk"></div>
+              </div>
+              <div class="act-card" data-al="Very Active">
+                <span class="act-em">🏋️</span>
+                <div class="act-info">
+                  <div class="act-name">Very Active</div>
+                  <div class="act-desc">High activity, training most days</div>
+                </div>
+                <div class="act-chk"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="col-head">Primary <span>Goal</span></div>
+          <div class="goal-cards">
+            <div class="goal-card" data-goal="Maintain Strength"><span class="goal-em">🏋️</span><div class="goal-name">Maintain Strength</div><div class="goal-desc">Keep muscle and fitness during recovery</div></div>
+            <div class="goal-card" data-goal="Cardio Fitness"><span class="goal-em">💓</span><div class="goal-name">Cardio Fitness</div><div class="goal-desc">Stay aerobically active safely</div></div>
+            <div class="goal-card" data-goal="Active Rehabilitation"><span class="goal-em">🩹</span><div class="goal-name">Active Rehab</div><div class="goal-desc">Rebuild strength at the injury site</div></div>
+            <div class="goal-card" data-goal="Return to Sport"><span class="goal-em">🚀</span><div class="goal-name">Return to Sport</div><div class="goal-desc">Safe progression back to full activity</div></div>
+            <div class="goal-card" data-goal="Weight Control"><span class="goal-em">⚖️</span><div class="goal-name">Weight Control</div><div class="goal-desc">Manage body composition safely</div></div>
+            <div class="goal-card" data-goal="Mobility"><span class="goal-em">🧘</span><div class="goal-name">Mobility</div><div class="goal-desc">Improve range of motion and flexibility</div></div>
+          </div>
+        </div>
+      </section>
+
+      <div id="goals-status" class="status"></div>
+      <div style="height:6px"></div>
+    </main>
+
+    <div class="bottom-bar">
+      <a class="btn btn-ghost" href="./onboarding-assessment.html">← Back</a>
+      <div class="progress-hint">Step 4 of 4</div>
+      <button id="finish-onboarding-btn" class="btn btn-primary" type="button">Save Assessment <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <script type="module" src="./assets/js/onboarding-goals.js"></script>
+</body>
+</html>

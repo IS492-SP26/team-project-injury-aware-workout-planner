@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI | Injury</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <div class="page-shell onboarding-shell">
+    <header class="top-bar">
+      <div class="logo"><span class="logo-pip"></span>AdaptFit AI</div>
+      <div class="steps-row" aria-label="Onboarding progress">
+        <span class="step-pip done"></span>
+        <span class="step-pip now"></span>
+        <span class="step-pip"></span>
+        <span class="step-pip"></span>
+      </div>
+      <button id="sign-out-btn" class="skip-btn" type="button">Sign Out</button>
+    </header>
+
+    <main class="page-inner injury-page-inner" style="padding-bottom:0;">
+      <section class="page-header injury-header">
+        <div class="tag-pill">Injury</div>
+        <h1 class="page-title">Where does it <em>hurt?</em></h1>
+      </section>
+
+      <div id="body-stage" class="body-stage-shell">
+        <div class="injury-panel left" id="panel-knee">
+          <div class="inj-card" data-inj="acl" data-zone="knee"><div class="inj-icon">🦵</div><div><div class="inj-name">ACL Reconstruction</div><div class="inj-sub">Post-surgical ligament</div></div><div class="inj-check"></div></div>
+          <div class="inj-card" data-inj="meniscal" data-zone="knee"><div class="inj-icon">🔘</div><div><div class="inj-name">Meniscal Repair</div><div class="inj-sub">Cartilage protection</div></div><div class="inj-check"></div></div>
+          <div class="inj-card" data-inj="pfp" data-zone="knee"><div class="inj-icon">⚡</div><div><div class="inj-name">Patellofemoral Pain</div><div class="inj-sub">Kneecap tracking issue</div></div><div class="inj-check"></div></div>
+          <div class="inj-card" data-inj="oa" data-zone="knee"><div class="inj-icon">🦴</div><div><div class="inj-name">Knee Osteoarthritis</div><div class="inj-sub">Joint degeneration</div></div><div class="inj-check"></div></div>
+          <div class="unknown-opt" data-zone="knee">Not diagnosed yet, just know it's my <strong>knee</strong></div>
+        </div>
+
+        <div class="body-center" id="bodyCenter">
+          <svg viewBox="0 0 220 480" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Body map">
+            <defs>
+              <radialGradient id="kg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f55b5b" stop-opacity=".25"/><stop offset="100%" stop-color="#f55b5b" stop-opacity="0"/></radialGradient>
+              <radialGradient id="sg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5b8ef5" stop-opacity=".25"/><stop offset="100%" stop-color="#5b8ef5" stop-opacity="0"/></radialGradient>
+            </defs>
+            <ellipse cx="110" cy="44" rx="28" ry="34" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <rect x="101" y="76" width="18" height="16" rx="3" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M74 91 Q62 100 60 158 Q58 198 63 238 L157 238 Q162 198 160 158 Q158 100 146 91 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M74 97 Q50 110 42 150 Q38 174 44 207 Q48 222 54 222 Q60 222 61 207 Q63 178 67 153 Q72 128 82 109 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M146 97 Q170 110 178 150 Q182 174 176 207 Q172 222 166 222 Q160 222 159 207 Q157 178 153 153 Q148 128 138 109 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <ellipse cx="48" cy="223" rx="10" ry="14" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <ellipse cx="172" cy="223" rx="10" ry="14" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M67 236 Q65 258 68 278 L152 278 Q155 258 153 236 Z" fill="#131820" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M74 276 Q65 298 63 328 Q61 353 65 368 L93 368 Q97 353 97 328 Q97 303 97 276 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M146 276 Q155 298 157 328 Q159 353 155 368 L127 368 Q123 353 123 328 Q123 303 123 276 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M65 368 Q61 398 63 428 Q65 452 69 458 L91 458 Q95 452 95 428 Q95 398 93 368 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M127 368 Q123 398 125 428 Q127 452 131 458 L153 458 Q157 452 157 428 Q157 398 155 368 Z" fill="#161c2a" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M63 456 Q57 462 55 470 L93 470 Q95 462 91 456 Z" fill="#131820" stroke="#252f44" stroke-width="1.5"/>
+            <path d="M127 456 Q123 462 125 470 L157 470 Q161 462 157 456 Z" fill="#131820" stroke="#252f44" stroke-width="1.5"/>
+            <ellipse id="hl-sh-l" cx="67" cy="95" rx="20" ry="14" fill="rgba(91,142,245,0)" stroke="rgba(91,142,245,0)" stroke-width="2"/>
+            <ellipse id="hl-sh-r" cx="153" cy="95" rx="20" ry="14" fill="rgba(91,142,245,0)" stroke="rgba(91,142,245,0)" stroke-width="2"/>
+            <ellipse id="hl-knee-l" cx="79" cy="370" rx="24" ry="15" fill="rgba(245,91,91,0)" stroke="rgba(245,91,91,0)" stroke-width="2"/>
+            <ellipse id="hl-knee-r" cx="141" cy="370" rx="24" ry="15" fill="rgba(245,91,91,0)" stroke="rgba(245,91,91,0)" stroke-width="2"/>
+          </svg>
+          <div class="hs" id="hs-knee" style="top:77%;left:36%" data-zone="knee"><div class="hs-dot"></div></div>
+          <div class="hs" id="hs-knee-r" style="top:77%;left:64%" data-zone="knee"><div class="hs-dot"></div></div>
+          <div class="hs" id="hs-sh" style="top:20%;left:29%" data-zone="shoulder"><div class="hs-dot"></div></div>
+          <div class="hs" id="hs-sh-r" style="top:20%;left:71%" data-zone="shoulder"><div class="hs-dot"></div></div>
+        </div>
+
+        <div class="injury-panel right" id="panel-shoulder">
+          <div class="inj-card" data-inj="rotator" data-zone="shoulder"><div class="inj-icon">💪</div><div><div class="inj-name">Rotator Cuff</div><div class="inj-sub">Tear or tendinopathy</div></div><div class="inj-check"></div></div>
+          <div class="inj-card" data-inj="impingement" data-zone="shoulder"><div class="inj-icon">📍</div><div><div class="inj-name">Impingement</div><div class="inj-sub">Subacromial compression</div></div><div class="inj-check"></div></div>
+          <div class="inj-card" data-inj="labrum" data-zone="shoulder"><div class="inj-icon">🔄</div><div><div class="inj-name">Labral Tear</div><div class="inj-sub">SLAP / Bankart repair</div></div><div class="inj-check"></div></div>
+          <div class="inj-card" data-inj="instability" data-zone="shoulder"><div class="inj-icon">⚠️</div><div><div class="inj-name">Instability</div><div class="inj-sub">Dislocation history</div></div><div class="inj-check"></div></div>
+          <div class="unknown-opt" data-zone="shoulder">Not diagnosed yet, just know it's my <strong>shoulder</strong></div>
+        </div>
+      </div>
+
+      <div id="injury-status" class="status injury-status"></div>
+    </main>
+
+    <div class="bottom-bar">
+      <a class="btn btn-ghost" href="./onboarding-basic.html">← Back</a>
+      <div class="progress-hint" id="p2hint">Tap a body region</div>
+      <button id="next-injury-btn" class="btn btn-primary" type="button" disabled>Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <script type="module" src="./assets/js/onboarding-injury.js"></script>
+</body>
+</html>

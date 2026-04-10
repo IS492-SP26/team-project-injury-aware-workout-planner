@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI | Workouts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="top-nav">
+      <div class="brand"><span class="brand-dot"></span>AdaptFit AI</div>
+      <nav class="nav-links">
+        <a class="nav-link" href="./onboarding-basic.html">Onboarding</a>
+        <a class="nav-link is-active" href="./workouts.html">Workouts</a>
+        <a class="nav-link" href="./results.html">Results</a>
+        <button id="sign-out-btn" class="nav-button" type="button">Sign Out</button>
+      </nav>
+    </header>
+
+    <section class="panel-grid">
+      <div class="split-panel">
+        <div class="eyebrow">Import</div>
+        <h2 class="section-title" style="font-size:2.4rem;margin-top:18px;">Analyze a workout around the current injury profile</h2>
+        <p id="welcome-copy" style="margin-top:14px;">Your latest onboarding assessment will be used to interpret the workout and save the output back to Supabase.</p>
+        <div class="pill-row" style="margin-top:22px;">
+          <button class="pill is-selected" type="button" data-source-tab="youtube">YouTube workout</button>
+          <button class="pill" type="button" data-source-tab="text">Pasted workout text</button>
+        </div>
+      </div>
+
+      <div class="content-panel">
+        <div id="youtube-panel" class="form-stack" style="margin-top:0;">
+          <div class="field-group">
+            <label for="youtube-url">YouTube URL</label>
+            <input id="youtube-url" class="input" type="text" placeholder="https://www.youtube.com/watch?v=...">
+          </div>
+        </div>
+
+        <div id="text-panel" class="form-stack hidden" style="margin-top:0;">
+          <div class="field-group">
+            <label for="workout-text">Workout text</label>
+            <textarea id="workout-text" class="textarea" placeholder="Paste the workout outline or exercise list here."></textarea>
+          </div>
+        </div>
+
+        <div class="button-row" style="margin-top:26px;">
+          <button id="analyze-btn" class="button" type="button">Analyze for Safety</button>
+          <a class="button secondary" href="./results.html">View latest results</a>
+        </div>
+        <div id="analysis-status" class="status" style="margin-top:16px;"></div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="./assets/js/workouts.js"></script>
+</body>
+</html>

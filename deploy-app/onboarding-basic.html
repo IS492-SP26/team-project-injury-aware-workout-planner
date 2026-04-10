@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI | Basic Info</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <div class="page-shell onboarding-shell">
+    <header class="top-bar">
+      <div class="logo"><span class="logo-pip"></span>AdaptFit AI</div>
+      <div class="steps-row" aria-label="Onboarding progress">
+        <span class="step-pip now"></span>
+        <span class="step-pip"></span>
+        <span class="step-pip"></span>
+        <span class="step-pip"></span>
+      </div>
+      <button id="sign-out-btn" class="skip-btn" type="button">Sign Out</button>
+    </header>
+
+    <main class="page-inner">
+      <section class="page-header">
+        <div class="tag-pill">Step 1 of 4</div>
+        <h1 class="page-title">Let's get to know <em>you</em></h1>
+        <p class="page-sub">A few quick details to personalize your recovery-aware training plan.</p>
+      </section>
+
+      <section class="onboarding-card">
+        <div class="form-grid">
+          <div class="field">
+            <label class="field-label" for="full-name">Full name</label>
+            <input id="full-name" type="text" placeholder="Alex Johnson">
+          </div>
+          <div class="field">
+            <label class="field-label" for="age">Age</label>
+            <input id="age" type="number" min="10" max="120" placeholder="28">
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="gender">Gender</label>
+            <select id="gender">
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Non-binary</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="height-unit">Height</label>
+            <div class="height-inline">
+              <select id="height-unit">
+                <option value="cm">cm</option>
+                <option value="ft_in">ft / in</option>
+              </select>
+              <input id="height-value" type="number" step="0.1" placeholder="175">
+            </div>
+          </div>
+
+        </div>
+
+        <div id="basic-status" class="status"></div>
+      </section>
+    </main>
+
+    <div class="bottom-bar">
+      <div class="progress-hint">Basic profile details</div>
+      <button id="next-basic-btn" class="btn btn-primary" type="button">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <script type="module" src="./assets/js/onboarding-basic.js"></script>
+</body>
+</html>

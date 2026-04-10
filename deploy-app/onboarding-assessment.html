@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI | Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <div class="page-shell onboarding-shell compact-page">
+    <header class="top-bar">
+      <div class="logo"><span class="logo-pip"></span>AdaptFit AI</div>
+      <div class="steps-row" aria-label="Onboarding progress">
+        <span class="step-pip done"></span>
+        <span class="step-pip done"></span>
+        <span class="step-pip now"></span>
+        <span class="step-pip"></span>
+      </div>
+      <button id="sign-out-btn" class="skip-btn" type="button">Sign Out</button>
+    </header>
+
+    <main class="page-inner">
+      <section class="page-header">
+        <div class="tag-pill">Assessment</div>
+        <h1 class="page-title">Tell us <em>more</em></h1>
+      </section>
+
+      <div class="section-divider">Injury Timeline</div>
+      <div class="details-grid details-grid-three assessment-timeline">
+        <div class="field">
+          <label class="field-label" for="inp-doi">Date of Injury</label>
+          <input type="date" id="inp-doi">
+        </div>
+        <div class="field">
+          <label class="field-label" for="inp-stage">Recovery Stage</label>
+          <select id="inp-stage">
+            <option value="">Select stage</option>
+            <option>Acute (0-6 weeks)</option>
+            <option>Sub-acute (6-12 weeks)</option>
+            <option>Mid-stage rehab</option>
+            <option>Late-stage rehab</option>
+            <option>Return to activity</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="inp-notes">Additional Notes (optional)</label>
+          <input type="text" id="inp-notes" placeholder="e.g. Had surgery on Jan 15, currently doing physio 2x/week...">
+        </div>
+      </div>
+
+      <div class="section-divider">Pain Levels <span class="section-meta">(0 = none, 10 = severe)</span></div>
+      <div class="pain-inline-grid">
+        <div class="pain-row">
+          <span class="pain-label">Daily overall pain</span>
+          <div class="pain-slider-wrap">
+            <input type="range" min="0" max="10" value="3" id="sl-daily">
+            <span class="pain-val" id="v-daily">3</span>
+          </div>
+        </div>
+        <div class="pain-row">
+          <span class="pain-label">Deep squats / bending</span>
+          <div class="pain-slider-wrap">
+            <input type="range" min="0" max="10" value="5" id="sl-squat">
+            <span class="pain-val med" id="v-squat">5</span>
+          </div>
+        </div>
+        <div class="pain-row">
+          <span class="pain-label">Stairs / inclines</span>
+          <div class="pain-slider-wrap">
+            <input type="range" min="0" max="10" value="4" id="sl-stairs">
+            <span class="pain-val med" id="v-stairs">4</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider">Functional Screening</div>
+      <div class="func-inline-grid">
+        <div class="func-card" id="fc-balance">
+          <div class="func-info">
+            <div class="func-name">Single Leg Balance (30s)</div>
+            <div id="fc-balance-note" class="func-note" style="display:none"></div>
+          </div>
+          <div class="toggle-wrap">
+            <button class="tog yes" data-fc="balance" data-v="yes" type="button">✓ Yes</button>
+            <button class="tog no" data-fc="balance" data-v="no" type="button">✕ No</button>
+          </div>
+        </div>
+        <div class="func-card" id="fc-bridge">
+          <div class="func-info">
+            <div class="func-name">Glute Bridge Hold (10s)</div>
+            <div id="fc-bridge-note" class="func-note" style="display:none"></div>
+          </div>
+          <div class="toggle-wrap">
+            <button class="tog yes" data-fc="bridge" data-v="yes" type="button">✓ Yes</button>
+            <button class="tog no" data-fc="bridge" data-v="no" type="button">✕ No</button>
+          </div>
+        </div>
+        <div class="func-card" id="fc-step">
+          <div class="func-info">
+            <div class="func-name">Step-Up (20cm box)</div>
+            <div id="fc-step-note" class="func-note" style="display:none"></div>
+          </div>
+          <div class="toggle-wrap">
+            <button class="tog yes" data-fc="step" data-v="yes" type="button">✓ Yes</button>
+            <button class="tog no" data-fc="step" data-v="no" type="button">✕ No</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider">Movement Limitations <span class="section-meta">(select all that apply)</span></div>
+      <div class="tags-wrap tags-wrap-compact">
+        <div class="lim-tag" data-lim="Ankle Stiffness">Ankle Stiffness</div>
+        <div class="lim-tag" data-lim="Lower Back Tightness">Lower Back Tightness</div>
+        <div class="lim-tag" data-lim="Hip Flexor Tightness">Hip Flexor Tightness</div>
+        <div class="lim-tag" data-lim="Swelling / Oedema">Swelling / Oedema</div>
+        <div class="lim-tag" data-lim="Reduced ROM">Reduced ROM</div>
+        <div class="lim-tag" data-lim="Muscle Weakness">Muscle Weakness</div>
+        <div class="lim-tag" data-lim="Balance Issues">Balance Issues</div>
+        <div class="lim-tag" data-lim="Shoulder Tightness">Shoulder Tightness</div>
+      </div>
+      <div id="assessment-status" class="status"></div>
+      <div style="height:12px"></div>
+    </main>
+
+    <div class="bottom-bar">
+      <a class="btn btn-ghost" href="./onboarding-injury.html">← Back</a>
+      <div class="progress-hint">Step 3 of 4</div>
+      <button id="next-assessment-btn" class="btn btn-primary" type="button">Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <script type="module" src="./assets/js/onboarding-assessment.js"></script>
+</body>
+</html>
