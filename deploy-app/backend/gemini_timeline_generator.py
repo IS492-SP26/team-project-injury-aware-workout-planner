@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import json
+import logging
 from typing import Any
 
 from google import genai
 from google.genai import types
+
+log = logging.getLogger(__name__)
 
 
 GEMINI_TIMELINE_SCHEMA: dict[str, Any] = {
@@ -141,3 +144,86 @@ def verify_timeline_with_gemini(
     if not text.strip():
         raise ValueError("Gemini returned an empty verification response")
     return json.loads(text)
+
+
+def _should_try_next_gemini_model(exc: BaseException) -> bool:
+    msg = str(exc).lower()
+    if "api key" in msg and ("invalid" in msg or "not valid" in msg):
+        return False
+    if "permission" in msg or "403" in msg:
+        return False
+    for needle in (
+        "503",
+        "429",
+        "unavailable",
+        "high demand",
+        "overloaded",
+        "resource exhausted",
+        "deadline",
+        "timeout",
+        "502",
+        "504",
+    ):
+        if needle in msg:
+            return True
+    return False
+
+
+def generate_timeline_from_gemini_try_models(
+    api_key: str,
+    youtube_url: str,
+    prompt: str,
+    models: list[str],
+) -> dict[str, Any]:
+    cleaned = [m.strip() for m in models if m and str(m).strip()]
+    if not cleaned:
+        raise ValueError("No Gemini timeline models configured")
+
+    last: BaseException | None = None
+    for index, model in enumerate(cleaned):
+        try:
+            return generate_timeline_from_gemini(
+                api_key=api_key,
+                youtube_url=youtube_url,
+                prompt=prompt,
+                model=model,
+            )
+        except Exception as exc:
+            last = exc
+            if index + 1 < len(cleaned) and _should_try_next_gemini_model(exc):
+                log.warning("Gemini timeline model %s failed (%s); trying next model.", model, exc)
+                continue
+            raise
+    assert last is not None
+    raise last
+
+
+def verify_timeline_with_gemini_try_models(
+    api_key: str,
+    youtube_url: str,
+    draft_payload: dict[str, Any],
+    video_duration_seconds: int,
+    models: list[str],
+) -> dict[str, Any]:
+    cleaned = [m.strip() for m in models if m and str(m).strip()]
+    if not cleaned:
+        raise ValueError("No Gemini verification models configured")
+
+    last: BaseException | None = None
+    for index, model in enumerate(cleaned):
+        try:
+            return verify_timeline_with_gemini(
+                api_key=api_key,
+                youtube_url=youtube_url,
+                draft_payload=draft_payload,
+                video_duration_seconds=video_duration_seconds,
+                model=model,
+            )
+        except Exception as exc:
+            last = exc
+            if index + 1 < len(cleaned) and _should_try_next_gemini_model(exc):
+                log.warning("Gemini verify model %s failed (%s); trying next model.", model, exc)
+                continue
+            raise
+    assert last is not None
+    raise last

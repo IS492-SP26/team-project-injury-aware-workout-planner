@@ -16,10 +16,41 @@ from fastapi import HTTPException
 from backend.gemini_timeline_generator import (
     DEFAULT_GEMINI_PROMPT,
     generate_timeline_from_gemini,
+    generate_timeline_from_gemini_try_models,
     verify_timeline_with_gemini,
+    verify_timeline_with_gemini_try_models,
 )
 
 log = logging.getLogger(__name__)
+
+
+def _gemini_timeline_model_candidates() -> list[str]:
+    combined = (os.environ.get("GEMINI_TIMELINE_MODELS") or "").strip()
+    if combined:
+        out = [m.strip() for m in combined.split(",") if m.strip()]
+    else:
+        primary = (os.environ.get("GEMINI_MODEL") or "gemini-2.5-flash").strip()
+        fallbacks = (os.environ.get("GEMINI_TIMELINE_MODEL_FALLBACKS") or "").strip()
+        out = [primary] if primary else ["gemini-2.5-flash"]
+        if fallbacks:
+            out.extend(m.strip() for m in fallbacks.split(",") if m.strip())
+        else:
+            out.extend(
+                m
+                for m in (
+                    "gemini-2.0-flash",
+                    "gemini-2.5-flash-lite",
+                    "gemini-1.5-flash",
+                )
+                if m not in out
+            )
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for model in out:
+        if model not in seen:
+            seen.add(model)
+            deduped.append(model)
+    return deduped
 
 
 def _extract_youtube_video_id(youtube_url: str) -> str:
@@ -326,10 +357,10 @@ def build_video_information_gemini_adaptfit(url: str) -> tuple[dict[str, Any], d
     if not api_key:
         raise HTTPException(status_code=500, detail="GEMINI_API_KEY is not set")
 
-    model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+    models = _gemini_timeline_model_candidates()
 
     try:
-        draft = generate_timeline_from_gemini(api_key, url, DEFAULT_GEMINI_PROMPT, model=model)
+        draft = generate_timeline_from_gemini_try_models(api_key, url, DEFAULT_GEMINI_PROMPT, models=models)
         draft_payload = _build_payload_from_segment_starts(
             draft.get("title") or "Workout Video",
             url,
@@ -339,7 +370,13 @@ def build_video_information_gemini_adaptfit(url: str) -> tuple[dict[str, Any], d
         if estimated_duration <= 0:
             estimated_duration = 60
 
-        verified = verify_timeline_with_gemini(api_key, url, draft, estimated_duration, model=model)
+        verified = verify_timeline_with_gemini_try_models(
+            api_key,
+            url,
+            draft,
+            estimated_duration,
+            models=models,
+        )
         final_payload = _reconcile_gemini_payloads(draft, verified, url)
         final_payload = _enforce_uniform_section_durations(final_payload, estimated_duration)
         final_payload = _clamp_payload_to_duration(final_payload, estimated_duration)
