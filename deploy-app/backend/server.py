@@ -458,6 +458,7 @@ class AdaptWorkoutIn(BaseModel):
     source: Literal["youtube", "text"]
     youtube_url: str | None = None
     workout_text: str | None = None
+    user_input_data: dict[str, Any] | None = None
     # Same video as a prior run: skip Gemini timeline; use these chapters for adaptation.
     reuse_video_information: dict[str, Any] | None = Field(default=None)
 
@@ -531,10 +532,13 @@ def api_survey(payload: SurveyIn) -> SurveyOut:
 def api_adapt_workout(payload: AdaptWorkoutIn) -> AdaptWorkoutOut:
     session_dir = _session_dir(payload.session_id)
     user_path = session_dir / "user_input_data.json"
-    if not user_path.is_file():
+    if user_path.is_file():
+        user_input_data = json.loads(user_path.read_text(encoding="utf-8"))
+    elif payload.user_input_data is not None:
+        user_input_data = payload.user_input_data
+        _write_json(user_path, user_input_data)
+    else:
         raise HTTPException(status_code=404, detail="session_id not found (missing user_input_data.json)")
-
-    user_input_data = json.loads(user_path.read_text(encoding="utf-8"))
 
     reuse_timeline_used = False
     video_information: dict[str, Any]

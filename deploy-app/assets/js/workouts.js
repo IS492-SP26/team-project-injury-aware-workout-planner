@@ -65,6 +65,35 @@ function buildTimestamps(rows) {
   }));
 }
 
+function buildUserInputDataForBackend(profile, assessment) {
+  const raw = assessment?.raw_payload || {};
+  const profileGoals = Array.isArray(assessment?.goals) ? assessment.goals : [];
+  const rawGoals = Array.isArray(raw.goalLabels) ? raw.goalLabels : Array.isArray(raw.goals) ? raw.goals : [];
+
+  return {
+    user_profile: {
+      age: profile?.age ?? null,
+      training_experience: assessment?.training_experience || raw.levelLabel || null,
+      activity_level: assessment?.activity_level || raw.activityLevelLabel || null,
+      goals: rawGoals.length ? rawGoals : profileGoals
+    },
+    injury_details: {
+      affected_body_part: assessment?.body_part || raw.zone || null,
+      diagnosis: assessment?.diagnosis || raw.injuryLabel || null,
+      date_of_injury: assessment?.date_of_injury || raw.date_of_injury || null
+    },
+    assessments: {
+      pain_levels: {
+        daily_overall: assessment?.pain_daily ?? raw?.pain_levels?.daily_overall ?? null,
+        deep_squats: assessment?.pain_squat ?? raw?.pain_levels?.deep_squats ?? null,
+        stairs: assessment?.pain_stairs ?? raw?.pain_levels?.stairs ?? null
+      },
+      functional_screening: assessment?.functional_screening || raw.functional_screening || [],
+      movement_limitations: assessment?.movement_limitations || raw.movement_limitations || []
+    }
+  };
+}
+
 /** Latest saved row for this YouTube video id (this user), or null. */
 async function findCachedTimelineForUrl(supabase, userId, youtubeUrl) {
   const vid = extractYouTubeVideoId(youtubeUrl);
@@ -94,13 +123,20 @@ async function findCachedTimelineForUrl(supabase, userId, youtubeUrl) {
 
     let payload;
     let label;
+    const userInputData = buildUserInputDataForBackend(latestProfile, latestAssessment);
     if (source === "youtube") {
       const youtubeUrl = document.getElementById("youtube-url").value.trim();
       if (!youtubeUrl) {
         setStatus(statusEl, "Paste a YouTube URL before analyzing.", "danger");
         return;
       }
-      payload = { session_id: backendSessionId, source: "youtube", youtube_url: youtubeUrl, output_format: "both" };
+      payload = {
+        session_id: backendSessionId,
+        source: "youtube",
+        youtube_url: youtubeUrl,
+        output_format: "both",
+        user_input_data: userInputData
+      };
       label = youtubeUrl;
     } else {
       const workoutText = document.getElementById("workout-text").value.trim();
@@ -108,7 +144,13 @@ async function findCachedTimelineForUrl(supabase, userId, youtubeUrl) {
         setStatus(statusEl, "Paste the workout text before analyzing.", "danger");
         return;
       }
-      payload = { session_id: backendSessionId, source: "text", workout_text: workoutText, output_format: "both" };
+      payload = {
+        session_id: backendSessionId,
+        source: "text",
+        workout_text: workoutText,
+        output_format: "both",
+        user_input_data: userInputData
+      };
       label = "Pasted workout";
     }
 
