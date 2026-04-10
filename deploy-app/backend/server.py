@@ -16,7 +16,6 @@ from fastapi.responses import Response
 from pydantic import BaseModel, Field, model_validator
 
 from backend.gemini_adaptfit_flow import build_video_information_gemini_adaptfit
-from backend.yt.chapters_metadata import extract_video_metadata
 from backend.prompts.adaptation_common import (
     SYSTEM_PROMPT_ADAPTATION_PHASE2,
     build_user_message,
@@ -289,21 +288,23 @@ def _valid_reuse_video_information(vi: Any) -> bool:
 
 
 def _video_information_from_reuse(youtube_url: str, cached: dict[str, Any]) -> dict[str, Any]:
-    """Refresh yt-dlp metadata; keep saved chapter timestamps (skip Gemini timeline)."""
-    meta = extract_video_metadata(youtube_url)
-    duration = int(meta.get("duration") or cached.get("duration") or 0)
+    """Reuse saved Gemini timestamps directly without re-fetching YouTube metadata."""
+    chapters = list(cached.get("chapters") or [])
+    duration = 0
+    for chapter in chapters:
+        if isinstance(chapter, dict):
+            try:
+                duration = max(duration, int(chapter.get("end_time") or 0))
+            except Exception:
+                continue
     out = dict(cached)
-    out["title"] = meta.get("title") or cached.get("title")
-    out["duration"] = duration
-    out["id"] = meta.get("id") or cached.get("id")
-    out["channel"] = meta.get("channel") or meta.get("uploader") or cached.get("channel")
-    out["webpage_url"] = meta.get("webpage_url") or youtube_url
-    desc = meta.get("description")
-    if isinstance(desc, str):
-        out["description"] = desc[:12000]
-    elif not out.get("description"):
-        out["description"] = ""
-    out["chapters"] = list(cached.get("chapters") or [])
+    out["title"] = cached.get("title") or cached.get("video_title") or "Workout Video"
+    out["duration"] = int(cached.get("duration") or duration or 0)
+    out["id"] = cached.get("id") or cached.get("youtube_video_id") or ""
+    out["channel"] = cached.get("channel") or ""
+    out["webpage_url"] = cached.get("webpage_url") or youtube_url
+    out["description"] = cached.get("description") or ""
+    out["chapters"] = chapters
     out["adaptfit_phase"] = "reused_saved_timeline"
     out["adaptfit_youtube_url"] = youtube_url
     return out
