@@ -12,6 +12,7 @@ export const ONBOARDING_ROUTES = {
 };
 
 const DEFAULT_DRAFT = {
+  _user_id: "",
   name: "",
   age: "",
   gender: "",
@@ -61,35 +62,42 @@ export async function bootstrapProtectedPage(statusEl) {
   return { ready: true, supabase, user };
 }
 
-export async function preloadDraftFromSupabase(user) {
+export async function preloadDraftFromSupabase(user, options = {}) {
+  const { force = false } = options;
+  const existingDraft = getDraft();
+  if (!force && existingDraft._user_id === user.id) {
+    return existingDraft;
+  }
+
   const [profile, assessment] = await Promise.all([
     fetchProfile(user.id),
     fetchAssessment(user.id)
   ]);
 
   const merged = {
-    ...getDraft(),
-    name: profile?.full_name || getDraft().name,
-    age: profile?.age ?? getDraft().age,
-    gender: profile?.gender || getDraft().gender,
-    height_unit: profile?.height_unit || getDraft().height_unit,
-    height_value: profile?.height_value ?? getDraft().height_value,
-    zone: assessment?.body_part || getDraft().zone,
-    injuryLabel: assessment?.diagnosis || getDraft().injuryLabel,
-    date_of_injury: assessment?.date_of_injury || getDraft().date_of_injury,
-    recovery_stage: assessment?.raw_payload?.recovery_stage || getDraft().recovery_stage,
-    additional_notes: assessment?.raw_payload?.additional_notes || getDraft().additional_notes,
-    levelLabel: assessment?.training_experience || getDraft().levelLabel,
-    activityLevelLabel: assessment?.activity_level || getDraft().activityLevelLabel,
-    goals: assessment?.goals || getDraft().goals,
-    goalLabels: assessment?.goals || getDraft().goalLabels,
+    ...DEFAULT_DRAFT,
+    _user_id: user.id,
+    name: profile?.full_name || "",
+    age: profile?.age ?? "",
+    gender: profile?.gender || "",
+    height_unit: profile?.height_unit || DEFAULT_DRAFT.height_unit,
+    height_value: profile?.height_value ?? "",
+    zone: assessment?.body_part || "",
+    injuryLabel: assessment?.diagnosis || "",
+    date_of_injury: assessment?.date_of_injury || "",
+    recovery_stage: assessment?.raw_payload?.recovery_stage || "",
+    additional_notes: assessment?.raw_payload?.additional_notes || "",
+    levelLabel: assessment?.training_experience || "",
+    activityLevelLabel: assessment?.activity_level || "",
+    goals: assessment?.goals || [],
+    goalLabels: assessment?.goals || [],
     pain_levels: {
-      daily_overall: assessment?.pain_daily ?? getDraft().pain_levels.daily_overall,
-      deep_squats: assessment?.pain_squat ?? getDraft().pain_levels.deep_squats,
-      stairs: assessment?.pain_stairs ?? getDraft().pain_levels.stairs
+      daily_overall: assessment?.pain_daily ?? DEFAULT_DRAFT.pain_levels.daily_overall,
+      deep_squats: assessment?.pain_squat ?? DEFAULT_DRAFT.pain_levels.deep_squats,
+      stairs: assessment?.pain_stairs ?? DEFAULT_DRAFT.pain_levels.stairs
     },
-    functional_screening: assessment?.functional_screening || getDraft().functional_screening,
-    movement_limitations: assessment?.movement_limitations || getDraft().movement_limitations
+    functional_screening: assessment?.functional_screening || [],
+    movement_limitations: assessment?.movement_limitations || []
   };
 
   saveStorage(STORAGE_KEYS.onboardingDraft, merged);
@@ -177,5 +185,5 @@ export async function finalizeOnboarding({ supabase, user, statusEl }) {
   if (assessmentError) throw assessmentError;
 
   saveStorage(STORAGE_KEYS.backendSessionId, backendSessionId);
-  saveStorage(STORAGE_KEYS.onboardingDraft, raw);
+  saveStorage(STORAGE_KEYS.onboardingDraft, { ...raw, _user_id: user.id });
 }

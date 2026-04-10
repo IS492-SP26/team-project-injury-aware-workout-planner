@@ -8,7 +8,7 @@ if (!setup.ready) {
 } else {
   bindSignOut();
   const { user } = setup;
-  const draft = await preloadDraftFromSupabase(user);
+  const draft = await preloadDraftFromSupabase(user, { force: true });
 
   document.getElementById("full-name").value = draft.name || "";
   document.getElementById("age").value = draft.age || "";
