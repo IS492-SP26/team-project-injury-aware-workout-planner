@@ -13,6 +13,7 @@
     { "src": "^/onboarding-injury$", "dest": "/onboarding-injury.html" },
     { "src": "^/onboarding-assessment$", "dest": "/onboarding-assessment.html" },
     { "src": "^/onboarding-goals$", "dest": "/onboarding-goals.html" },
+    { "src": "^/readiness$", "dest": "/readiness.html" },
     { "src": "^/workouts$", "dest": "/workouts.html" },
     { "src": "^/results$", "dest": "/results.html" },
     { "handle": "filesystem" },

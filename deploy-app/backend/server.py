@@ -484,6 +484,19 @@ class AdaptWorkoutOut(BaseModel):
     reuse_timeline_used: bool = False
 
 
+class ReadinessExplainIn(BaseModel):
+    readiness: dict[str, Any] = Field(default_factory=dict)
+    profile: dict[str, Any] = Field(default_factory=dict)
+    assessment: dict[str, Any] = Field(default_factory=dict)
+
+
+class ReadinessExplainOut(BaseModel):
+    summary: str
+    caution: str
+    next_step: str
+    model_used: str
+
+
 app = FastAPI(title="Deploy App Analysis Backend", version="0.1.0")
 
 app.add_middleware(
@@ -507,6 +520,88 @@ def public_config() -> Response:
     payload = json.dumps(_public_config(), ensure_ascii=False)
     body = f"window.APP_CONFIG = Object.assign(window.APP_CONFIG || {{}}, {payload});"
     return Response(content=body, media_type="application/javascript")
+
+
+def _readiness_model_candidates() -> list[str]:
+    combined = (os.environ.get("READINESS_GROQ_MODELS") or os.environ.get("GROQ_ADAPTATION_MODELS") or "").strip()
+    if combined:
+        out = [m.strip() for m in combined.split(",") if m.strip()]
+    else:
+        primary = (os.environ.get("GROQ_ADAPTATION_MODEL") or "llama-3.3-70b-versatile").strip()
+        out = [primary] if primary else ["llama-3.3-70b-versatile"]
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for model in out:
+        if model not in seen:
+            seen.add(model)
+            deduped.append(model)
+    return deduped
+
+
+def _fallback_readiness_explanation(payload: ReadinessExplainIn) -> ReadinessExplainOut:
+    readiness = payload.readiness or {}
+    factors = readiness.get("dominantFactors") or readiness.get("dominant_factors") or []
+    factor_bits = []
+    for factor in factors[:2]:
+        if isinstance(factor, dict):
+            factor_bits.append(str(factor.get("label") or factor.get("detail") or "").strip())
+    factor_line = ", ".join(bit for bit in factor_bits if bit) or "current pain and recovery status"
+    status = str(readiness.get("status") or "Proceed with caution")
+    recommendation = str(readiness.get("recommendation") or "Use the next workout suggestions conservatively.")
+    return ReadinessExplainOut(
+        summary=f"Your current readiness status is {status.lower()}, driven mainly by {factor_line}.",
+        caution="Use pain, stability, and range of motion as stop signals while following modifications.",
+        next_step=recommendation,
+        model_used="rules"
+    )
+
+
+@app.post("/readiness/explain", response_model=ReadinessExplainOut)
+@app.post("/api/readiness/explain", response_model=ReadinessExplainOut)
+def readiness_explain(payload: ReadinessExplainIn) -> ReadinessExplainOut:
+    groq_key = os.environ.get("GROQ_API_KEY", "").strip()
+    if not groq_key:
+        return _fallback_readiness_explanation(payload)
+
+    readiness_json = json.dumps(payload.readiness, ensure_ascii=False, indent=2)
+    profile_json = json.dumps(payload.profile, ensure_ascii=False, indent=2)
+    assessment_json = json.dumps(payload.assessment, ensure_ascii=False, indent=2)
+    system_prompt = (
+        "You are a careful rehabilitation readiness explainer. "
+        "You do not change the score. You only explain it clearly. "
+        "Return valid JSON with exactly these keys: summary, caution, next_step."
+    )
+    user_message = (
+        "Explain this workout-readiness result in plain language for the user.\n\n"
+        f"Readiness result:\n{readiness_json}\n\n"
+        f"Profile:\n{profile_json}\n\n"
+        f"Assessment:\n{assessment_json}\n\n"
+        "Requirements:\n"
+        "- summary: 1 concise sentence explaining the score and status.\n"
+        "- caution: 1 concise sentence naming the biggest safety watch-out.\n"
+        "- next_step: 1 concise sentence telling the user how to proceed.\n"
+        "- No diagnosis.\n"
+        "- No markdown.\n"
+        "- JSON only."
+    )
+    try:
+        raw = run_groq_adaptation_try_models(
+            user_message,
+            api_key=groq_key,
+            system_prompt=system_prompt,
+            models=_readiness_model_candidates(),
+            temperature=0.2,
+        )
+        parsed = json.loads(raw)
+        return ReadinessExplainOut(
+            summary=str(parsed.get("summary") or "").strip(),
+            caution=str(parsed.get("caution") or "").strip(),
+            next_step=str(parsed.get("next_step") or "").strip(),
+            model_used="groq"
+        )
+    except Exception as exc:
+        log.warning("Readiness explanation fell back to rules. %s", exc)
+        return _fallback_readiness_explanation(payload)
 
 
 @app.post("/survey", response_model=SurveyOut)

@@ -1873,6 +1873,152 @@ input[type="range"]::-webkit-slider-thumb {
   text-decoration: underline;
 }
 
+.readiness-header {
+  margin-bottom: 22px;
+}
+
+.readiness-shell {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.readiness-score-card,
+.readiness-detail-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.readiness-score-card {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.readiness-score-ring {
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  border: 14px solid rgba(94, 120, 255, 0.16);
+  background: radial-gradient(circle at 35% 30%, rgba(94, 120, 255, 0.12), rgba(255,255,255,0.92));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.readiness-score-ring span {
+  font-family: var(--font-display);
+  font-size: 3.6rem;
+  line-height: 0.9;
+}
+
+.readiness-score-ring small {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.readiness-badge {
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid rgba(94, 120, 255, 0.2);
+  font-weight: 700;
+}
+
+.readiness-badge[data-tone="success"] {
+  background: rgba(21, 115, 71, 0.12);
+  color: var(--success);
+  border-color: rgba(21, 115, 71, 0.2);
+}
+
+.readiness-badge[data-tone="warning"] {
+  background: rgba(231, 168, 69, 0.16);
+  color: #a66611;
+  border-color: rgba(231, 168, 69, 0.2);
+}
+
+.readiness-badge[data-tone="danger"] {
+  background: rgba(216, 79, 103, 0.12);
+  color: var(--danger);
+  border-color: rgba(216, 79, 103, 0.2);
+}
+
+.readiness-recommendation {
+  margin: 16px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.readiness-detail-card {
+  padding: 22px 22px 20px;
+}
+
+.readiness-shell .readiness-detail-card:last-child {
+  grid-column: 1 / -1;
+}
+
+.readiness-section-head {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+
+.readiness-factor-list,
+.readiness-positive-list,
+.readiness-ai-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.readiness-factor,
+.readiness-positive {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid var(--border);
+}
+
+.readiness-factor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+}
+
+.readiness-factor-head span {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.readiness-factor-copy,
+.readiness-positive,
+.readiness-ai-copy p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.94rem;
+}
+
+.readiness-ai-copy p {
+  margin: 0;
+}
+
 .adaptfit-json-block {
   margin: 12px 0 0;
   padding: 16px 18px;
@@ -1969,7 +2115,8 @@ input[type="range"]::-webkit-slider-thumb {
 
   .pain-inline-grid,
   .func-inline-grid,
-  .two-col-layout {
+  .two-col-layout,
+  .readiness-shell {
     grid-template-columns: 1fr;
   }
 

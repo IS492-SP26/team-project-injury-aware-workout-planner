@@ -2,7 +2,8 @@ export const STORAGE_KEYS = {
   backendSessionId: "adaptfit_backend_session_id",
   latestVideoId: "adaptfit_latest_video_id",
   latestResults: "adaptfit_latest_results",
-  onboardingDraft: "adaptfit_onboarding_draft"
+  onboardingDraft: "adaptfit_onboarding_draft",
+  readinessSnapshot: "adaptfit_readiness_snapshot"
 };
 
 export function saveStorage(key, value) {

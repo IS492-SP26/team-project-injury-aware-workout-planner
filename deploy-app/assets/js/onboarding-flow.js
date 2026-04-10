@@ -7,7 +7,8 @@ export const ONBOARDING_ROUTES = {
   basic: "/onboarding-basic.html",
   injury: "/onboarding-injury.html",
   assessment: "/onboarding-assessment.html",
-  goals: "/onboarding-goals.html"
+  goals: "/onboarding-goals.html",
+  readiness: "/readiness.html"
 };
 
 const DEFAULT_DRAFT = {

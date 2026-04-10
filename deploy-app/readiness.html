@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptFit AI | Readiness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <div class="page-shell onboarding-shell compact-page">
+    <header class="top-bar">
+      <div class="logo"><span class="logo-pip"></span>AdaptFit AI</div>
+      <div class="steps-row" aria-label="Onboarding progress">
+        <span class="step-pip done"></span>
+        <span class="step-pip done"></span>
+        <span class="step-pip done"></span>
+        <span class="step-pip done"></span>
+        <span class="step-pip now"></span>
+      </div>
+      <button id="sign-out-btn" class="skip-btn" type="button">Sign Out</button>
+    </header>
+
+    <main class="page-inner">
+      <section class="page-header readiness-header">
+        <div class="tag-pill">Readiness</div>
+        <h1 class="page-title">Are you ready for <em>modifications?</em></h1>
+        <p id="readiness-summary" class="page-sub"></p>
+      </section>
+
+      <section class="readiness-shell">
+        <div class="readiness-score-card">
+          <div class="readiness-score-ring">
+            <span id="readiness-score">0</span>
+            <small>/100</small>
+          </div>
+          <div id="readiness-badge" class="readiness-badge">Calculating</div>
+          <p id="readiness-recommendation" class="readiness-recommendation"></p>
+        </div>
+
+        <div class="readiness-detail-card">
+          <div class="readiness-section-head">Top score drivers</div>
+          <div id="readiness-factors" class="readiness-factor-list"></div>
+        </div>
+
+        <div class="readiness-detail-card">
+          <div class="readiness-section-head">Supportive signals</div>
+          <div id="readiness-positives" class="readiness-positive-list"></div>
+        </div>
+
+        <div id="readiness-ai-box" class="readiness-detail-card hidden">
+          <div class="readiness-section-head">AI interpretation</div>
+          <div class="readiness-ai-copy">
+            <p id="readiness-ai-summary"></p>
+            <p id="readiness-ai-caution"></p>
+            <p id="readiness-ai-next"></p>
+          </div>
+        </div>
+      </section>
+
+      <div id="readiness-status" class="status"></div>
+    </main>
+
+    <div class="bottom-bar">
+      <a class="btn btn-ghost" href="./onboarding-goals.html">← Back</a>
+      <div class="progress-hint">Step 5 of 5</div>
+      <button id="continue-workouts-btn" class="btn btn-primary" type="button">Continue</button>
+    </div>
+  </div>
+
+  <script src="/api/public-config"></script>
+  <script type="module" src="./assets/js/readiness.js"></script>
+</body>
+</html>

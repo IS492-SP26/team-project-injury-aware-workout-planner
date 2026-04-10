@@ -50,8 +50,8 @@ if (!setup.ready) {
 
     try {
       await finalizeOnboarding({ supabase, user, statusEl });
-      setStatus(statusEl, "Saved. Opening workout import...", "success");
-      routeTo("/workouts.html");
+      setStatus(statusEl, "Saved. Calculating readiness...", "success");
+      routeTo("/readiness.html");
     } catch (error) {
       setStatus(statusEl, error.message || "Failed to save onboarding.", "danger");
     }
