@@ -135,6 +135,7 @@ export function calculateReadiness({ profile, assessment, draft }) {
   const maxPain = Math.max(pain.daily, pain.squat, pain.stairs);
   const isAcuteWindow = normalizeText(raw.recovery_stage).includes("0-2 weeks");
   const isSubAcuteWindow = normalizeText(raw.recovery_stage).includes("2-5 weeks");
+  const isMidStageWindow = normalizeText(raw.recovery_stage).includes("mid-stage");
   const noFunctionalAssessmentSelected = answeredScreens.length === 0;
   const highRiskConsultCase = isAcuteWindow && noFunctionalAssessmentSelected && maxPain >= 9;
   let subAcuteWarningCase = false;
@@ -162,6 +163,11 @@ export function calculateReadiness({ profile, assessment, draft }) {
       fitForSuggestions = false;
       subAcuteWarningCase = true;
     }
+  } else if (isMidStageWindow) {
+    score = Math.max(70, Math.min(100, score));
+    status = "Ready for modified suggestions";
+    tone = "success";
+    fitForSuggestions = true;
   } else if (score < 60) {
     status = "Recovery-first focus";
     tone = "danger";
