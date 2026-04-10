@@ -1,4 +1,4 @@
-,## Safety & Privacy Notes
+## Safety & Privacy Notes
 
 In this application, we aim to provide safe and reliable fitness guidance while minimizing risks related to user data and AI-generated outputs. The system collects only basic profile and workout-related information and is designed strictly for non-medical use cases.
 
