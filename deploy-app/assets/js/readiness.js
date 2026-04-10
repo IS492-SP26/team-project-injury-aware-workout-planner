@@ -1,7 +1,7 @@
 import { fetchAssessment, fetchProfile, requireUser, signOut } from "./app-shell.js";
 import { hasSupabaseConfig, requireSupabase } from "./supabase-client.js";
 import { calculateReadiness } from "./readiness-score.js";
-import { STORAGE_KEYS, readStorage, routeTo, saveStorage, setStatus } from "./state.js";
+import { STORAGE_KEYS, routeTo, saveStorage, setStatus } from "./state.js";
 
 const statusEl = document.getElementById("readiness-status");
 const scoreEl = document.getElementById("readiness-score");
@@ -49,8 +49,7 @@ if (!hasSupabaseConfig()) {
     if (!profile?.onboarding_completed || !assessment) {
       routeTo("/onboarding-basic.html");
     } else {
-      const draft = readStorage(STORAGE_KEYS.onboardingDraft, {});
-      const readiness = calculateReadiness({ profile, assessment, draft });
+      const readiness = calculateReadiness({ profile, assessment });
       saveStorage(STORAGE_KEYS.readinessSnapshot, readiness);
 
       scoreEl.textContent = String(readiness.score);
