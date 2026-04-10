@@ -1879,9 +1879,9 @@ input[type="range"]::-webkit-slider-thumb {
 
 .readiness-shell {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 300px minmax(0, 1fr) minmax(0, 1fr);
   gap: 20px;
-  max-width: 980px;
+  max-width: 1160px;
   width: 100%;
   margin: 0 auto;
 }
@@ -2019,8 +2019,16 @@ input[type="range"]::-webkit-slider-thumb {
   padding: 22px 22px 20px;
 }
 
-.readiness-shell .readiness-detail-card:last-child {
-  grid-column: 1 / -1;
+.readiness-detail-card--factors {
+  grid-column: 2 / 4;
+}
+
+.readiness-detail-card--positives {
+  grid-column: 2 / 3;
+}
+
+.readiness-detail-card--ai {
+  grid-column: 3 / 4;
 }
 
 .readiness-section-head {

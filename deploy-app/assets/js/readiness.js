@@ -129,15 +129,7 @@ if (!hasSupabaseConfig()) {
           : readiness.subAcuteWarningCase
             ? "Continue with Caution"
             : "Continue with Recovery-Focused Modifications";
-      setStatus(
-        statusEl,
-        readiness.fitForSuggestions
-          ? "Assessment saved. Readiness score calculated."
-          : readiness.subAcuteWarningCase
-            ? "Assessment saved. Stay conservative while symptoms settle."
-            : "Assessment saved. Keep the next workout suggestions conservative.",
-        readiness.fitForSuggestions ? "success" : readiness.subAcuteWarningCase ? "warning" : "danger"
-      );
+      setStatus(statusEl, "");
     }
   } catch (error) {
     setStatus(statusEl, error.message || "Failed to load readiness score.", "danger");
