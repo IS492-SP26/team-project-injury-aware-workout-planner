@@ -29,6 +29,7 @@ function diagnosisPenalty(diagnosis) {
 function stagePenalty(stage) {
   const key = normalizeText(stage);
   if (!key) return 8;
+  if (key.includes("0-2 weeks")) return 22;
   if (key.includes("acute")) return 20;
   if (key.includes("sub-acute")) return 14;
   if (key.includes("mid-stage")) return 9;
@@ -87,6 +88,7 @@ export function calculateReadiness({ profile, assessment, draft }) {
 
   const failedScreens = screening.filter((item) => item && item.success === false);
   const unknownScreens = screening.filter((item) => item && item.success == null);
+  const answeredScreens = screening.filter((item) => item && item.success != null);
   const screeningPenalty = failedScreens.length * 8 + unknownScreens.length * 3;
   factors.push(
     buildFactor(
@@ -128,12 +130,29 @@ export function calculateReadiness({ profile, assessment, draft }) {
   }
 
   let score = 100 - factors.reduce((sum, factor) => sum + factor.penalty, 0);
-  score = Math.max(0, Math.min(100, score));
+  score = Math.max(10, Math.min(100, score));
+
+  const maxPain = Math.max(pain.daily, pain.squat, pain.stairs);
+  const isAcuteWindow = normalizeText(raw.recovery_stage).includes("0-2 weeks");
+  const noFunctionalAssessmentSelected = answeredScreens.length === 0;
+  const highRiskConsultCase = isAcuteWindow && noFunctionalAssessmentSelected && maxPain >= 9;
 
   let status = "Ready for modified suggestions";
   let tone = "success";
   let fitForSuggestions = true;
-  if (score < 60) {
+  if (highRiskConsultCase) {
+    score = Math.max(10, Math.min(20, score));
+    status = "Professional review strongly recommended";
+    tone = "danger";
+    fitForSuggestions = false;
+    factors.unshift(
+      buildFactor(
+        "Immediate caution",
+        0,
+        "Acute injury, pain is 9-10, and no functional screening has been completed yet"
+      )
+    );
+  } else if (score < 60) {
     status = "Recovery-first focus";
     tone = "danger";
     fitForSuggestions = false;
@@ -153,15 +172,18 @@ export function calculateReadiness({ profile, assessment, draft }) {
   if (!movementLimitations.length) positiveSignals.push("No additional movement limitations were flagged");
 
   const recommendation =
-    fitForSuggestions
-      ? "You can move forward with injury-aware workout modifications, while still respecting pain signals and range limits."
-      : "It is safer to prioritize recovery-friendly guidance first and keep workout modifications conservative until symptoms settle.";
+    highRiskConsultCase
+      ? "We highly recommend you come back after consulting with a professional. If you still want to proceed, it is at your own risk."
+      : fitForSuggestions
+        ? "You can move forward with injury-aware workout modifications, while still respecting pain signals and range limits."
+        : "It is safer to prioritize recovery-friendly guidance first and keep workout modifications conservative until symptoms settle.";
 
   return {
     score,
     status,
     tone,
     fitForSuggestions,
+    highRiskConsultCase,
     recommendation,
     dominantFactors,
     positiveSignals,
